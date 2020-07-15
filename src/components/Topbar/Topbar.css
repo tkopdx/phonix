@@ -1,0 +1,33 @@
+.topbar-box {
+    display: flex;
+    flex-direction: row;
+    width: 80vw;
+    margin: auto;
+    background: white;
+    font-size: 3rem;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.topbar-box div {
+    margin: auto;
+}
+/* 
+.topbar-box div::after {
+    content: "";
+    display: inline-block;
+    height: 6vh;
+    width: 1%;
+    background-color: black;
+    margin: auto;
+} */
+
+.topbar-box ion-icon {
+    font-size: 3.5rem;
+    display: inline-block;
+    margin-right: 1vw;
+}
+
+.topbar-box p {
+    display: inline;
+}
