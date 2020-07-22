@@ -1,17 +1,21 @@
-@keyframes slideIn {
-    0% {transform: translateX(100vw)}
-    100%{transform: translateX(0)}
-}
-
 .words-box {
     display:flex;
     flex-direction: column;
     width: 20vw;
     margin: auto;
-    animation: slideIn 1s 1 ease-in;
 }
 
 .words-box button {
     font-size: 7rem;
     margin-top: 20vh;
+    background: white;
+    border: none;
+    border-radius: 5px;
+    transition: color 0.1s, box-shadow 0.1s, background 0.1s;
+}
+
+.words-box button:hover {
+    background:black;
+    color: white;
+    box-shadow: 0 0 10px black;
 }

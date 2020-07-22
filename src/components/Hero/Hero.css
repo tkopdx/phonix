@@ -1,33 +1,33 @@
 @keyframes jump-incorrect {
-    0% {transform: rotate(0); filter: sepia(0);}
+    0% {transform: rotate(0);}
     25% {transform: rotate(5deg); filter: drop-shadow(5px 10px 2px)}
     50% {transform: rotate(-5deg); transform: translate(0,0);}
     75% {filter: drop-shadow(10px 20px 5px);}
-    100% {transform: rotate(0); transform: translate(50vw, -50vh); filter: drop-shadow(none); filter: sepia(100);}
+    100% {transform: rotate(0); transform: translate(50vw, -50vh);}
 }
 
 @keyframes jump-correct {
-    0% {transform: rotate(0); filter: brightness(100);}
+    0% {transform: rotate(0);}
     25% {transform: rotate(5deg); filter: drop-shadow(5px 10px 2px);}
     50% {transform: rotate(-5deg); transform: translate(0,0);}
     75% {filter: drop-shadow(10px 20px 5px);}
-    100% {transform: rotate(0); transform: translate(50vw, -50vh); filter: drop-shadow(none), brightness(110);}
+    100% {transform: rotate(0); transform: translate(50vw, -50vh);}
 }
 
 @keyframes walk-correct {
-    0% {transform: rotate(0); transform: translateX(0); filter: brightness(0);}
+    0% {transform: rotate(0); transform: translateX(0);}
     25% {transform: rotate(5deg); filter: drop-shadow(5px 10px 2px)}
     50% {transform: rotate(-5deg);}
     75% {filter: drop-shadow(10px 20px 5px);}
-    100% {transform: rotate(0); transform: translateX(50vw); filter: drop-shadow(none); filter:brightness(110)}
+    100% {transform: rotate(0); transform: translateX(50vw);}
 }
 
 @keyframes walk-incorrect {
-    0% {transform: rotate(0); transform: translateX(0); filter: hue-rotate(0);}
+    0% {transform: rotate(0); transform: translateX(0);}
     25% {transform: rotate(5deg); filter: drop-shadow(5px 10px 2px)}
     50% {transform: rotate(-5deg);}
     75% {filter: drop-shadow(10px 20px 5px);}
-    100% {transform: rotate(0); transform: translateX(50vw); filter: drop-shadow(none); filter: sepia(100);}
+    100% {transform: rotate(0); transform: translateX(50vw);}
 }
 
 .jump-correct {
@@ -54,5 +54,7 @@
 
 .hero-box img {
     height: 30vh;
+    filter: blur(2px) grayscale(.3);
+    transition: filter 0.5s;
 }
 

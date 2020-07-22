@@ -1,6 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import "./Hero.css";
+
+const StyleDiv = styled.div`
+    .no-filter {
+        filter: none;
+        transition: filter 0.5s;
+    }
+`
 
 const Hero = props => {
         
@@ -29,11 +37,13 @@ const Hero = props => {
             }
         }
 
-        console.log(className);
+        // console.log(className);
 
-    return <div className={className}>
-            <img alt="hero" src="https://upload.wikimedia.org/wikipedia/en/1/19/Batman_%28circa_2016%29.png"></img>
+    return <StyleDiv>
+        <div className={className}>
+            <img className={!props.clickable ? "no-filter" : null} alt="hero" src="https://upload.wikimedia.org/wikipedia/en/1/19/Batman_%28circa_2016%29.png"></img>
         </div>
+        </StyleDiv>
 }
 
 export default Hero;

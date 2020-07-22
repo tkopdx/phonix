@@ -1,18 +1,18 @@
-import React from 'react';
-
+import React, { useRef } from 'react';
 import "./AudioClip.css";
 
 const AudioClip = props => {
 
-    let audio;
-    
-    if (props.audio) {
-        audio = new Audio(`${props.audio}`);
-        console.log('audio clip set in audioclip component');
+    const playAudio = useRef(null);
+
+    function handleClick() {
+        playAudio.current.play();
     }
+
     
     return <div className="audio-clip-box">
-        <button className="audio-clip-btn" onClick={props.audio ? audio.play() : null}><ion-icon name="volume-high-outline"></ion-icon></button>
+        {props.audioURL ? <audio ref={playAudio} preload="auto" src={props.audioURL} type="audio/wav"/> : null}
+        <button className="audio-clip-btn" onClick={props.clickable ? handleClick : null}><ion-icon name="volume-high-outline"></ion-icon></button>
     </div>
 }
 
