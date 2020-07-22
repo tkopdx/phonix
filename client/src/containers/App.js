@@ -117,6 +117,9 @@ class App extends Component {
 
   textToSpeechHandler = () => {
 
+    // const text = "you!!"
+    // fetch.post("/texttospeech", text).then((response) => console.log(response))
+
     // The text to synthesize
     let text = this.state.answer;
 
