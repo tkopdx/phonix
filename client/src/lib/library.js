@@ -1,7 +1,13 @@
 const library = {
-    phonics: ['at', 'am', 'ish', 'ick'],
+    phonics: {
+        1: ['am', 'at', 'an'],
+        2: ['ill', 'ick', 'it'],
+        3: ['sentence', 'ag', 'ack'],
+        4: ['sentence', 'ish'],
+        5: ['sentence', 'ab']
+    },
     wordLists: {
-        'sentence':['Hello world and Ms. Nei Sensei!', 'The end is nigh', 'Drill baby, drill', 'We are looking for the lost treasure'],
+        'sentence':['Hello world and Ms. Nei Sensei!', 'The end is nigh', 'Drill baby, drill', 'We are looking for the lost treasure', 'Hello. I am the computer.'],
         'at': ['cat', 'rat', 'bat', 'Pat', 'sat', 'hat', 'mat'],
         'am': ['jam', 'ram', 'dam', 'Sam', 'ham', 'clam', 'yam'],
         'an': ['can', 'man', 'pan', 'fan', 'van', 'plan'],

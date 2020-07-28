@@ -3,6 +3,7 @@ import Hero from '../components/Hero/Hero';
 import Words from '../components/Words/Words';
 import AudioClip from '../components/AudioClip/AudioClip';
 import Topbar from '../components/Topbar/Topbar';
+import ResultsModal from '../adhoc/ResultsModal/ResultsModal';
 import library from '../lib/library';
 import GameModal from '../adhoc/GameModal/GameModal';
 import styled from 'styled-components';
@@ -14,6 +15,9 @@ import gameOver from '../assets/audio/game-over.mp3';
 import uniqid from 'uniqid';
 import './App.css';
 
+//axios
+const axios = require('axios').default;
+
 const StyleDiv = styled.div`
   .back-div {
     backdrop-filter: none;
@@ -23,35 +27,6 @@ const StyleDiv = styled.div`
   }
 `
 
-// // Imports the Google Cloud client library
-// const textToSpeech = require('@google-cloud/text-to-speech');
-
-// // Import other required libraries
-// const fs = require('fs');
-// const util = require('util');
-// // Creates a client
-// const client = new textToSpeech.TextToSpeechClient();
-// async function quickStart() {
-//   // The text to synthesize
-//   const text = 'hello, world!';
-
-//   // Construct the request
-//   const request = {
-//     input: {text: text},
-//     // Select the language and SSML voice gender (optional)
-//     voice: {languageCode: 'en-US', ssmlGender: 'NEUTRAL'},
-//     // select the type of audio encoding
-//     audioConfig: {audioEncoding: 'MP3'},
-//   };
-
-//   // Performs the text-to-speech request
-//   const [response] = await client.synthesizeSpeech(request);
-//   // Write the binary audio content to a local file
-//   const writeFile = util.promisify(fs.writeFile);
-//   await writeFile('output.mp3', response.audioContent, 'binary');
-//   console.log('Audio content written to file: output.mp3');
-// }
-// quickStart();
 
 class App extends Component {
   constructor(props) {
@@ -63,19 +38,22 @@ class App extends Component {
   }
 
   state = {
-    words: ['ham', 'ram'],
-    answer: 'ham',
     points: 0,
     lives: 3,
     round: 1,
-    stage: 1,
-    phonic: 'am',
+    stage: 0,
     numOfWordsPerRound: 2,
     playing: true,
-    clickable: true
+    clickable: true,
+    results: []
   }
 
   componentDidMount() {
+    
+    if (!this.state.phonic && !this.state.words && !this.state.answer) {
+      this.setStage();
+    }
+    
     if (this.state.answer) {
       // console.log('mounted and called for speech');
       this.textToSpeechHandler();
@@ -83,29 +61,32 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.modal) {
+    if (this.state.modal && !this.state.showResults) {
+      console.log("cleaning modal");
       this.resolveModal();
-    } else {
-      // console.log('no answerAudio in state');
     }
 
     if (this.state.modal === 1) {
+      this.playSuccess.current.volume = 0.2;
       this.playSuccess.current.play();
     }
 
     if (this.state.modal === 2) {
+      this.playStageUp.current.volume = 0.2;
       this.playStageUp.current.play();
     }
 
     if (this.state.modal === 3) {
+      this.playFail.current.volume = 0.2;
       this.playFail.current.play();
     }
 
     if (this.state.modal === 4) {
+      this.playGameOver.current.volume = 0.2;
       this.playGameOver.current.play();
     }
 
-    if (this.state.stageUp === true && !this.state.modal) {
+    if (this.state.stageUp === true && !this.state.modal && this.state.playing) {
       //stage up and new phonic
       this.setStage(); 
     }
@@ -113,28 +94,82 @@ class App extends Component {
     if (this.state.newPhonic === true) {
       this.displayNewWords();
     }
+
   }
 
-  textToSpeechHandler = () => {
+  async textToSpeechHandler() {
 
-    // const text = "you!!"
-    // fetch.post("/texttospeech", text).then((response) => console.log(response))
+    console.log('text to speech call');
 
-    // The text to synthesize
-    let text = this.state.answer;
+    if (this.state.requestingSpeech) {
+      return;
+    }
 
-    //Build source URL
-    let URL = `http://api.voicerss.org/?key=54cf3ebadf834eec917aaa848df2e5dd&hl=en-us&src=${text}`;
+    this.setState({requestingSpeech: true});
 
-    this.setState({audioURL: URL});
+    const text = this.state.answer;
+
+    this.setState({loading: true});
+    try {
+      const axiosRes = await axios.post('/texttospeech', {text: `${text}`});
+      console.log(axiosRes);
+
+      if (axiosRes.data.result === 'success') {
+        console.log(axiosRes.data.result);
+        this.setState({
+          answerAudio: true,
+          audioURL: axiosRes.data.audioURL,
+          requestingSpeech: false
+        });
+
+      } else {
+        this.setState({modal: 5});
+        console.log(axiosRes);
+      }
+    } catch (err) {
+      console.log(err);
+      this.setState({modal: 5});
+    }
+
+    this.setState({loading: false});
   }
 
   clickWordHandler = (word, index) => {
-    this.setState({clickable: false});
+    let result;
+
     if (word === this.state.answer) {
+      result = true;
+    } else {
+      result = false;
+    }
+    
+    this.setState({clickable: false});
+    if (result) {
       this.correctAnswerHandler(index);
     } else {
       this.incorrectAnswerHandler(index);
+    }
+
+    //push result to timeline
+    let stage, round, answer, clickedWord, res;
+
+    clickedWord = word;
+    stage = this.state.stage;
+    round = this.state.round;
+    answer = this.state.answer;
+
+    if (this.state.results) {
+      res = [...this.state.results];
+
+      res.push({
+        result: result,
+        answer: answer,
+        clicked: clickedWord,
+        stage: stage,
+        round: round
+      });
+
+      this.setState({results: res});
     }
   }
 
@@ -176,6 +211,7 @@ class App extends Component {
       //call for next words
       setTimeout(() => this.displayNewWords(), 1500);
     }
+    
   }
 
   incorrectAnswerHandler = index => {
@@ -231,15 +267,26 @@ class App extends Component {
     //stage up
     stage = this.state.stage + 1;
 
-    //get random new phonic
-    leng = library.phonics.length;
+    if (stage >= 6) {
+      console.log('ending game with success');
+      this.setState({modal: null});
+      this.displayResults();
+      return;
+    }
 
-    prevPhonic = this.state.phonic;
+    //get random new phonic
+    leng = library.phonics[stage].length;
+
+    if (this.state.phonic) {
+      prevPhonic = this.state.phonic;
+    } else {
+      prevPhonic = null;
+    }
 
     do {
       num = Math.floor(Math.random() * leng);
 
-      newPhonic = library.phonics[num];
+      newPhonic = library.phonics[stage][num];
     } while (newPhonic === prevPhonic)
 
     this.setState({
@@ -253,14 +300,13 @@ class App extends Component {
 
     console.log(`calling for new words with ${newPhonic}`);
 
-    // this.displayNewWords();
-
   }
 
   gameOver = () => {
     this.setState({
       playing: false,
-      modal: 4
+      modal: 4,
+      clickable: false
     });
   }
 
@@ -324,6 +370,19 @@ class App extends Component {
 
   }
 
+  displayResults = () => {
+    console.log('cleaning up game');
+    //end game
+    this.setState({
+      clickable: false,
+      playing: false
+    });
+    //show results in a modal div
+    console.log('displaying results');
+
+    this.setState({showResults: true});
+  }
+
   resolveModal = () => {
     setTimeout(() => this.setState({modal: null}), 1300);
   }
@@ -340,6 +399,7 @@ class App extends Component {
         playing={this.state.playing}
         stageUp={this.state.stageUp}
         resetTimer={this.state.resetTimer}
+        gameOver={this.gameOver}
       />
       <Hero
         animation={this.state.animateHero}
@@ -351,19 +411,23 @@ class App extends Component {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={200}
       >
-      <Words
+      {!this.state.showResults ? <Words
         key={this.state.transitionKey}
         words={this.state.words}
         clickWordHandler={this.clickWordHandler}
         clickable={this.state.clickable}
-      />
+      /> 
+      : null }
       </CSSTransitionGroup>
       <AudioClip
         getTextToSpeech={this.textToSpeechHandler}
         audioURL={this.state.audioURL}
+        answerAudio={this.state.answerAudio}
         clickable={this.state.clickable}
+        loading={this.state.loading}
       />
       {this.state.modal ? <GameModal modal={this.state.modal}/> : null}
+      {this.state.showResults ? <ResultsModal results={this.state.results}/> : null}
       <audio ref={this.playSuccess} preload="auto" src={bell} type="audio/mpeg"/>
       <audio ref={this.playFail} preload="auto" src={buzz} type="audio/mpeg"/>
       <audio ref={this.playStageUp} preload="auto" src={stageUp} type="audio/mpeg"/>

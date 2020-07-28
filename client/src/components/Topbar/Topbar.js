@@ -8,10 +8,10 @@ const Topbar = props => {
     return <div className="topbar-box">
         <div className="logo">Phonix</div>
         <div className="lives">
-            <p><ion-icon name="heart-outline"></ion-icon><span>{props.lives}</span></p>
+            <p><ion-icon name="fitness-outline"></ion-icon><span>{props.lives}</span></p>
         </div>
         <div className="points">
-            <ion-icon name="text-outline"></ion-icon>
+            <ion-icon name="happy-outline"></ion-icon>
             <span>{props.points}</span>
         </div>
         <div className="stage">
@@ -24,6 +24,7 @@ const Topbar = props => {
                 playing={props.playing}
                 stageUp={props.stageUp}
                 restart={props.resetTimer}
+                gameOver={props.gameOver}
             />
         </div>
     </div>

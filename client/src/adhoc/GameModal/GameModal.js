@@ -36,7 +36,8 @@ const GameModal = props => {
         1: 'Nice! +1',
         2: 'Next stage!',
         3: 'Oops! -1',
-        4: 'Game over.'
+        4: 'Game over.',
+        5: 'Server error. Try again.'
     }
     
     message = messages[props.modal];

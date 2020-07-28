@@ -19,6 +19,12 @@ class Stopwatch extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+      if (this.props.playing && this.state.timer === 0) {
+        this.props.gameOver();
+
+        return;
+      }
+      
       if (this.props.stageUp && prevProps.stageUp !== this.props.stageUp) {
         console.log('timer reset called');
         

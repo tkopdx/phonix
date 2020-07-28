@@ -15,6 +15,7 @@
 .topbar-box div {
     margin: auto;
     width: 98%;
+    font-size: 3vw;
 }
 
 .topbar-box div::after {
