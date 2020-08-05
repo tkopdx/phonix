@@ -29,19 +29,17 @@ app.use(express.static("./client/build"));
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get("/mreh", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
-app.get("/other", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/other.html"));
-});
+// app.get("/mreh", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
+// app.get("/other", (req, res) => {
+//     res.sendFile(path.join(__dirname, "./public/other.html"));
+// });
 app.get("/output.mp3", (req, res) => {
     res.setHeader("content-type", "audio/mpeg");
     fs.createReadStream("output.mp3").pipe(res);
 });
 app.post("/texttospeech", async function(req, res) {
-
-
 
   // console.log(req);
   console.log('body: ', req.body);
@@ -54,7 +52,7 @@ app.post("/texttospeech", async function(req, res) {
   const request = {
     input: {text: text},
     // Select the language and SSML voice gender (optional)
-    voice: {languageCode: 'en-US-Wavenet-E', ssmlGender: 'FEMALE'},
+    voice: {languageCode: 'en-US', name: 'en-US-Wavenet-F', ssmlGender: 'FEMALE'},
     // select the type of audio encoding
     audioConfig: {audioEncoding: 'MP3'},
   };
@@ -75,6 +73,7 @@ app.post("/texttospeech", async function(req, res) {
     });
   } catch (err) {
     res.send({error: `${err}`});
+    console.log('error: ', err);
   }  
 })
 

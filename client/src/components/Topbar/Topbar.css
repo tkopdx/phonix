@@ -16,6 +16,7 @@
     margin: auto;
     width: 98%;
     font-size: 3vw;
+    vertical-align: middle;
 }
 
 .topbar-box div::after {

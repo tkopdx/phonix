@@ -1,0 +1,7 @@
+.items-box {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(11%, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(1vh, 1fr));
+    row-gap: 1vh;
+    margin: 2vh 1vw;
+}
