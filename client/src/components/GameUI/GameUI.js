@@ -48,10 +48,40 @@ class GameUI extends Component {
   }
 
   componentDidMount() {
-    
-    if (!this.state.phonic && !this.state.words && !this.state.answer) {
-      this.setStage();
-    }
+
+    let phonemesArr = [
+      [],
+      [],
+      [],
+      [],
+      [],
+    ];
+
+    this.props.stagePhonics.forEach((list, index) => {
+      //1:[a, b, c]
+      list.forEach(symbol => {
+        let ind, phonemes;
+        
+        //find the index for each symbol
+        ind = this.props.library.symbolsList.findIndex(sym => {
+          return symbol === sym;
+        });
+
+        console.log('ind: ', ind);
+
+        //find the phoneme list for each symbol index
+        phonemes = this.props.library.phonemesList[ind];
+
+        console.log('phonemes: ', phonemes);
+
+        //push phoneme list to proper stage
+        phonemesArr[index].push(phonemes);
+      })
+
+      console.log('phonemesArr: ', phonemesArr);
+
+      this.setState({phonemesList: phonemesArr});
+    })
     
     if (this.state.answer) {
       // console.log('mounted and called for speech');
@@ -60,6 +90,10 @@ class GameUI extends Component {
   }
 
   componentDidUpdate() {
+    if (!this.state.phonic && !this.state.words && !this.state.answer && this.state.phonemesList) {
+      this.setStage();
+    }
+
     if (this.state.modal && !this.state.showResults) {
       console.log("cleaning modal");
       this.resolveModal();
@@ -125,11 +159,20 @@ class GameUI extends Component {
 
       if (axiosRes.data.result === 'success') {
         console.log(axiosRes.data.result);
-        this.setState({
-          answerAudio: true,
-          audioURL: axiosRes.data.audioURL,
-          requestingSpeech: false
-        });
+        
+        if (this.state.audioURL) {
+          this.setState({
+            requestingSpeech: false
+          });
+        } else {
+          this.setState({
+            answerAudio: true,
+            audioURL: axiosRes.data.audioURL,
+            requestingSpeech: false
+          });
+        }
+        
+        
 
       } else {
         this.setState({modal: 5});
@@ -278,10 +321,13 @@ class GameUI extends Component {
   }
 
   setStage = () => {
-    let stage, newPhonic, prevPhonic, num, leng, modal;
+    let stage, newPhonic, prevPhonic, num, leng, modal, phonemes;
 
     //stage up
     stage = this.state.stage + 1;
+
+    //set phoneme list
+    phonemes = this.state.phonemesList[stage - 1]
 
     if (stage >= 6) {
       console.log('ending game with success');
@@ -291,7 +337,7 @@ class GameUI extends Component {
     }
 
     //get random new phonic
-    leng = this.props.stagePhonics[stage - 1].length;
+    leng = phonemes.length;
 
     if (this.state.phonic) {
       prevPhonic = this.state.phonic;
@@ -302,7 +348,7 @@ class GameUI extends Component {
     do {
       num = Math.floor(Math.random() * leng);
 
-      newPhonic = this.props.stagePhonics[stage - 1][num];
+      newPhonic = phonemes[num];
     } while (newPhonic === prevPhonic)
 
     if (stage === 1 && this.state.round === 1) {
@@ -461,6 +507,7 @@ class GameUI extends Component {
       <audio ref={this.playFail} preload="auto" src={buzz} type="audio/mpeg"/>
       <audio ref={this.playStageUp} preload="auto" src={stageUp} type="audio/mpeg"/>
       <audio ref={this.playGameOver} preload="auto" src={gameOver} type="audio/mpeg"/>
+      <button onClick={() => this.props.returnToMenu()} className="back-button"><ion-icon name="arrow-back-outline"></ion-icon><p>Menu</p></button>
     </div>
     </StyleDiv>
     )

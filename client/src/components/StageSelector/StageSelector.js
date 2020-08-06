@@ -10,10 +10,15 @@ const StageSelector = props => {
         return (
                 <DndProvider backend={HTML5Backend}>
                     <div className="items-box">
-                        {props.library.phonicsList.map((phonic, index) => {
+                        {props.library.symbolsList.map((phonic, index) => {
+                            let phonemes = props.library.phonemesList[index];
+                            let exampleWords = props.library.gameLibrary.wordLists[phonemes];
+                            
                             return <Item
                                 phonic={phonic}
                                 key={index}
+                                phonemes={phonemes}
+                                exampleWords={exampleWords}
                             />
                         })}
                     </div>

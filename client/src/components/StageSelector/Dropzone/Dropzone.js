@@ -6,7 +6,7 @@ import './Dropzone.css';
 const Dropzone = props => {
   
     const [{ isOver }, drop] = useDrop({
-        accept: props.library.phonicsList,
+        accept: props.library.symbolsList,
         drop: item => props.handleDrop(item.type, props.stage),
         collect: monitor => ({
             isOver: !!monitor.isOver(),

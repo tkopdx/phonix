@@ -75,7 +75,45 @@ app.post("/texttospeech", async function(req, res) {
     res.send({error: `${err}`});
     console.log('error: ', err);
   }  
-})
+});
+
+app.post("/texttospeechsentence", async function(req, res) {
+
+  // console.log(req);
+  console.log('body: ', req.body);
+
+  console.log('text: ', req.body.text);
+  // The text to synthesize
+  const text = req.body.text;
+
+  // Construct the request
+  const request = {
+    input: {text: text},
+    // Select the language and SSML voice gender (optional)
+    voice: {languageCode: 'en-US', name: 'en-US-Wavenet-F', ssmlGender: 'FEMALE'},
+    // select the type of audio encoding
+    audioConfig: {audioEncoding: 'MP3'},
+  };
+
+  // Performs the text-to-speech request
+  try {
+    const [response] = await client.synthesizeSpeech(request);
+    // Write the binary audio content to a local file
+    const writeFile = util.promisify(fs.writeFile);
+    const outputFile = 'output.mp3'
+    await writeFile( outputFile, response.audioContent, 'binary');
+    console.log('file written');
+
+    //return audio to client
+    res.send({
+      result: 'success',
+      audioURL: 'http://localhost:3001/output.mp3'
+    });
+  } catch (err) {
+    res.send({error: `${err}`});
+    console.log('error: ', err);
+  }  
+});
 
 app.listen(PORT, () => {
   console.log(`Our server is now listening on port ${PORT}!`);

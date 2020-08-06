@@ -3,6 +3,8 @@ import MainMenu from '../components/MainMenu/MainMenu';
 import GameUI from '../components/GameUI/GameUI';
 import library from '../lib/library';
 
+import './App.css';
+
 class App extends Component {
     state = {
         isCreatingGame: true,
@@ -87,6 +89,10 @@ class App extends Component {
         this.setState({stagePhonics: phonicsArr});
     }
 
+    returnToMenu = () => {
+        this.setState({isCreatingGame: true});
+    }
+
     render() {
 
         console.log('render');
@@ -106,6 +112,7 @@ class App extends Component {
             <GameUI
                 library={this.state.library}
                 stagePhonics={this.state.stagePhonics}
+                returnToMenu={this.returnToMenu}
             ></GameUI>
         )
     }

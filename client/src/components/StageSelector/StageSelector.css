@@ -4,4 +4,10 @@
     grid-template-rows: repeat(auto-fit, minmax(1vh, 1fr));
     row-gap: 1vh;
     margin: 2vh 1vw;
+    align-items: center;
+    justify-items: center;
+}
+
+.stages-box {
+    align-self: center;
 }
