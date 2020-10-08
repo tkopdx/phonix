@@ -14,8 +14,8 @@ const Item = props => {
 
   const exampleWordsList = (
     <div className="example-words-box">
-      {exampleWords.map(word => {
-        return <div>{word}</div>
+      {exampleWords.map((word, index) => {
+        return <div key={index}>{word}</div>
       })}
     </div>
   )
@@ -32,7 +32,7 @@ const Item = props => {
 
   return (
     <>
-    <div className="item-box" ref={target}>
+    <div className="item-box" key={props.phonic} ref={target}>
       <div
         className="item"
         ref={drag}

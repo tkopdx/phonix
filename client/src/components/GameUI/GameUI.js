@@ -145,7 +145,7 @@ class GameUI extends Component {
 
     this.setState({requestingSpeech: true});
 
-    if (this.state.stage <= 3) {
+    if (this.state.stage <= 0) {
       text = answer;
     } else {
       text = this.props.library.gameLibrary.sentenceLists[phonic][answer];
@@ -160,19 +160,11 @@ class GameUI extends Component {
       if (axiosRes.data.result === 'success') {
         console.log(axiosRes.data.result);
         
-        if (this.state.audioURL) {
-          this.setState({
-            requestingSpeech: false
-          });
-        } else {
-          this.setState({
-            answerAudio: true,
-            audioURL: axiosRes.data.audioURL,
-            requestingSpeech: false
-          });
-        }
-        
-        
+        this.setState({
+          answerAudio: true,
+          audioURL: axiosRes.data.audioURL,
+          requestingSpeech: false
+        });
 
       } else {
         this.setState({modal: 5});

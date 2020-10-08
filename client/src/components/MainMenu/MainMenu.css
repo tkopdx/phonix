@@ -12,6 +12,7 @@
     position: relative;
     display: grid;
     grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
     width: 95vw;
     height: 85vh;
     margin: 4vh 0;
@@ -21,12 +22,11 @@
 
 .main-menu-title {
     position: absolute;
-    font-size: 2rem;
     left: 5%;
     top: -8%;
     width: auto;
     height: auto;
-    font-size: 4rem;
+    font-size: 4.1vw;
 }
 
 .start-button {
@@ -34,7 +34,7 @@
     right: 0%;
     bottom: -7%;
     border: none;
-    font-size: 3rem;
+    font-size: 3.8vw;
     background: none;
     height: auto;
     width: auto;
@@ -55,6 +55,6 @@
 .start-button ion-icon {
     display: inline-block;
     color: #3c40c6;
-    font-size: 4rem;
+    font-size: 3.8vw;
     vertical-align: middle;
 }

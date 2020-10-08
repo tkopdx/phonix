@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import hero from '../../assets/img/hero.png';
 
 import "./Hero.css";
 
@@ -41,7 +42,7 @@ const Hero = props => {
 
     return <StyleDiv>
         <div className={className}>
-            <img className={!props.clickable ? "no-filter" : null} alt="hero" src="https://upload.wikimedia.org/wikipedia/en/1/19/Batman_%28circa_2016%29.png"></img>
+            <img className={!props.clickable ? "no-filter" : null} alt="hero" src={hero}></img>
         </div>
         </StyleDiv>
 }

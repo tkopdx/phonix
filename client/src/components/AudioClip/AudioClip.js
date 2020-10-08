@@ -3,7 +3,9 @@ import React, { useRef } from 'react';
 import Spinner from '../../adhoc/Spinner/Spinner';
 import "./AudioClip.css";
 
-const AudioClip = props => {
+const AudioClip = React.memo(props => {
+
+    console.log('audioclip render');
 
     const playAudio = useRef(null);
 
@@ -16,10 +18,10 @@ const AudioClip = props => {
     }
     
     return <div className="audio-clip-box">
-        <audio ref={playAudio} preload="auto" type="audio/mpeg"/>
-        <button className="audio-clip-btn" onClick={props.clickable ? handleClick : null}><ion-icon name="volume-high-outline"></ion-icon></button>
+        <audio ref={playAudio} autoPlay={!props.loading && props.clickable ? true : false} preload="auto" type="audio/mpeg"/>
+            <button className="audio-clip-btn" onClick={props.clickable ? handleClick : null}><ion-icon name="volume-high-outline"></ion-icon></button>
         <Spinner loading={props.loading}></Spinner>
     </div>
-}
+})
 
 export default AudioClip;

@@ -1,6 +1,16 @@
 .stage-phonic-list-box {
     display: flex;
+    align-items: center;
     justify-content: center;
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.stage-box p {
+    font-size: 1.7vw;
+    margin: 2vh auto;
 }
 
 @keyframes glow {
@@ -20,7 +30,7 @@
     margin: 1vh 1vw;
     height: auto;
     width: auto;
-    font-size: 1.3rem;
+    font-size: 2vw;
     border: none;
     background-color: white;
     border-radius: 3px;
