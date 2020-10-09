@@ -14,6 +14,8 @@ import gameOver from '../../assets/audio/game-over.mp3';
 import uniqid from 'uniqid';
 import './GameUI.css';
 
+var fs = require('fs');
+
 //axios
 const axios = require('axios').default;
 
@@ -154,21 +156,39 @@ class GameUI extends Component {
 
     this.setState({loading: true});
     try {
-      const axiosRes = await axios.post('/texttospeech', {text: `${text}`});
-      console.log(axiosRes);
+      const res = await axios.post('/texttospeech', {text: `${text}`});
+      console.log(res);
 
-      if (axiosRes.data.result === 'success') {
-        console.log(axiosRes.data.result);
+      if (res.data.result === 'success') {
+        console.log(res.data.result);
+
+        const audioElement = document.getElementById('audio');
+
+        // audioElement.src = res.data.audioContent;
+
+        const fileReader = new FileReader();
+
+        fileReader.readAsDataURL(res.data.audioContent);
+
+        fileReader.onload = function (evt) {
+          const res = evt.target.result;
+
+          console.log('Hopefully this is an audio file', res);
+
+          audioElement.src = res;
+          return;
+        }
+
+        // this.writeBinaryToLocalStorage(res.data.audioContent);
         
         this.setState({
           answerAudio: true,
-          audioURL: axiosRes.data.audioURL,
           requestingSpeech: false
         });
 
       } else {
         this.setState({modal: 5});
-        console.log(axiosRes);
+        console.log(res);
       }
     } catch (err) {
       console.log(err);
@@ -176,6 +196,38 @@ class GameUI extends Component {
     }
 
     this.setState({loading: false});
+  }
+
+  writeBinaryToLocalStorage = (binaryAudio) => {
+
+
+    // const type = 'audio/mpeg';
+    // const encoding = 'base64';
+
+    // const data = fs.readFileSync(binaryAudio).toString(encoding);
+
+    // const uri = `data:${type};${encoding},${data}`;
+
+    // console.log('hopefully this is an base64 audio file', uri);
+
+    // audioElement.src = uri;
+
+    // const blob = new Blob(binaryAudio);
+
+    // console.log('binaryAudio: ', blob);
+
+    // const fileReader = new FileReader();
+
+    // fileReader.readAsDataURL(blob);
+
+    // fileReader.onload = function (evt) {
+    //   const res = evt.target.result;
+
+    //   console.log('Hopefully this is an audio file', res);
+
+    //   audioElement.src = res;
+    //   return;
+    // }
   }
 
   clickWordHandler = (word, index) => {
