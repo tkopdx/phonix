@@ -158,7 +158,7 @@ class GameUI extends Component {
 
     this.setState({loading: true});
     try {
-      const axiosRes = await axios.post('/texttospeech', {text: `${text}`});
+      const axiosRes = await axios.post('https://cryptic-atoll-82963.herokuapp.com:80/texttospeech', {text: `${text}`});
       console.log(axiosRes);
 
       if (axiosRes.data.result === 'success') {
