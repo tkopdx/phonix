@@ -132,6 +132,10 @@ class GameUI extends Component {
 
   async textToSpeechHandler() {
 
+    this.setState({
+      audioURL: null
+    })
+
     let text, answer, phonic;
 
     answer = this.state.answer;
