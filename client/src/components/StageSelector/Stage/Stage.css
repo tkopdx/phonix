@@ -1,0 +1,43 @@
+.stage-phonic-list-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.stage-box p {
+    font-size: 1.7vw;
+    margin: 2vh auto;
+}
+
+@keyframes glow {
+    0% {background-color: #ff3e3400;}
+    50% {background-color: #ff3f34;}
+    100% {background-color: #ff3e3400;}
+}
+
+.stage-box-error {
+    background-color: #ff3f34;
+    animation: glow .75s 2 ease-in-out;
+    width: 80%;
+    margin: auto;
+}
+
+.phonics-button {
+    margin: 1vh 1vw;
+    height: auto;
+    width: auto;
+    font-size: 2vw;
+    border: none;
+    background-color: white;
+    border-radius: 3px;
+    transition: transform 0.05s;
+    outline: none;
+}
+
+.phonics-button:hover {
+    transform: scale(1.3);
+}

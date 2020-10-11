@@ -1,0 +1,19 @@
+.audio-clip-box {
+    position: absolute;
+    top: 15vh;
+    left: 15vw;
+}
+
+.audio-clip-box button {
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.audio-clip-box ion-icon {
+    font-size: 10rem;
+}
+
+.audio-clip-box ion-icon:hover {
+    color: white;
+}
