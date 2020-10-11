@@ -34,7 +34,7 @@ class App extends Component {
             return arr.length < 1;
         });
 
-        console.log(isNotReady);
+        // console.log(isNotReady);
 
         if (isNotReady >= 0) {
             this.setState({
@@ -52,7 +52,7 @@ class App extends Component {
     handleDrop = (phonic, stage) => {
         let phonicsArr;
         
-        console.log(phonic);
+        // console.log(phonic);
           
         phonicsArr = [...this.state.stagePhonics];
 
@@ -68,7 +68,7 @@ class App extends Component {
 
         this.setState({stagePhonics: phonicsArr});
   
-        console.log(`Pushed ${phonic} to ${this.state.library.gameLibrary.phonics[stage]}`);
+        // console.log(`Pushed ${phonic} to ${this.state.library.gameLibrary.phonics[stage]}`);
     }
 
     stagePhonicClickedHandler = (stage, phonic) => {
@@ -84,7 +84,7 @@ class App extends Component {
 
         phonicsArr[stage].splice(delInd, 1);
 
-        console.log(phonicsArr);
+        // console.log(phonicsArr);
 
         this.setState({stagePhonics: phonicsArr});
     }
@@ -95,7 +95,7 @@ class App extends Component {
 
     render() {
 
-        console.log('render');
+        // console.log('render');
         return (
             this.state.isCreatingGame ? 
             <MainMenu

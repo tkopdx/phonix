@@ -67,18 +67,18 @@ class GameUI extends Component {
           return symbol === sym;
         });
 
-        console.log('ind: ', ind);
+        // console.log('ind: ', ind);
 
         //find the phoneme list for each symbol index
         phonemes = this.props.library.phonemesList[ind];
 
-        console.log('phonemes: ', phonemes);
+        // console.log('phonemes: ', phonemes);
 
         //push phoneme list to proper stage
         phonemesArr[index].push(phonemes);
       })
 
-      console.log('phonemesArr: ', phonemesArr);
+      // console.log('phonemesArr: ', phonemesArr);
 
       this.setState({phonemesList: phonemesArr});
     })
@@ -91,12 +91,12 @@ class GameUI extends Component {
 
   componentDidUpdate() {
     if (!this.state.phonic && !this.state.words && !this.state.answer && this.state.phonemesList) {
-      console.log('calling for first stage up!');
+      // console.log('calling for first stage up!');
       this.setStage();
     }
 
     if (this.state.modal && !this.state.showResults) {
-      console.log("cleaning modal");
+      // console.log("cleaning modal");
       this.resolveModal();
     }
 
@@ -121,7 +121,7 @@ class GameUI extends Component {
     }
 
     if (this.state.stageUp === true && !this.state.modal && this.state.playing) {
-      console.log('calling for a stage up!');
+      // console.log('calling for a stage up!');
       //stage up and new phonic
       this.setStage(); 
     }
@@ -143,7 +143,7 @@ class GameUI extends Component {
     answer = this.state.answer;
     phonic = this.state.phonic;
 
-    console.log('text to speech call');
+    // console.log('text to speech call');
 
     if (this.state.requestingSpeech) {
       return;
@@ -161,10 +161,10 @@ class GameUI extends Component {
     this.setState({loading: true});
     try {
       const axiosRes = await axios.post('/texttospeech', {text: `${text}`});
-      console.log(axiosRes);
+      // console.log(axiosRes);
 
       if (axiosRes.data.result === 'success') {
-        console.log(axiosRes.data.result);
+        // console.log(axiosRes.data.result);
         
         this.setState({
           answerAudio: true,
@@ -174,10 +174,10 @@ class GameUI extends Component {
 
       } else {
         this.setState({modal: 5});
-        console.log(axiosRes);
+        // console.log(axiosRes);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       this.setState({modal: 5});
     }
 
@@ -320,7 +320,7 @@ class GameUI extends Component {
 
   setStage = () => {
 
-    console.log('setting stage start');
+    // console.log('setting stage start');
     let stage, newPhonic, prevPhonic, num, leng, modal, phonemes;
 
     //stage up
@@ -330,7 +330,7 @@ class GameUI extends Component {
     phonemes = this.state.phonemesList[stage - 1];
 
     if (stage >= 6) {
-      console.log('ending game with success');
+      // console.log('ending game with success');
       this.setState({modal: null});
       this.displayResults();
       return;
@@ -349,7 +349,7 @@ class GameUI extends Component {
       newPhonic = phonemes[0];
     } else {
       do {
-        console.log('in the setting stage loop')
+        // console.log('in the setting stage loop')
         num = Math.floor(Math.random() * leng);
   
         newPhonic = phonemes[num];
@@ -371,7 +371,7 @@ class GameUI extends Component {
       resetTimer: false
     });
 
-    console.log(`calling for new words with ${newPhonic}`);
+    // console.log(`calling for new words with ${newPhonic}`);
 
   }
 
@@ -386,7 +386,7 @@ class GameUI extends Component {
   }
 
   displayNewWords = () => {
-    console.log(this.state.phonic);
+    // console.log(this.state.phonic);
     // console.log(this.props.library.wordLists);
 
     if (this.state.newPhonic) {
@@ -434,7 +434,7 @@ class GameUI extends Component {
       answer = newWords[randAnsIndex];
     } while (answer === this.state.answer)
 
-    console.log(newWords);
+    // console.log(newWords);
 
     setTimeout(() => this.setState({
       words: newWords,
@@ -449,14 +449,14 @@ class GameUI extends Component {
   }
 
   displayResults = () => {
-    console.log('cleaning up game');
+    // console.log('cleaning up game');
     //end game
     this.setState({
       clickable: false,
       playing: false
     });
     //show results in a modal div
-    console.log('displaying results');
+    // console.log('displaying results');
 
     if (this.state.results.length === 0) {
       return;

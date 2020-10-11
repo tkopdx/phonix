@@ -26,7 +26,7 @@ class Stopwatch extends Component {
       }
       
       if (this.props.stageUp && prevProps.stageUp !== this.props.stageUp) {
-        console.log('timer reset called');
+        // console.log('timer reset called');
         
         // stop the clock
         this.stop();
@@ -52,7 +52,7 @@ class Stopwatch extends Component {
     }
   
     start() {
-      console.log('timer started');
+      // console.log('timer started');
       
       const loop = () => {
         let timer, d, timeElapsed;
@@ -70,7 +70,7 @@ class Stopwatch extends Component {
   
       if (!this.state.interval) {
         let interval = setInterval(loop, this.state.delay);
-        console.log('timer started');
+        // console.log('timer started');
         this.setState({interval: interval});
       };
     };

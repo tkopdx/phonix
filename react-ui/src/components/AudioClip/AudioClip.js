@@ -5,7 +5,7 @@ import "./AudioClip.css";
 
 const AudioClip = React.memo(props => {
 
-    console.log('audioclip render');
+    // console.log('audioclip render');
 
     const playAudio = useRef(null);
 

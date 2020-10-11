@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
-var whitelist = ['http://localhost:8000', 'https://mighty-chamber-55300.herokuapp.com:80'];
+var whitelist = ['http://localhost:8000', 'https://mighty-chamber-55300.herokuapp.com'];
 
 var corsOptions = {
   origin: function(origin, callback){
