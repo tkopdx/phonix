@@ -44,7 +44,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/output.mp3", (req, res) => {
-    const file = fs.createReadStream("./public/assets/output.mp3");
+    const file = fs.createReadStream(path.resolve(__dirname, "/public/assets/output.mp3"));
 
     file.on('open', function() {
       res.setHeader("content-type", "audio/mpeg");
