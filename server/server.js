@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('./client/build'))
 
-app.use('/static', express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
 var whitelist = ['http://localhost:8000', 'https://mighty-chamber-55300.herokuapp.com:80'];
 
