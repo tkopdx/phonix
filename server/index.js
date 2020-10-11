@@ -44,7 +44,10 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/output.mp3", (req, res) => {
-    const file = fs.createReadStream(path.resolve(__dirname, "/static/media/output.mp3"));
+
+  //TODO: fix heroku path
+
+    const file = fs.createReadStream(path.resolve(__dirname, "./public/assets/output.mp3"));
 
     file.on('open', function() {
       res.setHeader("content-type", "audio/mpeg");
@@ -85,9 +88,9 @@ app.post("/texttospeech", async function(req, res) {
     // Write the binary audio content to a local file
     const writeFile = util.promisify(fs.writeFile);
     const filename = 'output.mp3'
-    const outputFile = __dirname + '/static/media/' + filename;
+    const outputFile = __dirname + '/public/assets/' + filename;
     await writeFile(outputFile, response.audioContent, 'binary');
-    console.log('file written');
+    console.log('file written to: ', outputFile);
 
     // fs.createReadStream(response.audioContent, options).pipe(res);
 
