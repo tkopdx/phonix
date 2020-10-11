@@ -23,7 +23,6 @@ app.use(logger("dev"));
 // app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('./client/build'))
 
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
@@ -43,10 +42,6 @@ var corsOptions = {
 }
 
 app.use(cors(corsOptions));
-
-app.get("/index", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
 
 app.get("/output.mp3", (req, res) => {
     const file = fs.createReadStream("./public/assets/output.mp3");
@@ -110,6 +105,10 @@ app.post("/texttospeech", async function(req, res) {
     res.send({error: `${err}`});
     console.log('error: ', err);
   }  
+});
+
+app.get('*', function(request, response) {
+  response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
 });
 
 app.listen(PORT, () => {
