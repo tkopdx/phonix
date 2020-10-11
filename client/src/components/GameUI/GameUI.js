@@ -6,7 +6,7 @@ import Topbar from '../Topbar/Topbar';
 import ResultsModal from '../../adhoc/ResultsModal/ResultsModal';
 import GameModal from '../../adhoc/GameModal/GameModal';
 import styled from 'styled-components';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import bell from '../../assets/audio/bell.mp3';
 import buzz from '../../assets/audio/buzz.mp3';
 import stageUp from '../../assets/audio/stage-up.mp3';
@@ -91,6 +91,7 @@ class GameUI extends Component {
 
   componentDidUpdate() {
     if (!this.state.phonic && !this.state.words && !this.state.answer && this.state.phonemesList) {
+      console.log('calling for first stage up!');
       this.setStage();
     }
 
@@ -120,6 +121,7 @@ class GameUI extends Component {
     }
 
     if (this.state.stageUp === true && !this.state.modal && this.state.playing) {
+      console.log('calling for a stage up!');
       //stage up and new phonic
       this.setStage(); 
     }
@@ -158,7 +160,7 @@ class GameUI extends Component {
 
     this.setState({loading: true});
     try {
-      const axiosRes = await axios.post('https://cryptic-atoll-82963.herokuapp.com:80/texttospeech', {text: `${text}`});
+      const axiosRes = await axios.post('/texttospeech', {text: `${text}`});
       console.log(axiosRes);
 
       if (axiosRes.data.result === 'success') {
@@ -317,13 +319,15 @@ class GameUI extends Component {
   }
 
   setStage = () => {
+
+    console.log('setting stage start');
     let stage, newPhonic, prevPhonic, num, leng, modal, phonemes;
 
     //stage up
     stage = this.state.stage + 1;
 
     //set phoneme list
-    phonemes = this.state.phonemesList[stage - 1]
+    phonemes = this.state.phonemesList[stage - 1];
 
     if (stage >= 6) {
       console.log('ending game with success');
@@ -341,11 +345,16 @@ class GameUI extends Component {
       prevPhonic = null;
     }
 
-    do {
-      num = Math.floor(Math.random() * leng);
-
-      newPhonic = phonemes[num];
-    } while (newPhonic === prevPhonic)
+    if (leng <= 1) {
+      newPhonic = phonemes[0];
+    } else {
+      do {
+        console.log('in the setting stage loop')
+        num = Math.floor(Math.random() * leng);
+  
+        newPhonic = phonemes[num];
+      } while (newPhonic === prevPhonic)
+    }
 
     if (stage === 1 && this.state.round === 1) {
       modal = null;
@@ -419,9 +428,11 @@ class GameUI extends Component {
       newWords.push(curWordsArray[num]);
     })
 
-    randAnsIndex = Math.floor(Math.random() * newWords.length);
+    do {
+      randAnsIndex = Math.floor(Math.random() * newWords.length);
 
-    answer = newWords[randAnsIndex];
+      answer = newWords[randAnsIndex];
+    } while (answer === this.state.answer)
 
     console.log(newWords);
 
@@ -477,19 +488,18 @@ class GameUI extends Component {
         heroMovement={this.state.heroMovement}
         clickable={this.state.clickable}
       />
-      <CSSTransitionGroup
-        transitionName="fade"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={200}
+      <CSSTransition
+        in={!this.state.showResults ? true : null}
+        classNames="fade"
+        timeout={300}
       >
-      {!this.state.showResults ? <Words
-        key={this.state.transitionKey}
-        words={this.state.words}
-        clickWordHandler={this.clickWordHandler}
-        clickable={this.state.clickable}
-      /> 
-      : null }
-      </CSSTransitionGroup>
+        <Words
+          key={this.state.transitionKey}
+          words={this.state.words}
+          clickWordHandler={this.clickWordHandler}
+          clickable={this.state.clickable}
+        />
+      </CSSTransition>
       <AudioClip
         getTextToSpeech={this.textToSpeechHandler}
         audioURL={this.state.audioURL}

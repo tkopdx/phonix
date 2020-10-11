@@ -20,7 +20,7 @@
 
 .fade-leave.fade-leave-active {
   opacity: 0.01;
-  transition: opacity 200ms ease-in;
+  transition: opacity 300ms ease-in;
 }
 
 .back-button {

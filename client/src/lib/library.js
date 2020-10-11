@@ -106,7 +106,7 @@ const library = {
             'g, gg, gh, gu, gue': ['gun', 'egg', 'ghost', 'guest', 'prologue', 'go'],
             'h, wh': ['hop', 'who', 'hot'],
             'j, ge, g, dge, di, gg': ['jam', 'wage', 'giraffe', 'edge', 'soldier', 'exaggerate', 'jet', 'cage', 'barge', 'judge'],
-            'k, c, ch, cc, lk, qu, q(u), ck, x': ['cat', 'kitten', 'duck', 'school', 'occur', 'antique', 'cheque', 'kit', 'chris', 'accent', 'folk', 'bouquet', 'queen', 'rack', 'box'],
+            'k, c, ch, cc, lk, qu, q(u), ck, x': ['cat', 'kitten', 'duck', 'school', 'occur', 'antique', 'cheque', 'kit', 'Chris', 'accent', 'folk', 'bouquet', 'queen', 'rack', 'box'],
             'l, ll': ['live', 'well', 'leg', 'bell'],
             'm, mm, mb, mn, lm': ['man', 'summer', 'comb', 'column', 'palm', 'mad', 'hammer', 'lamb'],
             'n, nn, kn, gn, pn': ['no', 'dinner', 'knee', 'gnome', 	'net', 'funny', 'know', 'gnat', 'pneumonic'],

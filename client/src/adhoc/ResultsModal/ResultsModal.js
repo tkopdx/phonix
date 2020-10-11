@@ -6,7 +6,7 @@ const ResultsModal = props => {
     return (
         <div className="results-box">
             <div className="results-inner">
-                {props.results.map(result => <div className={result.result ? "result-box" : "result-box-inc"}>
+                {props.results.map(result => <div className={result.result ? "result-box" : "result-box-inc"} key={`${result.stage}-${result.round}`}>
                     <div className="result-title clearfix">
                         <div className="result-stage-round">{result.stage}-{result.round}</div>
                         {result.result ? 
