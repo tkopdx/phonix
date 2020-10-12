@@ -469,6 +469,10 @@ class GameUI extends Component {
     setTimeout(() => this.setState({modal: null}), 1300);
   }
 
+  setAudioStatus = status => {
+    this.setState({audioStatus: status});
+  }
+
   render = () => {
     return (
     <StyleDiv>
@@ -482,6 +486,8 @@ class GameUI extends Component {
         stageUp={this.state.stageUp}
         resetTimer={this.state.resetTimer}
         gameOver={this.gameOver}
+        loading={this.state.loading}
+        audioStatus={this.state.audioStatus}
       />
       <Hero
         animation={this.state.animateHero}
@@ -506,6 +512,7 @@ class GameUI extends Component {
         answerAudio={this.state.answerAudio}
         clickable={this.state.clickable}
         loading={this.state.loading}
+        setAudioStatus={this.setAudioStatus}
       />
       {this.state.modal ? <GameModal modal={this.state.modal}/> : null}
       {this.state.showResults ? <ResultsModal results={this.state.results}/> : null}

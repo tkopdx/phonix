@@ -21,10 +21,11 @@ const Topbar = props => {
         <div className="time">
             <ion-icon name="alarm-outline"></ion-icon>
             <Stopwatch
-                playing={props.playing}
+                playing={props.playing && props.audioStatus === 'pause' && !props.loading ? true : false}
                 stageUp={props.stageUp}
                 restart={props.resetTimer}
                 gameOver={props.gameOver}
+                loading={props.loading}
             />
         </div>
     </div>

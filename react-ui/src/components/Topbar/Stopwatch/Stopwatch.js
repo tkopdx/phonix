@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 
+
+const time = 30;
+
 class Stopwatch extends Component {
     constructor(props) {
       super(props);
       this.state = {
         offset: Date.now(),
         delay: 100,
-        timer: `45.0`,
+        timer: time,
       }
     }
 
@@ -55,10 +58,22 @@ class Stopwatch extends Component {
       // console.log('timer started');
       
       const loop = () => {
+        let originalTime;
+
+        if (!this.state.offset) {
+          this.setState({offset: Date.now()})
+        }
+
+        if (!this.state.savedTime) {
+          originalTime = time;
+        } else {
+          originalTime = this.state.savedTime;
+        }
+
         let timer, d, timeElapsed;
         d = Date.now() - this.state.offset;
         timeElapsed = (d / 1000).toFixed(1);
-        timer = (45 - timeElapsed).toFixed(1);
+        timer = (originalTime - timeElapsed).toFixed(1);
         
         if (timer <= 0) {
           this.stop();
@@ -79,7 +94,9 @@ class Stopwatch extends Component {
       clearInterval(this.state.interval);
       this.setState({
         delay: null,
-        interval: null
+        interval: null,
+        offset: null,
+        savedTime: this.state.timer
       });
     }
 
@@ -90,7 +107,8 @@ class Stopwatch extends Component {
       
       this.setState({
         timer: 45.0,
-        offset: now
+        offset: now,
+        savedTime: null,
       });
 
       this.start();

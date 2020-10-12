@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require("path");
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3001;
 const app = express();
 const logger = require('morgan');
 
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
-var whitelist = ['http://localhost:8000', 'https://mighty-chamber-55300.herokuapp.com'];
+var whitelist = ['http://localhost:3001/', 'https://mighty-chamber-55300.herokuapp.com'];
 
 var corsOptions = {
   origin: function(origin, callback){
