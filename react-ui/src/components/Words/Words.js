@@ -7,9 +7,9 @@ const StyledDiv = styled.div`
     .word {
         font-size: ${props => {
             if (props.leng <= 5) {
-                return `7rem`;
+                return `60px`;
             } else {
-               return `${(50 / props.leng)}rem`}
+               return `${(300 / props.leng)}px`}
             }            
         }
     }

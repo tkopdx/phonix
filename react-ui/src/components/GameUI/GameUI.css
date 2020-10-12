@@ -28,7 +28,7 @@
   left: 2%;
   top: 1%;
   border: none;
-  font-size: 3rem;
+  font-size: 3vw;
   background: none;
   height: auto;
   width: auto;
@@ -49,6 +49,6 @@
 .back-button ion-icon {
   display: inline-block;
   color: #3c40c6;
-  font-size: 4rem;
+  font-size: 4vw;
   vertical-align: middle;
 }
