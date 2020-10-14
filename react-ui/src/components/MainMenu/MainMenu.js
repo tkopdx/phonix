@@ -16,7 +16,7 @@ const MainMenu = props => {
                     error={props.error}
                     errorInfo={props.errorInfo}
                 />
-                <button onClick={() => props.startGame()} className="start-button"><p>Let's go!</p><ion-icon name="arrow-forward-outline"></ion-icon></button>
+                <button onClick={() => props.startGame()} className="start-button">Let's go!<ion-icon name="arrow-forward-outline"></ion-icon></button>
             </div>
         </div>
     )

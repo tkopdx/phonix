@@ -8,7 +8,7 @@ const Spinner = (props) => {
     return (
     <div className="loader">
         <SyncLoader
-            size={20}
+            size={15}
             loading={props.loading}
         />
     </div>

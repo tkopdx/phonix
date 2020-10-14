@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 
-const time = 30;
+const time = `30.0`;
 
 class Stopwatch extends Component {
     constructor(props) {
@@ -106,7 +106,7 @@ class Stopwatch extends Component {
       now = Date.now();
       
       this.setState({
-        timer: 45.0,
+        timer: time,
         offset: now,
         savedTime: null,
       });
@@ -115,7 +115,7 @@ class Stopwatch extends Component {
     }
 
     render() {
-      return <p>{this.state.timer}</p>
+      return <div className="topbar-inner-item">{this.state.timer}</div>
     }
   
 }

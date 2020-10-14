@@ -1,0 +1,12 @@
+
+.audio-clip-box button {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: auto;
+}
+
+.audio-clip-box ion-icon:hover {
+    color: grey;
+}

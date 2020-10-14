@@ -1,25 +1,43 @@
 .topbar-box {
-    display: flex;
-    flex-direction: row;
-    width: 60vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+    column-gap: 1%;
+    grid-template-rows: auto;
+    width: 95%;
+    height: auto;
     margin: auto;
-    background: white;
-    font-size: 3rem;
-    align-items: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     background-color: white;
     border: 1px solid #d2dae2;
 }
 
-.topbar-box div {
+.topbar-inner {
     margin: auto;
-    width: 98%;
-    font-size: 3vw;
+    width: auto;
+    height: auto;
     vertical-align: middle;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
-.topbar-box div::after {
+/* .topbar-inner:first-child {
+    flex-direction: column;
+} */
+
+.topbar-inner-item {
+    width: 100%;
+    height: 100%;
+    margin: auto 5px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .topbar-box div::after {
     content: "";
     display: block;
     float: right;
@@ -27,27 +45,15 @@
     width: 1%;
     background-color: black;
     margin-top: 2vh;
-}
+} */
 
-.topbar-box div:last-child::after {
+/* .topbar-box div:last-child::after {
     display: none;
-}
+} */
 
 .topbar-box ion-icon {
-    font-size: 3vw;
-    margin-right: 2vw;
-    vertical-align: middle;
-}
-
-.topbar-box p {
-    display: inline;
-    font-size: 3vw;
-    vertical-align: middle;
-}
-
-.topbar-box span {
-    vertical-align: middle;
-    font-size: 3vw;
+    font-size: 20px;
+    vertical-align: auto;
 }
 
 .lives {
@@ -62,6 +68,19 @@
     color: #ffd32a;
 }
 
+.stage .topbar-inner-item:first-child {
+    margin-right: 10px;
+}
+
+.stage .topbar-inner-item:nth-child(n+2) {
+    margin: auto 0;
+}
+
+.stage .topbar-inner-item:last-child {
+    margin-right: 5px;
+}
+
 .time {
     color: #05c46b;
+    /* margin-left: 10px; */
 }

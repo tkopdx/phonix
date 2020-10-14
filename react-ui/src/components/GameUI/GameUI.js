@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Hero from '../Hero/Hero';
 import Words from '../Words/Words';
-import AudioClip from '../AudioClip/AudioClip';
 import Topbar from '../Topbar/Topbar';
 import ResultsModal from '../../adhoc/ResultsModal/ResultsModal';
 import GameModal from '../../adhoc/GameModal/GameModal';
@@ -488,6 +487,11 @@ class GameUI extends Component {
         gameOver={this.gameOver}
         loading={this.state.loading}
         audioStatus={this.state.audioStatus}
+        getTextToSpeech={this.textToSpeechHandler}
+        audioURL={this.state.audioURL}
+        answerAudio={this.state.answerAudio}
+        clickable={this.state.clickable}
+        setAudioStatus={this.setAudioStatus}
       />
       <Hero
         animation={this.state.animateHero}
@@ -506,14 +510,6 @@ class GameUI extends Component {
           clickable={this.state.clickable}
         />
       </CSSTransition>
-      <AudioClip
-        getTextToSpeech={this.textToSpeechHandler}
-        audioURL={this.state.audioURL}
-        answerAudio={this.state.answerAudio}
-        clickable={this.state.clickable}
-        loading={this.state.loading}
-        setAudioStatus={this.setAudioStatus}
-      />
       {this.state.modal ? <GameModal modal={this.state.modal}/> : null}
       {this.state.showResults ? <ResultsModal results={this.state.results}/> : null}
       <audio ref={this.playSuccess} preload="auto" src={bell} type="audio/mpeg"/>

@@ -1,13 +1,15 @@
 .words-box {
     display:flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     width: 20vw;
+    height: 90vh;
     margin: auto;
 }
 
 .words-box button {
     font-size: 20px;
-    margin-top: 20vh;
     background: white;
     border: none;
     border-radius: 5px;

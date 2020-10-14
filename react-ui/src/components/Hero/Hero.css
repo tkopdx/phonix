@@ -48,12 +48,13 @@
 
 .hero-box {
     position:absolute;
-    bottom: 15vh;
-    left: 10vw;
+    bottom: 100px;
+    left: 5vw;
 }
 
 .hero-box img {
-    height: 30vh;
+    height: 200px;
+    width: auto;
     filter: blur(2px) grayscale(.3);
     transition: filter 0.5s;
 }
