@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(3px) grayscale(.3);
+    color: white;
 }
 
 .stage-menu-box {
@@ -23,17 +24,18 @@
 .main-menu-title {
     position: absolute;
     left: 5%;
-    top: -8%;
+    top: -10%;
     width: auto;
     height: auto;
-    font-size: 40px;
+    font-size: 35px;
+    z-index: 2;
 }
 
 .start-button {
     position: absolute;
     flex-direction: row;
     right: 0%;
-    bottom: -7%;
+    bottom: -8%;
     border: none;
     font-size: 30px;
     background: none;

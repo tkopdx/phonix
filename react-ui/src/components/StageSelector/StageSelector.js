@@ -22,18 +22,20 @@ const StageSelector = props => {
 
         return (
                 <DndProvider backend={backend}>
-                    <div className="items-box">
-                        {props.library.symbolsList.map((phonic, index) => {
-                            let phonemes = props.library.phonemesList[index];
-                            let exampleWords = props.library.gameLibrary.wordLists[phonemes];
-                            
-                            return <Item
-                                phonic={phonic}
-                                key={index}
-                                phonemes={phonemes}
-                                exampleWords={exampleWords}
-                            />
-                        })}
+                    <div className="items-box-outer">
+                        <div className="items-box">
+                            {props.library.symbolsList.map((phonic, index) => {
+                                let phonemes = props.library.phonemesList[index];
+                                let exampleWords = props.library.gameLibrary.wordLists[phonemes];
+                                
+                                return <Item
+                                    phonic={phonic}
+                                    key={index}
+                                    phonemes={phonemes}
+                                    exampleWords={exampleWords}
+                                />
+                            })}
+                        </div>
                     </div>
                     <div className="stages-box">
                         {props.stagePhonics ? props.stagePhonics.map((list, index) => {
