@@ -9,12 +9,12 @@ class App extends Component {
     state = {
         isCreatingGame: true,
         library: library,
-        roundTypes: [
-            {isSentenceRound: false},
-            {isSentenceRound: false},
-            {isSentenceRound: false},
-            {isSentenceRound: false},
-            {isSentenceRound: false},
+        stageTypes: [
+            {isSentenceStage: false},
+            {isSentenceStage: false},
+            {isSentenceStage: false},
+            {isSentenceStage: false},
+            {isSentenceStage: false},
         ]
     }
 
@@ -111,13 +111,13 @@ class App extends Component {
     }
 
     toggleStageCheckbox = (index) => {
-        const stagesArr = [...this.state.roundTypes];
+        const stagesArr = [...this.state.stageTypes];
 
-        stagesArr[index].isSentenceRound = !stagesArr[index].isSentenceRound;
+        stagesArr[index].isSentenceRound = !stagesArr[index].isSentenceStage;
 
         console.log('toggled check @', index);
 
-        this.setState({roundTypes: stagesArr});
+        this.setState({stageTypes: stagesArr});
     }
 
     render() {
@@ -142,7 +142,7 @@ class App extends Component {
                 library={this.state.library}
                 stagePhonics={this.state.stagePhonics}
                 returnToMenu={this.returnToMenu}
-                roundTypes={this.state.roundTypes}
+                stageTypes={this.state.stageTypes}
             ></GameUI>
         )
     }

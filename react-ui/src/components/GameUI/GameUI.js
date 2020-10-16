@@ -328,24 +328,19 @@ class GameUI extends Component {
     // console.log('setting stage start');
     let stage, newPhonic, prevPhonic, num, leng, modal, phonemes, isSentence;
 
-    console.log(this.props.roundTypes);
-    console.log(this.state.stage)
+    // console.log(this.state.stage)
 
-    //check if the next round is a sentence round
-    isSentence = this.props.roundTypes[this.state.stage].isSentenceRound;
-
-    console.log(isSentence);
-
-    //stage up
-    stage = this.state.stage + 1;
-
-    //check if game should end
-    if (stage >= 6) {
-      // console.log('ending game with success');
+    //set the next stage type or if no type, end the game
+    if (this.props.stageTypes[this.state.stage]) {
+      isSentence = this.props.stageTypes[this.state.stage].isSentenceRound;
+    } else {
       this.setState({modal: null});
       this.displayResults();
       return;
     }
+
+    //stage up
+    stage = this.state.stage + 1;
 
     //set phoneme list
     phonemes = this.state.phonemesList[stage - 1];
