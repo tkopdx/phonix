@@ -41,7 +41,7 @@ const Item = props => {
           backgroundColor: isDragging ? "white" : "#ffd32a",
           cursor: 'move'
         }}
-        onClick={() => setShow(true)}
+        onMouseEnter={() => setShow(true)}
         onMouseLeave={() => setShow(false)}
       >
       {props.phonic}
