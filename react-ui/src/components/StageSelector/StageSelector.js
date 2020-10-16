@@ -35,6 +35,7 @@ const StageSelector = props => {
                         </div>
                     </div>
                     <div className="stages-box">
+                        <p className="explanation">Drag and drop items here to add to the possible phonics for each stage. One phonic will be randomly chosen. Click items in the list to delete them. Stages set to sentence play a sentence while other stages only play singular words.</p>
                         {props.stagePhonics ? props.stagePhonics.map((list, index) => {
                             return <Stage
                                 stage={index}
