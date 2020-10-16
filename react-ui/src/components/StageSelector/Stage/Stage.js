@@ -1,4 +1,5 @@
 import React from 'react';
+import { InputGroup } from 'react-bootstrap';
 import Dropzone from '../Dropzone/Dropzone';
 
 import './Stage.css';
@@ -16,6 +17,10 @@ const Stage = props => {
                 library={props.library}
                 handleDrop={props.handleDrop}
             />
+            <InputGroup className="mb-3">
+                <InputGroup.Text>Sentence?</InputGroup.Text>
+                <InputGroup.Checkbox onChange={() => props.toggleStageCheckbox(props.stage)} aria-label="When clicked, the round will use sentences."/>
+            </InputGroup>
             </div>
         </div>
     )

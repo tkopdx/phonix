@@ -22,10 +22,10 @@ const Dropzone = props => {
         <div
           style={{
             position: 'absolute',
-            top: '-5%',
-            left: '-15%',
-            height: '110%',
-            width: '130%',
+            top: '-2.5%',
+            left: '-5%',
+            height: '105%',
+            width: '110%',
             zIndex: 0,
             opacity: 0.5,
             backgroundColor: 'white',

@@ -33,17 +33,18 @@ class GameUI extends Component {
     this.playFail = React.createRef();
     this.playStageUp = React.createRef();
     this.playGameOver = React.createRef();
-  }
-
-  state = {
-    points: 0,
-    lives: 3,
-    round: 1,
-    stage: 0,
-    numOfWordsPerRound: 2,
-    playing: true,
-    clickable: true,
-    results: []
+    this.state = {
+      points: 0,
+      lives: 3,
+      round: 1,
+      stage: 0,
+      numOfWordsPerRound: 2,
+      playing: true,
+      clickable: true,
+      results: [],
+      loading: true,
+      timer: 'stop'
+    }
   }
 
   componentDidMount() {
@@ -82,15 +83,15 @@ class GameUI extends Component {
       this.setState({phonemesList: phonemesArr});
     })
     
-    if (this.state.answer) {
-      // console.log('mounted and called for speech');
-      this.textToSpeechHandler();
-    }
+    // if (this.state.answer) {
+    //   console.log('mounted and called for speech');
+    //   this.textToSpeechHandler();
+    // }
   }
 
   componentDidUpdate() {
     if (!this.state.phonic && !this.state.words && !this.state.answer && this.state.phonemesList) {
-      // console.log('calling for first stage up!');
+      console.log('calling for first stage up!');
       this.setStage();
     }
 
@@ -134,7 +135,8 @@ class GameUI extends Component {
   async textToSpeechHandler() {
 
     this.setState({
-      audioURL: null
+      audioURL: null,
+      loading: true
     })
 
     let text, answer, phonic;
@@ -150,14 +152,13 @@ class GameUI extends Component {
 
     this.setState({requestingSpeech: true});
 
-    if (this.state.stage <= 0) {
-      text = answer;
-    } else {
+    if (this.state.isSentenceRound) {
       text = this.props.library.gameLibrary.sentenceLists[phonic][answer];
+    } else {
+      text = answer;
     }
     
 
-    this.setState({loading: true});
     try {
       const axiosRes = await axios.post('/texttospeech', {text: `${text}`});
       // console.log(axiosRes);
@@ -168,19 +169,22 @@ class GameUI extends Component {
         this.setState({
           answerAudio: true,
           audioURL: axiosRes.data.audioURL,
-          requestingSpeech: false
+          requestingSpeech: false,
         });
 
       } else {
-        this.setState({modal: 5});
+        this.setState({
+          modal: 5,
+        });
         // console.log(axiosRes);
       }
     } catch (err) {
       // console.log(err);
-      this.setState({modal: 5});
+      this.setState({
+        modal: 5,
+      });
     }
 
-    this.setState({loading: false});
   }
 
   clickWordHandler = (word, index) => {
@@ -211,10 +215,10 @@ class GameUI extends Component {
     if (this.state.results) {
       res = [...this.state.results];
 
-      if (stage <= 3) {
-        text = answer;
-      } else {
+      if (this.state.isSentenceRound) {
         text = this.props.library.gameLibrary.sentenceLists[phonic][answer];
+      } else {
+        text = answer;
       }
 
       res.push({
@@ -250,7 +254,8 @@ class GameUI extends Component {
         points: newPoints,
         round: newRound,
         modal: 1,
-        stageUp: true
+        stageUp: true,
+        timer: 'stop'
       }), 1500);
         
     } else {
@@ -298,7 +303,8 @@ class GameUI extends Component {
             round: newRound,
             modal: 3,
             lives: newLives,
-            stageUp: true
+            stageUp: true,
+            timer: 'stop'
           }), 1500);
           
         } else {
@@ -320,20 +326,29 @@ class GameUI extends Component {
   setStage = () => {
 
     // console.log('setting stage start');
-    let stage, newPhonic, prevPhonic, num, leng, modal, phonemes;
+    let stage, newPhonic, prevPhonic, num, leng, modal, phonemes, isSentence;
+
+    console.log(this.props.roundTypes);
+    console.log(this.state.stage)
+
+    //check if the next round is a sentence round
+    isSentence = this.props.roundTypes[this.state.stage].isSentenceRound;
+
+    console.log(isSentence);
 
     //stage up
     stage = this.state.stage + 1;
 
-    //set phoneme list
-    phonemes = this.state.phonemesList[stage - 1];
-
+    //check if game should end
     if (stage >= 6) {
       // console.log('ending game with success');
       this.setState({modal: null});
       this.displayResults();
       return;
     }
+
+    //set phoneme list
+    phonemes = this.state.phonemesList[stage - 1];
 
     //get random new phonic
     leng = phonemes.length;
@@ -367,7 +382,8 @@ class GameUI extends Component {
       modal: modal,
       stageUp: false,
       newPhonic: true,
-      resetTimer: false
+      timer: 'reset',
+      isSentenceRound: isSentence
     });
 
     // console.log(`calling for new words with ${newPhonic}`);
@@ -378,7 +394,7 @@ class GameUI extends Component {
     this.setState({
       playing: false,
       modal: 4,
-      clickable: false
+      clickable: false,
     });
 
     this.displayResults();
@@ -439,7 +455,7 @@ class GameUI extends Component {
       words: newWords,
       answer: answer,
       clickable: true,
-      resetTimer: true,
+      timer: 'stop',
       transitionKey: uniqid()
     }), 2000);
 
@@ -469,7 +485,22 @@ class GameUI extends Component {
   }
 
   setAudioStatus = status => {
-    this.setState({audioStatus: status});
+    console.log('setting audio status to:', status);
+    
+    if (status === 'pause') {
+      this.setState({
+        audioStatus:status,
+        timer: 'start'
+      })
+    } else {
+      console.log('audio playing, timer told to stop')
+
+      this.setState({
+        audioStatus: status,
+        loading: false,
+        timer: 'stop'
+      })
+    }
   }
 
   render = () => {
@@ -483,7 +514,6 @@ class GameUI extends Component {
         stage={this.state.stage}
         playing={this.state.playing}
         stageUp={this.state.stageUp}
-        resetTimer={this.state.resetTimer}
         gameOver={this.gameOver}
         loading={this.state.loading}
         audioStatus={this.state.audioStatus}
@@ -492,6 +522,7 @@ class GameUI extends Component {
         answerAudio={this.state.answerAudio}
         clickable={this.state.clickable}
         setAudioStatus={this.setAudioStatus}
+        timerState={this.state.timer}
       />
       <Hero
         animation={this.state.animateHero}

@@ -8,12 +8,29 @@ import './App.css';
 class App extends Component {
     state = {
         isCreatingGame: true,
-        library: library
+        library: library,
+        roundTypes: [
+            {isSentenceRound: false},
+            {isSentenceRound: false},
+            {isSentenceRound: false},
+            {isSentenceRound: false},
+            {isSentenceRound: false},
+        ]
     }
 
     componentDidMount() {
         if (this.state.library) {
             this.setState({stagePhonics: this.state.library.gameLibrary.phonics});
+        }
+    
+        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            console.log('detected mobile, setting backend to touch');
+            
+            this.setState({mobile: true})
+        } else {
+            console.log('setting backend to HTML5');
+            
+            this.setState({mobile: false})
         }
     }
 
@@ -93,6 +110,16 @@ class App extends Component {
         this.setState({isCreatingGame: true});
     }
 
+    toggleStageCheckbox = (index) => {
+        const stagesArr = [...this.state.roundTypes];
+
+        stagesArr[index].isSentenceRound = !stagesArr[index].isSentenceRound;
+
+        console.log('toggled check @', index);
+
+        this.setState({roundTypes: stagesArr});
+    }
+
     render() {
 
         // console.log('render');
@@ -106,6 +133,8 @@ class App extends Component {
                 clicked={this.stagePhonicClickedHandler}
                 error={this.state.error}
                 errorInfo={this.state.errorInfo}
+                backend={this.state.mobile}
+                toggleStageCheckbox={this.toggleStageCheckbox}
             >
             </MainMenu>
             :
@@ -113,6 +142,7 @@ class App extends Component {
                 library={this.state.library}
                 stagePhonics={this.state.stagePhonics}
                 returnToMenu={this.returnToMenu}
+                roundTypes={this.state.roundTypes}
             ></GameUI>
         )
     }

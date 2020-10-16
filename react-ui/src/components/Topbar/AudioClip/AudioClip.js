@@ -18,8 +18,8 @@ const AudioClip = React.memo(props => {
     }
     
     return <div className="audio-clip-box topbar-inner">
-        <audio onPlay={() => props.setAudioStatus('play')} onPause={() => props.setAudioStatus('pause')} ref={playAudio} autoPlay={!props.loading && props.clickable ? true : false} preload="auto" type="audio/mpeg"/>
-        {props.loading ? <Spinner loading={props.loading}></Spinner> : <button className="audio-clip-btn" onClick={props.clickable ? handleClick : null}><ion-icon name="volume-high-outline"></ion-icon></button>}
+        <audio onPlay={() => props.setAudioStatus('play')} onPause={() => props.setAudioStatus('pause')} ref={playAudio} autoPlay={true} preload="auto" type="audio/mpeg"/>
+        {props.loading ? <Spinner loading={props.loading}></Spinner> : <button className="audio-clip-btn" onClick={handleClick}><ion-icon name="volume-high-outline"></ion-icon></button>}
     </div>
 })
 

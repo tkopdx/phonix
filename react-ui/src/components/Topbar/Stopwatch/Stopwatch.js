@@ -7,49 +7,48 @@ class Stopwatch extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        offset: Date.now(),
+        offset: null,
         delay: 100,
         timer: time,
       }
     }
 
     componentDidMount() {
-      if (this.props.playing) {
-        this.start();
-      } else {
-        return;
+      // if (this.props.playing) {
+      //   this.start();
+      // } else {
+      //   return;
+      // }
+    }
+
+    componentWillUnmount() {
+      if (this.state.interval) {
+        clearInterval(this.state.interval);
       }
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (this.props.playing && this.state.timer === 0) {
-        this.props.gameOver();
 
+      if (prevProps.timerState === this.props.timerState) {
         return;
       }
+
+      if (this.state.timer === 0 && this.props.playing) {
+        this.props.gameOver();
+      } 
       
-      if (this.props.stageUp && prevProps.stageUp !== this.props.stageUp) {
-        // console.log('timer reset called');
-        
+      if (this.props.timerState === 'stop') {
+        console.log('timer stop called');
         // stop the clock
         this.stop();
-      }
-
-      if (this.props.restart && this.props.restart !== prevProps.restart) {
-        
-        
+      } else if (this.props.timerState === 'reset') {
+        console.log('timer reset');
         // reset to full time
         this.reset();
-      }
-      
-      if (prevProps.playing === this.props.playing) {
         return;
       } else {
-        if (this.props.playing) {
-          this.start();
-        } else {
-          this.stop();
-        }
+        console.log('starting the clock');
+        this.start();
       }
       
     }
@@ -110,8 +109,6 @@ class Stopwatch extends Component {
         offset: now,
         savedTime: null,
       });
-
-      this.start();
     }
 
     render() {
@@ -120,4 +117,4 @@ class Stopwatch extends Component {
   
 }
 
-export default Stopwatch;
+export default React.memo(Stopwatch);

@@ -15,6 +15,8 @@ const MainMenu = props => {
                     clicked={props.clicked}
                     error={props.error}
                     errorInfo={props.errorInfo}
+                    backend={props.backend}
+                    toggleStageCheckbox={props.toggleStageCheckbox}
                 />
                 <button onClick={() => props.startGame()} className="start-button">Let's go!<ion-icon name="arrow-forward-outline"></ion-icon></button>
             </div>

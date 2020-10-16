@@ -6,7 +6,8 @@
 
 .items-box {
     display: grid;
-    padding: 5px;
+    align-self: auto;
+    margin: 20px;
     grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(10%, 1fr));
     row-gap: 3%;

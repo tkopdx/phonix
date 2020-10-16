@@ -5,13 +5,12 @@ import AudioClip from './AudioClip/AudioClip';
 import './Topbar.css';
 
 const Topbar = props => {
+
+    console.log('topbar render');
     
     return <div className="topbar-box">
         <AudioClip
-            getTextToSpeech={props.getTextToSpeech}
             audioURL={props.audioURL}
-            answerAudio={props.answerAudio}
-            clickable={props.clickable}
             loading={props.loading}
             setAudioStatus={props.setAudioStatus}
         />
@@ -32,11 +31,9 @@ const Topbar = props => {
         <div className="time topbar-inner">
             <div className="topbar-inner-item"><ion-icon name="alarm-outline"></ion-icon></div>
             <Stopwatch
-                playing={props.playing && props.audioStatus === 'pause' && !props.loading ? true : false}
-                stageUp={props.stageUp}
-                restart={props.resetTimer}
+                playing={props.playing}
+                timerState={props.timerState}
                 gameOver={props.gameOver}
-                loading={props.loading}
             />
         </div>
     </div>

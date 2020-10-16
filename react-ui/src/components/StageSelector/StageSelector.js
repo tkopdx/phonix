@@ -8,15 +8,12 @@ import Stage from './Stage/Stage';
 import './StageSelector.css';
 
 const StageSelector = props => {
+
     let backend;
-    
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        console.log('detected mobile, setting backend to touch');
-        
+
+    if (props.backend) {
         backend = TouchBackend
     } else {
-        console.log('setting backend to HTML5');
-        
         backend = HTML5Backend
     }
 
@@ -48,6 +45,7 @@ const StageSelector = props => {
                                 clicked={props.clicked}
                                 error={props.error}
                                 errorInfo={props.errorInfo}
+                                toggleStageCheckbox={props.toggleStageCheckbox}
                             />
                         }) : null}
                     </div>
