@@ -1,19 +1,18 @@
 .items-box-outer {
     height: 100%;
     width: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .items-box {
     display: grid;
-    align-self: auto;
-    margin: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+    position: relative;
+    grid-template-columns: repeat(auto-fit, minmax(23%, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(10%, 1fr));
     row-gap: 3%;
     column-gap: 2%;
-    align-items: center;
-    justify-content: center;
     width: auto;
     height: auto;
 }

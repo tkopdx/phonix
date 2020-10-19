@@ -4,6 +4,8 @@ import StageSelector from '../StageSelector/StageSelector';
 import './MainMenu.css';
 
 const MainMenu = props => {
+    //TODO: add accordion help and about section
+
     return (
         <div className='main-menu-box'>
             <div className="stage-menu-box">

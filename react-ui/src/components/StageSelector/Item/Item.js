@@ -47,7 +47,7 @@ const Item = props => {
       {props.phonic}
       </div>
     </div>
-      <Overlay target={target.current} show={show} placement="right" props={props}>
+      <Overlay target={target.current} show={show} placement="auto" props={props}>
       {({ placement, arrowProps, show: _show, popper, ...props }) => (
         <Popover
           id="popover-basic"

@@ -2,36 +2,48 @@ import React, { Component } from 'react';
 import MainMenu from '../components/MainMenu/MainMenu';
 import GameUI from '../components/GameUI/GameUI';
 import library from '../lib/library';
+import { DndProvider } from 'react-dnd';
+import { TouchBackend } from 'react-dnd-touch-backend';
+import Footer from '../components/Footer/Footer';
+
 
 import './App.css';
 
+const opts = {
+    enableMouseEvents: true
+}
+
 class App extends Component {
-    state = {
-        isCreatingGame: true,
-        library: library,
-        stageTypes: [
-            {isSentenceStage: false},
-            {isSentenceStage: false},
-            {isSentenceStage: false},
-            {isSentenceStage: false},
-            {isSentenceStage: false},
-        ]
+    constructor(props) {
+        super(props);
+        this.state = {
+            isCreatingGame: true,
+            library: library,
+            stageTypes: [
+                {isSentenceStage: false},
+                {isSentenceStage: false},
+                {isSentenceStage: false},
+                {isSentenceStage: false},
+                {isSentenceStage: false},
+            ]
+        }
     }
+
 
     componentDidMount() {
         if (this.state.library) {
             this.setState({stagePhonics: this.state.library.gameLibrary.phonics});
         }
     
-        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-            console.log('detected mobile, setting backend to touch');
+        // if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        //     console.log('detected mobile, setting backend to touch');
             
-            this.setState({mobile: true})
-        } else {
-            console.log('setting backend to HTML5');
+        //     this.setState({backend: TouchBackend})
+        // } else {
+        //     console.log('setting backend to HTML5');
             
-            this.setState({mobile: false})
-        }
+        //     this.setState({backend: HTML5Backend})
+        // }
     }
 
     componentDidUpdate() {
@@ -121,29 +133,35 @@ class App extends Component {
     }
 
     render() {
+        console.log('render');
 
-        // console.log('render');
+
+
         return (
-            this.state.isCreatingGame ? 
-            <MainMenu
-                startGame={this.startGame}
-                library={this.state.library}
-                handleDrop={this.handleDrop}
-                stagePhonics={this.state.stagePhonics}
-                clicked={this.stagePhonicClickedHandler}
-                error={this.state.error}
-                errorInfo={this.state.errorInfo}
-                backend={this.state.mobile}
-                toggleStageCheckbox={this.toggleStageCheckbox}
-            >
-            </MainMenu>
-            :
-            <GameUI
-                library={this.state.library}
-                stagePhonics={this.state.stagePhonics}
-                returnToMenu={this.returnToMenu}
-                stageTypes={this.state.stageTypes}
-            ></GameUI>
+            <DndProvider backend={TouchBackend} options={opts}>
+            { this.state.isCreatingGame ? 
+                <MainMenu
+                    startGame={this.startGame}
+                    library={this.state.library}
+                    handleDrop={this.handleDrop}
+                    stagePhonics={this.state.stagePhonics}
+                    clicked={this.stagePhonicClickedHandler}
+                    error={this.state.error}
+                    errorInfo={this.state.errorInfo}
+                    toggleStageCheckbox={this.toggleStageCheckbox}
+                    mobile={this.state.mobile}
+                >
+                </MainMenu>
+                :
+                <GameUI
+                    library={this.state.library}
+                    stagePhonics={this.state.stagePhonics}
+                    returnToMenu={this.returnToMenu}
+                    stageTypes={this.state.stageTypes}
+                ></GameUI>
+            }
+            <Footer/>
+            </DndProvider>
         )
     }
 }
