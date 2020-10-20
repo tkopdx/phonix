@@ -332,7 +332,7 @@ class GameUI extends Component {
 
     //set the next stage type or if no type, end the game
     if (this.props.stageTypes[this.state.stage]) {
-      isSentence = this.props.stageTypes[this.state.stage].isSentenceRound;
+      isSentence = this.props.stageTypes[this.state.stage].isSentenceStage;
     } else {
       this.setState({modal: null});
       this.displayResults();
