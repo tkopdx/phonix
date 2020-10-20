@@ -15,7 +15,7 @@ const helpOverlay = (
 
 const Help = () => {
     return (
-        <OverlayTrigger trigger="click" placement="auto" overlay={helpOverlay}>
+        <OverlayTrigger trigger={['click', 'focus']} placement="auto" overlay={helpOverlay}>
             <div className="footer-item">Help</div>
         </OverlayTrigger>
     )

@@ -122,10 +122,10 @@ class App extends Component {
         this.setState({isCreatingGame: true});
     }
 
-    toggleStageCheckbox = (index) => {
+    setStageType = (index, type) => {
         const stagesArr = [...this.state.stageTypes];
 
-        stagesArr[index].isSentenceRound = !stagesArr[index].isSentenceStage;
+        stagesArr[index].isSentenceStage = type;
 
         console.log('toggled check @', index);
 
@@ -148,7 +148,8 @@ class App extends Component {
                     clicked={this.stagePhonicClickedHandler}
                     error={this.state.error}
                     errorInfo={this.state.errorInfo}
-                    toggleStageCheckbox={this.toggleStageCheckbox}
+                    setStageType={this.setStageType}
+                    stageTypes={this.state.stageTypes}
                     mobile={this.state.mobile}
                 >
                 </MainMenu>

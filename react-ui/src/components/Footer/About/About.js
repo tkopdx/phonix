@@ -15,7 +15,7 @@ const aboutOverlay = (
 
 const About = () => {
     return (
-        <OverlayTrigger trigger="click" placement="auto" overlay={aboutOverlay}>
+        <OverlayTrigger trigger={['click', 'focus']} placement="auto" overlay={aboutOverlay}>
             <div className="footer-item">About</div>
         </OverlayTrigger>
     )

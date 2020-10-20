@@ -5,6 +5,7 @@
     width: 100%;
     height: 100%;
     border: 1px solid white;
+    margin: 5px;
 }
 
 .stage-box,
@@ -13,7 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 75%;
+    width: 100%;
     height: 100%;
     padding: 3px;
 }
@@ -23,7 +24,6 @@
     width:100%;
     font-size: 14px;
     margin: auto auto 2px auto;
-    text-align: left;
     color:grey;
 }
 
@@ -36,6 +36,15 @@
 .stage-box-error {
     background-color: #ff3f34;
     animation: glow .75s 2 ease-in-out;
+}
+
+.stage-box-flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .phonics-button {

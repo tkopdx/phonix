@@ -22,6 +22,7 @@ const StageSelector = props => {
                 })}
             </div>
         </div>
+        <div className="stages-box-outer">
         <div className="stages-box">
             {props.stagePhonics ? props.stagePhonics.map((list, index) => {
                 return <Stage
@@ -33,9 +34,11 @@ const StageSelector = props => {
                     clicked={props.clicked}
                     error={props.error}
                     errorInfo={props.errorInfo}
-                    toggleStageCheckbox={props.toggleStageCheckbox}
+                    setStageType={props.setStageType}
+                    stageType={props.stageTypes[index].isSentenceStage}
                 />
             }) : null}
+        </div>
         </div>
         </>
         )

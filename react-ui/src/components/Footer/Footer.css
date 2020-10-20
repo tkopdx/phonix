@@ -6,7 +6,7 @@
     left: 2%;
     display: flex;
     flex-direction: row;
-    background: orange;
+    background: rgba(161, 161, 161, 0.432);
 }
 
 .footer-item {

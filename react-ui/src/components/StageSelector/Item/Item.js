@@ -1,6 +1,6 @@
-import React, { useRef, useState} from 'react'
+import React from 'react'
 import { useDrag } from 'react-dnd'
-import { Popover, Overlay } from 'react-bootstrap';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 import './Item.css';
 
@@ -20,8 +20,14 @@ const Item = props => {
     </div>
   )
 
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
+  const overlay = (
+    <Popover id="popover-basic">
+      <Popover.Title as="h3">{phonemes}</Popover.Title>
+        <Popover.Content>
+          {exampleWordsList}
+        </Popover.Content> 
+    </Popover>
+  )
   
   const [{isDragging}, drag] = useDrag({
     item: { type: props.phonic },
@@ -31,36 +37,21 @@ const Item = props => {
   })
 
   return (
-    <>
-    <div className="item-box" key={props.phonic} ref={target}>
-      <div
-        className="item"
-        ref={drag}
-        style={{
-          opacity: isDragging ? 0.5 : 1,
-          backgroundColor: isDragging ? "white" : "#ffd32a",
-          cursor: 'move'
-        }}
-        onMouseEnter={() => setShow(true)}
-        onMouseLeave={() => setShow(false)}
-      >
-      {props.phonic}
-      </div>
-    </div>
-      <Overlay target={target.current} show={show} placement="auto" props={props}>
-      {({ placement, arrowProps, show: _show, popper, ...props }) => (
-        <Popover
-          id="popover-basic"
-          {...props}
+    <OverlayTrigger trigger={['hover', 'focus']} placement="auto" overlay={overlay}>
+      <div className="item-box" key={props.phonic}>
+        <div
+          className="item"
+          ref={drag}
+          style={{
+            opacity: isDragging ? 0.5 : 1,
+            backgroundColor: isDragging ? "white" : "#ffd32a",
+            cursor: 'move'
+          }}
         >
-          <Popover.Title as="h3">{phonemes}</Popover.Title>
-            <Popover.Content>
-              {exampleWordsList}
-            </Popover.Content> 
-        </Popover>
-      )}
-    </Overlay>
-    </>
+        {props.phonic}
+        </div>
+      </div>
+    </OverlayTrigger>
   )
 }
 
