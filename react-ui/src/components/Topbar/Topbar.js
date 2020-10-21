@@ -36,6 +36,7 @@ const Topbar = props => {
                 gameOver={props.gameOver}
             />
         </div>
+        <button onClick={() => props.returnToMenu()} className="back-button"><ion-icon name="arrow-back-outline"></ion-icon>Menu</button>
     </div>
 }
 

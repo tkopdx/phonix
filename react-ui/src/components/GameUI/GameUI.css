@@ -22,33 +22,3 @@
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
-
-.back-button {
-  position: absolute;
-  left: 2%;
-  top: 5%;
-  border: none;
-  font-size: 3vw;
-  background: none;
-  height: auto;
-  width: auto;
-  transition: transform 0.2s;
-  outline: none;
-}
-
-.back-button:hover {
-  transform: scale(1.2);
-}
-
-.back-button p {
-  display: inline-block;
-  color:white;
-  vertical-align: middle;
-}
-
-.back-button ion-icon {
-  display: inline-block;
-  color: #3c40c6;
-  font-size: 4vw;
-  vertical-align: middle;
-}

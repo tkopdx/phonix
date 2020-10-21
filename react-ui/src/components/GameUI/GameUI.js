@@ -518,6 +518,7 @@ class GameUI extends Component {
         clickable={this.state.clickable}
         setAudioStatus={this.setAudioStatus}
         timerState={this.state.timer}
+        returnToMenu={this.props.returnToMenu}
       />
       <Hero
         animation={this.state.animateHero}
@@ -542,7 +543,6 @@ class GameUI extends Component {
       <audio ref={this.playFail} preload="auto" src={buzz} type="audio/mpeg"/>
       <audio ref={this.playStageUp} preload="auto" src={stageUp} type="audio/mpeg"/>
       <audio ref={this.playGameOver} preload="auto" src={gameOver} type="audio/mpeg"/>
-      <button onClick={() => this.props.returnToMenu()} className="back-button"><ion-icon name="arrow-back-outline"></ion-icon><p>Menu</p></button>
     </div>
     </StyleDiv>
     )

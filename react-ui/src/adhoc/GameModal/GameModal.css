@@ -1,29 +1,37 @@
-.modal {
+/* .modal {
     position: fixed;
     display: flex;
     top: 0;
     left: 0;
-    z-index: 0;
+    z-index: 2;
     width: 100vw;
     height: 100vh;
     align-items: center;
-}
+} */
 
 .modal-box {
-    position: absolute;
-    top: 5vh;
-    width: 100vw;
-    height: 100vh;
+    margin: auto;
+    width: auto;
+    height: auto;
 }
 
 .modal-back {
-    width: auto;
+    /* background-color: rgba(255, 255, 255, 0.534); */
+    position: absolute;
+    top: 30px;
+    margin: auto;
+    width: 100vw;
+    height: auto;
     border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .message {
+    margin: auto;
     color: black;
-    font-size: 3rem;
+    font-size: 25px;
     width: auto;
     height: auto;
     padding: 25px;

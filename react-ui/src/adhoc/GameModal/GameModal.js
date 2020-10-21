@@ -9,16 +9,14 @@ const bounceAnimation = keyframes`${bounceIn}`;
 const fadeAnimation = keyframes`${fadeOutDown}`;
 
 const StyleDiv = styled.div`
-    .modal-box {
+    .modal-back {
         margin:${props => {
-            if (props.modal === 1) {
-                return `0 auto`;
-            } else if (props.modal === 2) {
-                return `0 0 0 12vw`;
+            if (props.modal === 2) {
+                return `0 auto 0 20%`;
             } else if (props.modal === 3) {
-                return `0 0 0 -12vw`;
+                return `0 auto 0 -20%`;
             } else {
-                return `0 auto`;
+                return `auto`;
             }
         }}
     }
@@ -45,13 +43,13 @@ const GameModal = props => {
     return <StyleDiv
         modal={props.modal}
     >
-    <div className="modal">
-        <div className="modal-box">
+    {/* <div className="modal"> */}
+        {/* <div className="modal-box"> */}
             <div className="modal-back">
                 <div className="message">{message}</div>
             </div>
-        </div>
-    </div>
+        {/* </div> */}
+    {/* </div> */}
     </StyleDiv>
 }
 
