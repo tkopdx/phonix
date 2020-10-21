@@ -17,7 +17,7 @@ const Dropzone = props => {
     <div
       className="dropzone"
       ref={drop}
-    > + drop
+    > <div>+ drop</div>
       {isOver && (
         <div
           style={{

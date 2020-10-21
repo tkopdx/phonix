@@ -25,6 +25,7 @@
     font-size: 14px;
     margin: auto auto 2px auto;
     color:grey;
+    text-align: left;
 }
 
 @keyframes glow {
@@ -45,6 +46,10 @@
     align-items: center;
     width: 100%;
     height: 100%;
+}
+
+.stage-box-flex-row p {
+    text-align: center;
 }
 
 .phonics-button {
