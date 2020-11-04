@@ -43,7 +43,8 @@ const library = {
         'ɜ:ʳ',
         'ɔ:',
         'ɪəʳ',
-        'ʊəʳ'
+        'ʊəʳ',
+        'abc'
     ],
     phonemesList: [
         'b, bb',
@@ -89,7 +90,8 @@ const library = {
         'ir, er, ur, ear, or, our, yr',
         'aw, a, or, oor, ore, oar, our, augh, ar, ough, au',
         'ear, eer, ere, ier',
-        'ure, our'
+        'ure, our',
+        'alphabet'
     ],
     gameLibrary: {
         phonics: [
@@ -128,7 +130,7 @@ const library = {
             'a, ai, eigh, aigh, ay, er, et, ei, au, a_e, ea, ey': ['bay', 'maid', 'weigh', 'straight', 'pay', 'foyer', 'filet', 'eight', 'gauge', 'mate', 'break', 'they', 'bacon', 'late', 'day', 'train', 'vein'],
             'e, ea, u, ie, ai, a, eo, ei, ae': ['end', 'bread', 'bury', 'friend', 'said', 'many', 'leopard', 'heifer', 'aesthetic', 'bed'],
             'e, ee, ea, y, ey, oe, ie, i, ei, eo, ay': ['me', 'these', 'beat', 'feet', 'key', 'chief', 'baby', 'be', 'meat', 'lady', 'phoenix', 'grief', 'ski', 'deceive', 'people'],
-            'i, e, o, u, ui, y, ie': ['it', 'england', 'women', 'busy', 'guild', 'gym', 'sieve', 'if'],
+            'i, e, o, u, ui, y, ie': ['it', 'England', 'women', 'busy', 'guild', 'gym', 'sieve', 'if'],
             'i, y, igh, ie, uy, ye, ai, is, eigh, i_e': ['find', 'ride', 'light', 'fly', 'pie', 'spider', 'sky', 'night', 'guy', 'stye', 'aisle', 'island', 'height', 'kite'],
             'a, ho, au, aw, ough': ['swan', 'honest', 'maul', 'slaw', 'fought', 'hot', 'want', 'haul', 'draw', 'bought'],
             'o, oa, o_e, oe, ow, ough, eau, oo, ew': ['open', 'moat', 'bone', 'toe', 'sow', 'dough', 'beau', 'brooch', 'sew', 'no', 'note', 'boat', 'soul', 'row'],
@@ -140,10 +142,11 @@ const library = {
             'a, er, i, ar, our, ur': ['about', 'ladder', 'pencil', 'dollar', 'honour', 'augur'],
             'air, are, ear, ere, eir, ayer': ['chair', 'dare', 'pear', 'where', 'their', 'prayer'],
             'a': ['arm', 'car'],
-            'ir, er, ur, ear, or, our, yr': ['bird', 'term', 'burn', 'pearl', 'word', 'journey', 'myrtle', 'first', 'fern', 'heard', 'work', 'dollar'],
+            'ir, er, ur, ear, or, our, yr': ['bird', 'term', 'burn', 'pearl', 'word', 'journey', 'myrtle', 'first', 'fern', 'heard', 'work',],
             'aw, a, or, oor, ore, oar, our, augh, ar, ough, au': ['paw', 'ball', 'fork', 'poor', 'fore', 'board', 'four', 'war'],
             'ear, eer, ere, ier': ['ear', 'steer', 'here', 'tier', 'mirror', 'cheer'],
-            'ure, our': ['cure', 'tourist']
+            'ure, our': ['cure', 'tourist'],
+            'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         },
         sentenceLists: {
             'b, bb': {
@@ -334,30 +337,236 @@ const library = {
                 'conscience': 'Clear your conscience.', 
                 'station': 'We made it to the station.'
             },
-            'th (θ)': ['thought', 'thumb', 'thin', 'thing'],
-            'th (ð)': ['this', 'feather', 'then', 'leather'],
-            'ng, n, ngue': ['ring', 'pink', 'tongue', 'sing', 'monkey', 'sink'],
-            'y, i, j': ['you', 'onion', 'hallelujah', 'yes'],
-            'a, ai, au': ['hat', 'laugh', 'cat', 'plaid'],
-            'a, ai, eigh, aigh, ay, er, et, ei, au, a_e, ea, ey': ['bay', 'maid', 'weigh', 'straight', 'pay', 'foyer', 'filet', 'eight', 'gauge', 'mate', 'break', 'they', 'bacon', 'late', 'day', 'train', 'vein'],
-            'e, ea, u, ie, ai, a, eo, ei, ae': ['end', 'bread', 'bury', 'friend', 'said', 'many', 'leopard', 'heifer', 'aesthetic', 'bed'],
-            'e, ee, ea, y, ey, oe, ie, i, ei, eo, ay': ['me', 'these', 'beat', 'feet', 'key', 'chief', 'baby', 'be', 'meat', 'lady', 'phoenix', 'grief', 'ski', 'deceive', 'people'],
-            'i, e, o, u, ui, y, ie': ['it', 'england', 'women', 'busy', 'guild', 'gym', 'sieve', 'if'],
-            'i, y, igh, ie, uy, ye, ai, is, eigh, i_e': ['find', 'ride', 'light', 'fly', 'pie', 'spider', 'sky', 'night', 'guy', 'stye', 'aisle', 'island', 'height', 'kite'],
-            'a, ho, au, aw, ough': ['swan', 'honest', 'maul', 'slaw', 'fought', 'hot', 'want', 'haul', 'draw', 'bought'],
-            'o, oa, o_e, oe, ow, ough, eau, oo, ew': ['open', 'moat', 'bone', 'toe', 'sow', 'dough', 'beau', 'brooch', 'sew', 'no', 'note', 'boat', 'soul', 'row'],
-            'o, oo, u, ou': ['wolf', 'look', 'bush', 'would'],
-            'u, o, oo, ou': ['lug', 'monkey', 'blood', 'double'],
-            'o, oo, ew, ue, u_e, oe, ough, ui, oew, ou': ['who', 'loon', 'dew', 'blue', 'flute', 'shoe', 'through', 'fruit', 'manoeuvre', 'group'],
-            'oi, oy, uoy': ['join', 'boy', 'buoy', 'coin', 'toy'],
-            'ow, ou, ough': ['cow', 'out', 'mouse', 'house', 'now', 'shout', 'bough'],
-            'a, er, i, ar, our, ur': ['about', 'ladder', 'pencil', 'dollar', 'honour', 'augur'],
-            'air, are, ear, ere, eir, ayer': ['chair', 'dare', 'pear', 'where', 'their', 'prayer'],
-            'a': ['arm', 'car'],
-            'ir, er, ur, ear, or, our, yr': ['bird', 'term', 'burn', 'pearl', 'word', 'journey', 'myrtle', 'first', 'fern', 'heard', 'work', 'dollar'],
-            'aw, a, or, oor, ore, oar, our, augh, ar, ough, au': ['paw', 'ball', 'fork', 'poor', 'fore', 'board', 'four', 'war'],
-            'ear, eer, ere, ier': ['ear', 'steer', 'here', 'tier', 'mirror', 'cheer'],
-            'ure, our': ['cure', 'tourist']
+            'th (θ)': {
+                'thought':'She ran after him without a second thought.', 
+                'thumb': 'My middle finger is bigger than my thumb.', 
+                'thin': `I can't believe how thin I've become.`, 
+                'thing': `The thing is we don't know how long it was like that.`
+            },
+            'th (ð)': {
+                'this': `This or that. What's the difference?`, 
+                'feather': `It's as light as a feather.`, 
+                'then': `Then, I ate the pie.`, 
+                'leather': `His pants were made of leather.`
+            },
+            'ng, n, ngue': {
+                'ring': `Have you ever watched The Ring?`, 
+                'pink': `I always like to drink pink lemonade.`, 
+                'tongue': `Don't stick your tongue out at me!`, 
+                'sing': 'They sing loudly all the time.', 
+                'monkey': 'When I was young, we had a monkey.', 
+                'sink': 'The sink was never the same.'
+            },
+            'y, i, j': {
+                'you': `I didn't know you were here!`, 
+                'onion': "We made a lot of onion soup.", 
+                'hallelujah': `At church, we usually say hallelujah.`, 
+                'yes': 'There was no way I was going to say yes.'
+            },
+            'a, ai, au': {
+                'hat': `That's a really nice hat!`, 
+                'laugh': `I've never heard her laugh so much before.`, 
+                'cat': `The cat really was testing my patience.`, 
+                'plaid': `It's a plaid banquet. Please wear plaid.`
+            },
+            'a, ai, eigh, aigh, ay, er, et, ei, au, a_e, ea, ey': {
+                'bay': `Down by the way, there is a nice restaurant.`, 
+                'maid': `We are looking for a new maid.`, 
+                'weigh': `I don't ever want to know how much I weigh.`, 
+                'straight': `Just tell it to me straight, Karen.`, 
+                'pay': `We will pay separately, please.`, 
+                'foyer': 'Please follow me into the foyer.', 
+                'filet': `We've got a nice salmon filet to cook tonight.`, 
+                'eight': `Eight men walked out of the room, so we knew what had happened.`, 
+                'gauge': 'The guage readign was in the red.', 
+                'mate': 'Tommy has been my mate since 3rd grade.', 
+                'break': `Give yourself more time to a break.`, 
+                'they': 'They stood for everything that we disliked, but we were friends.', 
+                'bacon': `Eggs, bacon, and toast is a great breakfast.`, 
+                'late': 'It was getting late, so we decided to go home.', 
+                'day': `The day was almost over, but we still had so much to do.`, 
+                'train': `I will take the train first thing in the morning.`, 
+                'vein': `Her vein was bulging from all of the exercise.`
+            },
+            'e, ea, u, ie, ai, a, eo, ei, ae': {
+                'end': `This is the end. My only friend the end.`, 
+                'bread': `My brother and I always made bread on Sunday.`, 
+                'bury': 'Learn to bury the past and you will live a happier life.', 
+                'friend': 'My friend always says that place is haunted.', 
+                'said': `I'm sick of this he said she said.`, 
+                'many': `There were so many delicious cakes at the party.`, 
+                'leopard': `What do you call a leopard baby?`, 
+                'heifer': `A heifer doesn't make for good meat.`, 
+                'aesthetic': `I don't really understand the aesthetic vision of this artwork.`, 
+                'bed': `We bought a new bed because the last one burned up.`
+            },
+            'e, ee, ea, y, ey, oe, ie, i, ei, eo, ay': {
+                'me': 'She took one look at me and laughed.', 
+                'these': 'These are a few of my favorite things.', 
+                'beat': 'We worked so hard we are sure to beat them.', 
+                'feet': 'Look at those tiny feet!', 
+                'key': 'The key to happiness is to never be sad.', 
+                'chief': 'My mom is the chief firefighter in this area.', 
+                'baby': 'We are expecting a baby to arrive by next Sunday.', 
+                'be': 'Could it be that you forgot your wallet at home?', 
+                'meat': 'Bill never eats meat on the weekend.', 
+                'lady': `She was a lady that couldn't be beat on the court.`, 
+                'phoenix': `We'll rise from the ashes like a phoenix.`, 
+                'grief': 'Her heart was full of grief after spilling the milk.', 
+                'ski': `I lived in Canada, but I never learned to ski.`, 
+                'deceive': 'Where did you learn how to deceive so well?', 
+                'people': 'Those people just want to have fun.'
+            },
+            'i, e, o, u, ui, y, ie': {
+                'it': `It just wasn't my day.`, 
+                'England': 'The last time England won the World Cup, some people in England were happy.', 
+                'women': 'Women tend to like nice people.', 
+                'busy': `I've just been so busy lately.`, 
+                'guild': 'Are you going to join my World of Warcraft guild?', 
+                'gym': 'I go to the gym three or four times a week.', 
+                'sieve': 'Your network of spies is as impenetrable as a sieve.', 
+                'if': 'If he wins, then call me General Johnson.'
+            },
+            'i, y, igh, ie, uy, ye, ai, is, eigh, i_e': {
+                'find': `We have yet to find the right candidate.`, 
+                'ride': 'I learned to ride horses years ago.', 
+                'light': 'I am going to light up the Christmas parade.', 
+                'fly': 'The fly was just not going to die.', 
+                'pie': 'I love to eat pumpkin pie on Thanksgiving.', 
+                'spider': 'The itsy bitsy spider went up the water spout.', 
+                'sky': 'The sky was very blue that day.', 
+                'night': 'We all met up at the bridge at night and sang songs.', 
+                'guy': 'We turned to look at the guy that had been sitting behind us.', 
+                'stye': 'Jason, clean your pig stye! It looks like a room in here.', 
+                'aisle': `I've always dreamed of my father walking me down the aisle.`, 
+                'island': 'It was a deserted islands full of sweets.', 
+                'height': `My height just hasn't been the same since that weed whacker rampage.`, 
+                'kite': 'We flew a kite until the sun went down.'
+            },
+            'a, ho, au, aw, ough': {
+                'swan': `We swan dove into the sea and hoped that the treasure wasn't lost forever.`, 
+                'honest': 'To be honest, I am running out of ideas for sentences.', 
+                'maul': 'A maul is a big wooden hammer for driving wedges or looking cool.', 
+                'slaw': `I don't know any type of slaw other than cole.`, 
+                'fought': `They fought every day, but deep down they really didn't like each other.`, 
+                'hot': `It just wasn't hot enough for most people to wear a tanktop, but Brad didn't care.`, 
+                'want': 'To find peace, we must learn to not want things.', 
+                'haul': `Yeehaw! What a haul we got here, fellas.`, 
+                'draw': 'When I say draw, you can start drawing a picture of a horse.', 
+                'bought': 'That car is bought and paid for.'
+            },
+            'o, oa, o_e, oe, ow, ough, eau, oo, ew': {
+                'open': `It was an open-carry state, so we openly carried our disdain for the state.`, 
+                'moat': 'John the knight fell to a watery end in a tiny moat.', 
+                'bone': 'The dog loved the bone more than Karen would ever know.', 
+                'toe': 'His toe has been smashed on a number of occasions, but this time was different.', 
+                'sow': 'With all of his experience in bureacracy, John had learned how to sow displeasure amongst the masses.', 
+                'dough': 'A bag bagel starts with an even worse dough.', 
+                'beau': 'How do I use beau in a sentence?', 
+                'brooch': 'The red brooch went so well with her pink dress.', 
+                'sew': 'James had learned to sew from his grandmother.', 
+                'no': 'We say no to all of the good ideas.', 
+                'note': `She left me a note, but I couldn't read it.`, 
+                'boat': `The boat sailed for open waters.`, 
+                'soul': 'When we die, our souls float up to a big party in the sky.', 
+                'row': 'We row the canoe like this and we capsize it like this.'
+            },
+            'o, oo, u, ou': {
+                'wolf': 'We heard the howl of a wolf and knew our time was up.', 
+                'look': `Look! It's the great pumpkin!`, 
+                'bush': `She always thought there was something funny about the rhododendron bush.`, 
+                'would': `I would if I could, but I can't.`
+            },
+            'u, o, oo, ou': {
+                'lug': 'They lug their luggage wherever they go.', 
+                'monkey': `That monkey just won't sit still!`, 
+                'blood': `He was out for blood and chocolate.`, 
+                'double': 'I am dying for a double cheeseburger.'
+            },
+            'o, oo, ew, ue, u_e, oe, ough, ui, oew, ou': {
+                'who': 'Who is that boy over there?', 
+                'loon': 'That girl was a such a loon!', 
+                'dew': `The morning dew had given way to afternoon heavy metal.`, 
+                'blue': 'The sky was blue that day.', 
+                'flute': `A trusty flute can beat any weapon of war.`, 
+                'shoe': `Was he a shoe in or a shoe out?`, 
+                'through': `She was through with letting people believe that she liked aroma therapy.`, 
+                'fruit': `The forbidden fruit was forbidden, but it tasted really good.`, 
+                'manoeuvre': `The battle manoeuvre was the worst she had seen in years, but it did the trick.`, 
+                'group': `The group of ducks simply wasn't ready yet for advanced trigonometry.`
+            },
+            'oi, oy, uoy': {
+                'join': 'Be a team player and join the band of neo-anarchists!', 
+                'boy': 'He was only a boy, but he knew how to solve the global climate change.', 
+                'buoy': `The buoy bobbed in the sea.`, 
+                'coin': `She tossed the bartender a coin and walked through the door.`, 
+                'toy': `The baby had grown completely attached to the mangled toy.`
+            },
+            'ow, ou, ough': {
+                'cow': `Calling someone a cow isn't very nice, unless they are a cow.`, 
+                'out': `The girl had finally come out.`, 
+                'mouse': `A mouse that likes rice is no mouse of mine.`, 
+                'house': `They bought the house at bargain price, but they weren't prepared for the ghost in the attic.`, 
+                'now': `'Be here now,' the old monk used to say to me.`, 
+                'shout': `If you ever need anything, just give us a shout.`, 
+                'bough': `It was a moss-covered bough and nothing more.`
+            },
+            'a, er, i, ar, our, ur': {
+                'about': 'On Sunday, we talked about the renewal plan.', 
+                'ladder': `I took the ladder wrung by wrung until there was no ladder left.`, 
+                'pencil': `This fancy new pencil really is new and fancy.`, 
+                'dollar': `The gasoline was a dollar a pint, but it sure was worth it.`, 
+                'honour': `It's an honour to serve you, my queen.`, 
+                'augur': `Please don't make me use augur in a sentence.`
+            },
+            'air, are, ear, ere, eir, ayer': {
+                'chair': `The chair in the main hall hadn't been used for years.`, 
+                'dare': `I dare you to learn English.`, 
+                'pear': `The big, juicy pear really hit the spot.`, 
+                'where': `Where was that bear?`, 
+                'their': `Some people prefer 'their' to 'his' or 'her'.`, 
+                'prayer': `We are half way there. Wo oh. Livin' on a prayer.`
+            },
+            'a': {
+                'arm': `My left arm is much longer than my right arm.`, 
+                'car': `My car was donated to me by the Pope.`
+            },
+            'ir, er, ur, ear, or, our, yr': {
+                'bird': `The bird couldn't have been happier.`, 
+                'term': `A president can only serve for one term in our club.`, 
+                'burn': `Did you burn the paper after reading it?`, 
+                'pearl': `The ring didn't come with a real pearl.`, 
+                'word': `She kept her word and we found ourselves fabulously rich.`, 
+                'journey': `And that was how my long journey began.`, 
+                'myrtle': `I guess a myrtle is a type of flower.`,
+                'first': `She was the first president in many years to have three eyes.`, 
+                'fern': `A green fern looks great wrapped around your crown.`, 
+                'heard': `Have you heard about the new system of surveillance?`, 
+                'work': `I just didn't want to go to work that day.`, 
+            },
+            'aw, a, or, oor, ore, oar, our, augh, ar, ough, au': {
+                'paw': `She always slept with her head on her paw.`, 
+                'ball': `The ball never stopped.`, 
+                'fork': `A fork with a spoon should be called a foon.`, 
+                'poor': `The poor dragon had no fire left.`, 
+                'fore': `The concept of the fore and aft were completely lost on me.`, 
+                'board': `On board the ship, the three captains constantly bickered.`, 
+                'four': `The four dogs played outside all day.`, 
+                'war': `She had eaten her cake. This meant war.`
+            },
+            'ear, eer, ere, ier': {
+                'ear': `Her ear was tiny, but it could hear normally.`, 
+                'steer': `Do you even know how to steer this thing?`, 
+                'here': `I took the bus here.`, 
+                'tier': `Jigglypuff was a top-tier character and everyone knew it.`, 
+                'mirror': `A mirror doesn't lie.`, 
+                'cheer': `We cheer for the return of great big burgers!`
+            },
+            'ure, our': {
+                'cure': `They were furiously working to find a cure for chauvanism.`, 
+                'tourist': `The tourist visited every landmark known to man and then some.`
+            },
+            'alphabet': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         }
     }
 }
