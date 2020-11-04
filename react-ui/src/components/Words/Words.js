@@ -16,8 +16,8 @@ const StyledDiv = styled.div`
 `
 
 const Words = props => {
-    return <div key={'words-box'} className="words-box">
-        {props.words ? props.words.map((word, index) => <StyledDiv key={index} leng={word.length}>
+    return <div key={`words-box`} className="words-box">
+        {props.words ? props.words.map((word, index) => <StyledDiv key={`${word}-${index}`} leng={word.length}>
             <button className="word" onClick={props.clickable ? () => props.clickWordHandler(word, index) : null}>{word}</button>
             </StyledDiv>
             ) : null}
