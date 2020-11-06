@@ -29,13 +29,15 @@ class Stopwatch extends Component {
 
     componentDidUpdate(prevProps, prevState) {
 
+      if (this.state.timer === 0) {
+        console.log('timer reached zero, you lose');
+        this.props.gameOver();
+        return;
+      } 
+
       if (prevProps.timerState === this.props.timerState) {
         return;
       }
-
-      if (this.state.timer === 0 && this.props.playing) {
-        this.props.gameOver();
-      } 
       
       if (this.props.timerState === 'stop') {
         console.log('timer stop called');

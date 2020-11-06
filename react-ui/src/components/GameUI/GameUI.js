@@ -408,6 +408,7 @@ class GameUI extends Component {
       playing: false,
       modal: 4,
       clickable: false,
+      timer: 'stop'
     });
 
     this.displayResults();
