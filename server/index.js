@@ -120,6 +120,14 @@ app.post("/texttospeech", async function(req, res) {
   }  
 });
 
+app.post("/delete", (req, res) => {
+  id = req.body.id;
+
+  fs.unlink(__dirname + `/public/assets/` + `${id}.mp3`, err => {
+    console.log(err)
+  })
+})
+
 app.get('*', function(request, response) {
   // const address = request._remoteAddress;
   // const id = uuidv4();

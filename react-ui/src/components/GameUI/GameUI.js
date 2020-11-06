@@ -138,6 +138,10 @@ class GameUI extends Component {
 
   }
 
+  componentWillUnmount = () => {
+    axios.post('/delete', {id: this.state.id});
+  }
+
   async textToSpeechHandler() {
 
     this.setState({
