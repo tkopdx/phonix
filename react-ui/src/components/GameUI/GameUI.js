@@ -11,6 +11,7 @@ import buzz from '../../assets/audio/buzz.mp3';
 import stageUp from '../../assets/audio/stage-up.mp3';
 import gameOver from '../../assets/audio/game-over.mp3';
 import uniqid from 'uniqid';
+import { v4 as uuidv4 } from 'uuid';
 import './GameUI.css';
 
 //axios
@@ -43,7 +44,8 @@ class GameUI extends Component {
       clickable: true,
       results: [],
       loading: true,
-      timer: 'stop'
+      timer: 'stop',
+      id: null
     }
   }
 
@@ -87,6 +89,10 @@ class GameUI extends Component {
     //   console.log('mounted and called for speech');
     //   this.textToSpeechHandler();
     // }
+
+    const id = uuidv4();
+
+    this.setState({id: id});
   }
 
   componentDidUpdate() {
@@ -160,17 +166,29 @@ class GameUI extends Component {
     
 
     try {
-      const axiosRes = await axios.post('/texttospeech', {text: `${text}`});
+      const axiosRes = await axios.post('/texttospeech', {text: `${text}`, id: this.state.id});
       // console.log(axiosRes);
 
       if (axiosRes.data.result === 'success') {
         // console.log(axiosRes.data.result);
+
+        const URL = '/assets/' + this.state.id
         
         this.setState({
           answerAudio: true,
-          audioURL: axiosRes.data.audioURL,
+          audioURL: URL,
           requestingSpeech: false,
         });
+
+        // const audio = await axios.get('/assets/' + this.state.id, {
+        //   // params: {
+        //   //   id: this.state.id
+        //   // }
+        // });
+
+        console.log('got audio!');
+
+        // document.getElementById('audio-clip').src = audio;
 
       } else {
         this.setState({
@@ -179,7 +197,7 @@ class GameUI extends Component {
         // console.log(axiosRes);
       }
     } catch (err) {
-      // console.log(err);
+      console.log(err);
       this.setState({
         modal: 5,
       });

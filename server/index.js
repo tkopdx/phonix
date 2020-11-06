@@ -43,32 +43,42 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get("/output.mp3", (req, res) => {
+app.get("/assets/:id", (req, res) => {
 
   //TODO: fix heroku path
 
-    const file = fs.createReadStream(path.resolve(__dirname, "./public/assets/output.mp3"));
+  const id = req.params.id;
 
-    file.on('open', function() {
-      res.setHeader("content-type", "audio/mpeg");
-      file.pipe(res);
-    });
+  console.log(id);
 
-    file.on('close', function() {
-      file.destroy();
-    });
+  const file = fs.createReadStream(path.resolve(__dirname, `./public/assets/${id}.mp3`));
 
-    file.on('error', function(err) {
-      console.log('error', err);
-    });
+  // const file = fs.readFile(id);
+
+  // res.send(file);
+
+  file.on('open', function() {
+    res.setHeader("content-type", "audio/mpeg");
+    file.pipe(res);
+  });
+
+  file.on('close', function() {
+    file.destroy();
+  });
+
+  file.on('error', function(err) {
+    console.log('error', err);
+  });
 
 });
+
 app.post("/texttospeech", async function(req, res) {
 
-  // console.log(req);
-  console.log('body: ', req.body);
-
+  // console.log('body: ', req.body);
   console.log('text: ', req.body.text);
+
+  const id = req.body.id;
+
   // The text to synthesize
   const text = req.body.text;
 
@@ -87,8 +97,8 @@ app.post("/texttospeech", async function(req, res) {
 
     // Write the binary audio content to a local file
     const writeFile = util.promisify(fs.writeFile);
-    const filename = 'output.mp3'
-    const outputFile = __dirname + '/public/assets/' + filename;
+    const filename = `${id}.mp3`
+    const outputFile = __dirname + `/public/assets/` + filename;
     await writeFile(outputFile, response.audioContent, 'binary');
     console.log('file written to: ', outputFile);
 
@@ -102,7 +112,7 @@ app.post("/texttospeech", async function(req, res) {
 
     res.send({
       result: 'success',
-      audioURL: URL
+      // audioURL: URL
     });
   } catch (err) {
     res.send({error: `${err}`});
@@ -111,6 +121,18 @@ app.post("/texttospeech", async function(req, res) {
 });
 
 app.get('*', function(request, response) {
+  // const address = request._remoteAddress;
+  // const id = uuidv4();
+
+  // const user = {
+  //   address: address,
+  //   id: id
+  // }
+
+  // console.log(user);
+
+  // connections.push(user);
+
   response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
 });
 
