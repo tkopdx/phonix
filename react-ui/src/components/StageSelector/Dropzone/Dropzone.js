@@ -8,7 +8,7 @@ const Dropzone = props => {
   const acceptableSymbols = [];
 
   props.library.symbolsList.map(symbol => {
-    acceptableSymbols.push(symbol.symbol);
+    return acceptableSymbols.push(symbol.symbol);
   })
   
     const [{ isOver }, drop] = useDrop({

@@ -219,13 +219,12 @@ class GameUI extends Component {
     }
 
     //push result to timeline
-    let stage, round, text, clickedWord, res, phonic, answer;
+    let stage, round, text, clickedWord, res, answer;
 
     clickedWord = word;
     stage = this.state.stage;
     round = this.state.round;
     answer = this.state.answer;
-    phonic = this.state.phonic;
 
     if (this.state.results) {
       res = [...this.state.results];
@@ -341,7 +340,7 @@ class GameUI extends Component {
   setStage = () => {
 
     // console.log('setting stage start');
-    let stage, newPhonic, prevPhonic, num, leng, modal, phonemes, isSentence;
+    let stage, modal, isSentence;
 
     // console.log(this.state.stage)
 
@@ -423,7 +422,7 @@ class GameUI extends Component {
       });
     };
     
-    let words, curWordsArray, nums, num, newWords, randAnsIndex, answer;
+    let words, nums, num, newWords, randAnsIndex, answer;
 
     words = this.state.stagesObj[this.state.stage];
 
@@ -442,7 +441,8 @@ class GameUI extends Component {
       randAnsIndex = Math.floor(Math.random() * words.length);
 
       answer = words[randAnsIndex];
-    } while (this.state.answer ? answer.word === this.state.answer.word : false)
+      
+    } while (this.state.words ? this.duplicate(answer) : false)
 
     if (this.state.isSentenceStage) {
       const num = Math.floor(Math.random() * answer.sentences.length);
@@ -451,14 +451,53 @@ class GameUI extends Component {
 
     newWords.push(answer);
 
+    const relatedWords = [];
+    // arr = [l, r, u]
+    const pronunciationArr = answer.pronunciation.split('');
+    //word needs to include all minus one of the items in arr
+    //so, l and r or l and u or r and u
+
+    console.log(pronunciationArr);
+
+    //pull all related words from library and test them based on pronunciation
+    //words with similar pronunciation are pushed to related words
+    library.wordLibrary.map(word=> {
+      let minContain = pronunciationArr.length > 2 ? pronunciationArr.length - 1 : pronunciationArr.length;
+
+      let similarLength = Math.abs(word.pronunciation.length - answer.pronunciation.length) <= 2 ? true : false;
+      
+      let contains = 0;
+
+      let i = 0;
+
+      do {
+        if (word.pronunciation.includes(pronunciationArr[i])) {
+          contains++
+        }
+
+        i++
+      } while (i < pronunciationArr.length)
+
+      return contains >= minContain && similarLength && word.pronunciation !== answer.pronunciation ? relatedWords.push(word) : null;
+    })
+
+    console.log(`found these words related to ${answer.word}:`, relatedWords);
+
+    const wordsArr = relatedWords.length < 1 ? words : relatedWords;
+
     do {
+
+      console.log('entered random number loop')
+
       let i;
       
       i = 0;
 
       do {
-        num = Math.floor(Math.random() * words.length);
-      } while (nums.length > 0 ? num === nums[i] : null || (this.state.isSentenceStage ? this.checkIfRandomWordIsNotInAnswer(num, answer) : null) || (this.state.answer && words[num].word === this.state.answer.word) || words[num].word === answer.word)
+        console.log('entered inner random number loop')
+
+        num = Math.floor(Math.random() * wordsArr.length);
+      } while (nums.length > 0 ? num === nums[i] : null || (this.state.isSentenceStage ? this.checkIfRandomWordIsNotInAnswer(wordsArr[num], answer) : null) || (this.state.answer && wordsArr[num].word === this.state.answer.word) || wordsArr[num].word === answer.word)
 
       nums.push(num);
 
@@ -466,7 +505,7 @@ class GameUI extends Component {
     } while (nums.length < this.state.numOfWordsPerRound -1);
 
     nums.map(num => {
-      return newWords.push(words[num]);
+      return newWords.push(wordsArr[num]);
     })
 
     console.log(newWords);
@@ -487,12 +526,18 @@ class GameUI extends Component {
 
   }
 
-  checkIfRandomWordIsNotInAnswer = (num, answer) => {
-    const words = this.state.stagesObj[this.state.stage];
+  duplicate = answer => {
+    this.state.words.every(word => {
+      return word.word === answer.word
+    });
+  }
 
-    console.log(answer.sentenceSentToAPI, words[num].word, answer.sentenceSentToAPI.includes(words[num].word) ? true : false)
+  checkIfRandomWordIsNotInAnswer = (word, answer) => {
+    // const words = this.state.stagesObj[this.state.stage];
+
+    console.log(answer.sentenceSentToAPI, word, answer.sentenceSentToAPI.includes(word.word) ? true : false)
     
-    return answer.sentenceSentToAPI.includes(words[num].word) ? true : false;
+    return answer.sentenceSentToAPI.includes(word.word) ? true : false;
   }
 
   shuffle = originalCardArray => {

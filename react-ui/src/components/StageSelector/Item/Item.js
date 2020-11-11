@@ -16,7 +16,7 @@ const Item = props => {
 
   do {
     library.wordLibrary.find(word => {
-      console.log(word.word);
+      // console.log(word.word);
 
       return word.pronunciation.includes(props.phonic) && !exampleWords.includes(word.word) ? exampleWords.push(word.word) : null;
     })
@@ -24,7 +24,7 @@ const Item = props => {
     i++
   } while (i < 5)
   
-  console.log(exampleWords);
+  // console.log(exampleWords);
 
   const exampleWordsList = (
     <div className="example-words-box">

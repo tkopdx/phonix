@@ -109,7 +109,7 @@ const library = {
             combinations: 'e, ea, u, ie, ai, a, eo, ei, ae'
         },
         {
-            symbol: 'i:',
+            symbol: 'i',
             combinations: 'e, ee, ea, y, ey, oe, ie, i, ei, eo, ay'
         },
         {
@@ -120,10 +120,10 @@ const library = {
             symbol:'aɪ',
             combinations: 'i, y, igh, ie, uy, ye, ai, is, eigh, i_e'
         },
-        {
-            symbol: 'ɒ',
-            combinations: 'a, ho, au, aw, ough'
-        },
+        // {
+        //     symbol: 'ɒ',
+        //     combinations: 'a, ho, au, aw, ough'
+        // },
         {
             symbol: 'oʊ',
             combinations: 'o, oa, o_e, oe, ow, ough, eau, oo, ew'
@@ -137,7 +137,7 @@ const library = {
             combinations: 'u, o, oo, ou'
         },
         {
-            symbol:'u:',
+            symbol:'u',
             combinations: 'o, oo, ew, ue, u_e, oe, ough, ui, oew, ou'
         },
         {
@@ -153,29 +153,29 @@ const library = {
             combinations:'a, er, i, ar, our, ur',
         },
         {
-            symbol: 'eəʳ',
-            combinations: 'air, are, ear, ere, eir, ayer',
+            symbol: 'ɛ',
+            combinations: 'ai, a, ea, e, ei, ay',
         },
         {
-            symbol: 'ɑ:',
+            symbol: 'ɑ',
             combinations: 'a',
         },
         {
-            symbol: 'ɜ:ʳ',
-            combinations: 'ir, er, ur, ear, or, our, yr',
+            symbol: 'ɜ',
+            combinations: 'i, e, u, ea, o, ou, y',
         },
         {
             symbol: 'ɔ',
             combinations: 'aw, a, or, oor, ore, oar, our, augh, ar, ough, au',
         },
-        {
-            symbol: 'ɪəʳ',
-            combinations: 'ear, eer, ere, ier',
-        },
-        {
-            symbol: 'ʊəʳ',
-            combinations: 'ure, our',
-        },
+        // {
+        //     symbol: 'ɪər',
+        //     combinations: 'ear, eer, ere, ier',
+        // },
+        // {
+        //     symbol: 'ʊər',
+        //     combinations: 'ure, our',
+        // },
         {
             symbol: 'abc',
             combinations: 'lower-case alphabet'
@@ -197,8 +197,57 @@ const library = {
             ]
         },
         {
+            word: 'trouble',
+            pronunciation: `ˈtrʌbəl`,
+            sentences: [
+                `You keep that up and you're gonna find yourself in big trouble.`
+            ]
+        },
+        {
+            word: 'double',
+            pronunciation: 'ˈdʌbəl',
+            sentences: [
+                `Whatever she pays you, I will double it.`
+            ]
+        },
+        {
+            word: 'light',
+            pronunciation: 'laɪt',
+            sentences: [
+                `Your bag is so light today.`
+            ]
+        },
+        {
+            word: 'right',
+            pronunciation: `raɪt`,
+            sentences: [
+                `In the USA, we drive on the right.`
+            ]
+        },
+        {
+            word: 'lime',
+            pronunciation: 'laɪm',
+            sentences: [
+                `My dad makes a great key lime pie.`
+            ]
+        },
+        {
+            word: 'flight',
+            pronunciation: `flaɪt`,
+            sentences: [
+                `My next trip starts with a really long flight.`
+            ]
+        },
+        {
+            word: 'fright',
+            pronunciation: `fraɪt`,
+            sentences: [
+                `Oh my god, you gave me such a fright.`
+            ]
+        },
+        {
             word: 'big',
-            pronunciation: 'big',
+            pronunciation: 'bɪg',
             sentences: [
                 'Your dog is really big.',
             ]
@@ -226,7 +275,7 @@ const library = {
         },
         {
             word: 'milled',
-            pronunciation: 'mild',
+            pronunciation: 'bɪg',
             sentences: [
                 'I like milled coffee.',
             ]
@@ -309,10 +358,45 @@ const library = {
             ]
         },
         {
+            word: 'host',
+            pronunciation: 'hoʊst',
+            sentences: [
+                'This human will make a fine host!'
+            ]
+        },
+        {
+            word: 'boast',
+            pronunciation: 'boʊst',
+            sentences: [
+                `Please allow me to boast after I'm done with this paper.`
+            ]
+        },
+        {
+            word: 'most',
+            pronunciation: 'moʊst',
+            sentences: [
+                `This painting is the most expensive of the lot.`
+            ]
+        },
+        {
             word: 'guest',
             pronunciation: 'gɛst',
             sentences: [
                 `She's a house guest, not a prisoner.`
+            ]
+        },
+        {
+            word: 'jest',
+            pronunciation: 'ʤɛst',
+            sentences: [
+                `But honestly friends, I only jest.`
+            ]
+        },
+        {
+            word: 'nest',
+            pronunciation: 'nɛst',
+            sentences: [
+                `A bird always returns to its nest.`
             ]
         },
         {
@@ -411,6 +495,20 @@ const library = {
             pronunciation: 'bɑrʤ',
             sentences: [
                 'We rode a barge out to the island.', 
+            ]
+        },
+        {
+            word: 'large',
+            pronunciation: 'lɑrʤ',
+            sentences: [
+                `I'll have a hamburger and a large coke, please.`
+            ]
+        },
+        {
+            word: 'charge',
+            pronunciation: 'ʧɑrʤ',
+            sentences: [
+                `There will be an extra charge if you're late.`
             ]
         },
         {
@@ -1450,6 +1548,20 @@ const library = {
             ]
         },
         {
+            word: 'fake',
+            pronunciation: 'feɪk',
+            sentences: [
+                `That's when we found it the Ming vase was a fake.`
+            ]
+        },
+        {
+            word: 'rake',
+            pronunciation: 'reɪk',
+            sentences: [
+                `Hey, can you hand me that rake? The leaves are piling up.`
+            ]
+        },
+        {
             word: 'they',
             pronunciation: 'ðeɪ',
             sentences: [
@@ -1885,7 +1997,7 @@ const library = {
         },
         {
             word: 'car',
-            pronunciation: 'bɑt',
+            pronunciation: 'cɑr',
             sentences: [
                 'That car is bought and paid for.'
             ]
@@ -1944,6 +2056,20 @@ const library = {
             pronunciation: 'broʊʧ',
             sentences: [
                 'The red brooch went so well with her pink dress.',
+            ]
+        },
+        {
+            word: 'coach',
+            pronunciation: 'koʊʧ',
+            sentences: [
+                'My soccer coach is really the nicest lady.'
+            ]
+        },
+        {
+            word: 'poach',
+            pronunciation: 'poʊʧ',
+            sentences: [
+                'Today in class, we learned how to poach an egg.'
             ]
         },
         {
@@ -2038,6 +2164,20 @@ const library = {
             ]
         },
         {
+            word: 'mud',
+            pronunciation: 'mʌd',
+            sentences: [
+                `The thick, sticky mud was the last straw.`
+            ]
+        },
+        {
+            word: 'dud',
+            pronunciation: 'dʌd',
+            sentences: [
+                `Let's hope it was a dud.`
+            ]
+        },
+        {
             word: 'double',
             pronunciation: 'ˈdʌbəl',
             sentences: [
@@ -2112,6 +2252,27 @@ const library = {
             pronunciation: 'grup',
             sentences: [
                 `The group of ducks simply wasn't ready yet for advanced trigonometry.`
+            ]
+        },
+        {
+            word: 'swoop',
+            pronunciation: 'swup',
+            sentences: [
+                `If all else fails, I'll swoop in and pull you out.`
+            ]
+        },
+        {
+            word: 'loop',
+            pronunciation: 'lup',
+            sentences: [
+                `Boy, that movie really sent me for a loop.`
+            ]
+        },
+        {
+            word: 'hoop',
+            pronunciation: `hup`,
+            sentences: [
+                `We just bought a new basketball hoop at the store.`
             ]
         },
         {
@@ -2275,6 +2436,237 @@ const library = {
                 `Some people prefer 'their' to 'his' or 'her'.`,
             ]
         },
+        {
+            word: 'prayer',
+            pronunciation: 'prɛr',
+            sentences: [
+                `We are half way there. Wo oh. Livin' on a prayer.`
+            ]
+        },
+        {
+            word: 'arm',
+            pronunciation: 'ɑrm',
+            sentences: [
+                `My left arm is much longer than my right arm.`,
+            ]
+        },
+        {
+            word: 'car',
+            pronunciation: 'kɑr',
+            sentences: [
+                `My car was donated to me by the Pope.`
+            ]
+        },
+        {
+            word: 'bird',
+            pronunciation: 'bɜrd',
+            sentences: [
+                `The bird couldn't have been happier.`,
+            ]
+        },
+        {
+            word: 'term',
+            pronunciation: 'tɜrm',
+            sentences: [
+                `A president can only serve for one term in our club.`,
+            ]
+        },
+        {
+            word: 'burn',
+            pronunciation: 'bɜrn',
+            sentences: [
+                `Did you burn the paper after reading it?`,
+            ]
+        },
+        {
+            word: 'pearl',
+            pronunciation: 'pɜrl',
+            sentences: [
+                `The ring didn't come with a real pearl.`,
+            ]
+        },
+        {
+            word: 'word',
+            pronunciation: 'wɜrd',
+            sentences: [
+                `She kept her word and we found ourselves fabulously rich.`,
+            ]
+        },
+        {
+            word: 'journey',
+            pronunciation: 'ˈʤɜrni',
+            sentences: [
+                `And that was how my long journey began.`,
+            ]
+        },
+        {
+            word: 'myrtle',
+            pronunciation: 'ˈmɜrtəl',
+            sentences: [
+                `I guess a myrtle is a type of flower.`,
+            ]
+        },
+        {
+            word: 'first',
+            pronunciation: 'fɜrst',
+            sentences: [
+                `She was the first president in many years to have three eyes.`,
+            ]
+        },
+        {
+            word: 'fern',
+            pronunciation: 'fɜrn',
+            sentences: [
+                `A green fern looks great wrapped around your crown.`,
+            ]
+        },
+        {
+            word: 'yearn',
+            pronunciation: 'jɜrn',
+            sentences: [
+                `I yearn to understand the ways of the Jedi masters.`
+            ]
+        },
+        {
+            word: 'heard',
+            pronunciation: 'hɜrd',
+            sentences: [
+                `Have you heard about the new system of surveillance?`,
+            ]
+        },
+        {
+            word: 'work',
+            pronunciation: 'wɜrk',
+            sentences: [
+                `I just didn't want to go to work that day.`,
+            ]
+        },
+        {
+            word: 'paw',
+            pronunciation: 'pɔ',
+            sentences: [
+                `She always slept with her head on her paw.`,
+            ]
+        },
+        {
+            word: 'ball',
+            pronunciation: 'bɔl',
+            sentences: [
+                `The ball never stopped.`,
+            ]
+        },
+        {
+            word: 'fall',
+            pronunciation: 'fɔl',
+            sentences: [
+                `I just love the fall colors here!`
+            ]
+        },
+        {
+            word: 'fork',
+            pronunciation: 'fɔrk',
+            sentences: [
+                `A fork with a spoon should be called a foon.`,
+            ]
+        },
+        {
+            word: 'poor',
+            pronunciation: 'pur',
+            sentences: [
+                `The poor dragon had no fire left.`
+            ]
+        },
+        {
+            word: 'pore',
+            pronunciation: 'pɔr',
+            sentences: [
+                `Just check out how inflamed this pore is.`
+            ]
+        },
+        {
+            word: 'fore',
+            pronunciation: 'fɔr',
+            sentences: [
+                `The concept of the fore and aft were completely lost on me.`,
+            ]
+        },
+        {
+            word: 'board',
+            pronunciation: 'bɔrd',
+            sentences: [
+                `On board the ship, the three captains constantly bickered.`,
+            ]
+        },
+        {
+            word: 'four',
+            pronunciation: 'fɔr',
+            sentences: [
+                `The four dogs played outside all day.`,
+            ]
+        },
+        {
+            word: 'war',
+            pronunciation: 'wɔr',
+            sentences: [
+                `She had eaten her cake. This meant war.`
+            ]
+        },
+        {
+            word: 'ear',
+            pronunciation: 'ir',
+            sentences: [
+                `Her ear was tiny, but it could hear normally.`,
+            ]
+        },
+        {
+            word: 'steer',
+            pronunciation: 'stɪr',
+            sentences: [
+                `Do you even know how to steer this thing?`,
+            ]
+        },
+        {
+            word: 'here',
+            pronunciation: 'hir',
+            sentences: [
+                `I took the bus here.`,
+            ]
+        },
+        {
+            word: 'tier',
+            pronunciation: 'tir',
+            sentences: [
+                `Jigglypuff was a top-tier character and everyone knew it.`,
+            ]
+        },
+        {
+            word: 'mirror',
+            pronunciation: 'ˈmɪrər',
+            sentences: [
+                `A mirror doesn't lie.`,
+            ]
+        },
+        {
+            word: 'cheer',
+            pronunciation: 'ʧɪr',
+            sentences: [
+                `We cheer for the return of great big burgers!`
+            ]
+        },
+        {
+            word: 'cure',
+            pronunciation: 'kjʊr',
+            sentences: [
+                `They were furiously working to find a cure for chauvanism.`,
+            ]
+        },
+        {
+            word: 'tourist',
+            pronunciation: 'ˈtʊrɪst',
+            sentences: [
+                `The tourist visited every landmark known to man and then some.`
+            ]
+        }
     ],
     // phonemesList: [
     //     'b, bb',
