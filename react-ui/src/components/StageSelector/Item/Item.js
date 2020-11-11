@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDrag } from 'react-dnd'
 import { Popover, OverlayTrigger } from 'react-bootstrap';
+import library from '../../../lib/library';
 
 import './Item.css';
 
@@ -10,7 +11,20 @@ const Item = props => {
 
   phonemes = props.phonemes;
 
-  exampleWords = props.exampleWords;
+  exampleWords = [];
+  let i = 0;
+
+  do {
+    library.wordLibrary.find(word => {
+      console.log(word.word);
+
+      return word.pronunciation.includes(props.phonic) && !exampleWords.includes(word.word) ? exampleWords.push(word.word) : null;
+    })
+
+    i++
+  } while (i < 5)
+  
+  console.log(exampleWords);
 
   const exampleWordsList = (
     <div className="example-words-box">

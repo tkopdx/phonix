@@ -25,15 +25,22 @@ class App extends Component {
                 {isSentenceStage: false},
                 {isSentenceStage: false},
                 {isSentenceStage: false},
+            ],
+            stagePhonics: [
+                [],
+                [],
+                [],
+                [],
+                []
             ]
         }
     }
 
 
     componentDidMount() {
-        if (this.state.library) {
-            this.setState({stagePhonics: this.state.library.gameLibrary.phonics});
-        }
+        // if (this.state.library) {
+        //     this.setState({stagePhonics: this.state.library.gameLibrary.phonics});
+        // }
     
         // if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         //     console.log('detected mobile, setting backend to touch');

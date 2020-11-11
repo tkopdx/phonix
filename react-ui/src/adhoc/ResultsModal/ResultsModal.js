@@ -14,7 +14,7 @@ const ResultsModal = props => {
                             : <div className="result-icon-i"><ion-icon className="xmark" name="close-outline"></ion-icon></div>}
                     </div>
                     <div className="result-answer">Answer: {result.answer}</div>
-                    <div className="result-clicked">You clicked: {result.clicked}</div>
+                    <div className="result-clicked">You clicked: {result.clicked.word}</div>
                 </div>)}
             </div>
         </div>

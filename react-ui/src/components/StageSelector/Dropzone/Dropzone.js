@@ -4,9 +4,15 @@ import { useDrop } from 'react-dnd'
 import './Dropzone.css';
 
 const Dropzone = props => {
+
+  const acceptableSymbols = [];
+
+  props.library.symbolsList.map(symbol => {
+    acceptableSymbols.push(symbol.symbol);
+  })
   
     const [{ isOver }, drop] = useDrop({
-        accept: props.library.symbolsList,
+        accept: acceptableSymbols,
         drop: item => props.handleDrop(item.type, props.stage),
         collect: monitor => ({
             isOver: !!monitor.isOver(),

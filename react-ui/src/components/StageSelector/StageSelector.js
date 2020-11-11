@@ -10,14 +10,12 @@ const StageSelector = props => {
         <div className="items-box-outer">
             <div className="items-box">
                 {props.library.symbolsList.map((phonic, index) => {
-                    let phonemes = props.library.phonemesList[index];
-                    let exampleWords = props.library.gameLibrary.wordLists[phonemes];
-                    
+                    let phonemes = phonic.combinations;
+
                     return <Item
-                        phonic={phonic}
+                        phonic={phonic.symbol}
                         key={index}
                         phonemes={phonemes}
-                        exampleWords={exampleWords}
                     />
                 })}
             </div>

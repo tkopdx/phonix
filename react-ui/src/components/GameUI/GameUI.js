@@ -13,6 +13,7 @@ import gameOver from '../../assets/audio/game-over.mp3';
 import uniqid from 'uniqid';
 import { v4 as uuidv4 } from 'uuid';
 import './GameUI.css';
+import library from '../../lib/library';
 
 //axios
 const axios = require('axios').default;
@@ -51,39 +52,7 @@ class GameUI extends Component {
 
   componentDidMount() {
 
-    let phonemesArr = [
-      [],
-      [],
-      [],
-      [],
-      [],
-    ];
-
-    this.props.stagePhonics.forEach((list, index) => {
-      //1:[a, b, c]
-      list.forEach(symbol => {
-        let ind, phonemes;
-        
-        //find the index for each symbol
-        ind = this.props.library.symbolsList.findIndex(sym => {
-          return symbol === sym;
-        });
-
-        // console.log('ind: ', ind);
-
-        //find the phoneme list for each symbol index
-        phonemes = this.props.library.phonemesList[ind];
-
-        // console.log('phonemes: ', phonemes);
-
-        //push phoneme list to proper stage
-        phonemesArr[index].push(phonemes);
-      })
-
-      // console.log('phonemesArr: ', phonemesArr);
-
-      this.setState({phonemesList: phonemesArr});
-    })
+    this.setupWords();
     
     // if (this.state.answer) {
     //   console.log('mounted and called for speech');
@@ -96,10 +65,10 @@ class GameUI extends Component {
   }
 
   componentDidUpdate() {
-    if (!this.state.phonic && !this.state.words && !this.state.answer && this.state.phonemesList) {
-      console.log('calling for first stage up!');
-      this.setStage();
-    }
+    // if (!this.state.phonic && !this.state.words && !this.state.answer && this.state.phonemesList) {
+    //   console.log('calling for first stage up!');
+    //   this.setStage();
+    // }
 
     if (this.state.modal && !this.state.showResults) {
       // console.log("cleaning modal");
@@ -142,6 +111,30 @@ class GameUI extends Component {
     axios.post('/delete', {id: this.state.id});
   }
 
+  setupWords = () => {
+    const stagesObj = {}
+
+    const lib = library.wordLibrary;
+    
+    this.props.stagePhonics.map((stage, index) => {
+      const stageNum = index + 1;
+      
+      stagesObj[stageNum] = [];
+      
+      return stage.map(symbol => {
+        return lib.map(word => {
+          return word.pronunciation.includes(symbol) ? stagesObj[stageNum].push(word) : null;
+        })
+      })
+    })
+
+    console.log(stagesObj)
+
+    this.setState({stagesObj: stagesObj});
+
+    this.setStage();
+  }
+
   async textToSpeechHandler() {
 
     this.setState({
@@ -149,10 +142,10 @@ class GameUI extends Component {
       loading: true
     })
 
-    let text, answer, phonic;
+    let text, answer;
 
     answer = this.state.answer;
-    phonic = this.state.phonic;
+    // phonic = this.state.phonic;
 
     // console.log('text to speech call');
 
@@ -162,10 +155,10 @@ class GameUI extends Component {
 
     this.setState({requestingSpeech: true});
 
-    if (this.state.isSentenceRound) {
-      text = this.props.library.gameLibrary.sentenceLists[phonic][answer];
+    if (this.state.isSentenceStage) {
+      text = answer.sentenceSentToAPI;
     } else {
-      text = answer;
+      text = answer.word;
     }
     
 
@@ -237,10 +230,10 @@ class GameUI extends Component {
     if (this.state.results) {
       res = [...this.state.results];
 
-      if (this.state.isSentenceRound) {
-        text = this.props.library.gameLibrary.sentenceLists[phonic][answer];
+      if (this.state.isSentenceStage) {
+        text = answer.sentenceSentToAPI;
       } else {
-        text = answer;
+        text = answer.word;
       }
 
       res.push({
@@ -365,27 +358,27 @@ class GameUI extends Component {
     stage = this.state.stage + 1;
 
     //set phoneme list
-    phonemes = this.state.phonemesList[stage - 1];
+    // phonemes = this.state.phonemesList[stage - 1];
 
     //get random new phonic
-    leng = phonemes.length;
+    // leng = phonemes.length;
 
-    if (this.state.phonic) {
-      prevPhonic = this.state.phonic;
-    } else {
-      prevPhonic = null;
-    }
+    // if (this.state.phonic) {
+    //   prevPhonic = this.state.phonic;
+    // } else {
+    //   prevPhonic = null;
+    // }
 
-    if (leng <= 1) {
-      newPhonic = phonemes[0];
-    } else {
-      do {
-        // console.log('in the setting stage loop')
-        num = Math.floor(Math.random() * leng);
+    // if (leng <= 1) {
+    //   newPhonic = phonemes[0];
+    // } else {
+    //   do {
+    //     // console.log('in the setting stage loop')
+    //     num = Math.floor(Math.random() * leng);
   
-        newPhonic = phonemes[num];
-      } while (newPhonic === prevPhonic)
-    }
+    //     newPhonic = phonemes[num];
+    //   } while (newPhonic === prevPhonic)
+    // }
 
     if (stage === 1 && this.state.round === 1) {
       modal = null;
@@ -395,15 +388,17 @@ class GameUI extends Component {
 
     this.setState({
       stage: stage,
-      phonic: newPhonic,
+      // phonic: newPhonic,
       modal: modal,
       stageUp: false,
       newPhonic: true,
       timer: 'reset',
-      isSentenceRound: isSentence
+      isSentenceStage: isSentence
     });
 
     // console.log(`calling for new words with ${newPhonic}`);
+
+    // this.displayNewWords();
 
   }
 
@@ -430,7 +425,7 @@ class GameUI extends Component {
     
     let words, curWordsArray, nums, num, newWords, randAnsIndex, answer;
 
-    words = this.props.library.gameLibrary.wordLists;
+    words = this.state.stagesObj[this.state.stage];
 
     nums = [];
     newWords = [];
@@ -441,7 +436,20 @@ class GameUI extends Component {
       answerAudio: null
     }), 1500);
 
-    curWordsArray = words[this.state.phonic];
+    // curWordsArray = words[this.state.phonic];
+
+    do {
+      randAnsIndex = Math.floor(Math.random() * words.length);
+
+      answer = words[randAnsIndex];
+    } while (this.state.answer ? answer.word === this.state.answer.word : false)
+
+    if (this.state.isSentenceStage) {
+      const num = Math.floor(Math.random() * answer.sentences.length);
+      answer.sentenceSentToAPI = answer.sentences[num];
+    }
+
+    newWords.push(answer);
 
     do {
       let i;
@@ -449,25 +457,23 @@ class GameUI extends Component {
       i = 0;
 
       do {
-        num = Math.floor(Math.random() * curWordsArray.length);
-      } while (nums.length > 0 ? num === nums[i] : null)
+        num = Math.floor(Math.random() * words.length);
+      } while (nums.length > 0 ? num === nums[i] : null || (this.state.isSentenceStage ? this.checkIfRandomWordIsNotInAnswer(num, answer) : null) || (this.state.answer && words[num].word === this.state.answer.word) || words[num].word === answer.word)
 
       nums.push(num);
 
       i++
-    } while (nums.length < this.state.numOfWordsPerRound);
+    } while (nums.length < this.state.numOfWordsPerRound -1);
 
-    nums.forEach(num => {
-      newWords.push(curWordsArray[num]);
+    nums.map(num => {
+      return newWords.push(words[num]);
     })
 
-    do {
-      randAnsIndex = Math.floor(Math.random() * newWords.length);
+    console.log(newWords);
 
-      answer = newWords[randAnsIndex];
-    } while (answer === this.state.answer)
+    newWords = this.shuffle(newWords);
 
-    // console.log(newWords);
+    console.log(newWords);
 
     setTimeout(() => this.setState({
       words: newWords,
@@ -479,6 +485,26 @@ class GameUI extends Component {
 
     setTimeout(() => this.textToSpeechHandler(), 2000);
 
+  }
+
+  checkIfRandomWordIsNotInAnswer = (num, answer) => {
+    const words = this.state.stagesObj[this.state.stage];
+
+    console.log(answer.sentenceSentToAPI, words[num].word, answer.sentenceSentToAPI.includes(words[num].word) ? true : false)
+    
+    return answer.sentenceSentToAPI.includes(words[num].word) ? true : false;
+  }
+
+  shuffle = originalCardArray => {
+    let shuffledCardArray = [];
+    Object.assign(shuffledCardArray, originalCardArray);
+    for (let i = 0; i < shuffledCardArray.length; i++) {
+      let temp = shuffledCardArray[i];
+      let swapIndex = Math.floor(Math.random() * shuffledCardArray.length);
+      shuffledCardArray[i] = shuffledCardArray[swapIndex];
+      shuffledCardArray[swapIndex] = temp; 
+    }
+    return shuffledCardArray;
   }
 
   displayResults = () => {
@@ -542,6 +568,7 @@ class GameUI extends Component {
         setAudioStatus={this.setAudioStatus}
         timerState={this.state.timer}
         returnToMenu={this.props.returnToMenu}
+        phonemesList={this.props.stagePhonics[this.state.stage - 1]}
       />
       <Hero
         animation={this.state.animateHero}
