@@ -1,3 +1,213 @@
+import rawLibrary from './rawLibrary';
+
+const init = () => {
+    // console.log(rawLibrary);
+    const lines = rawLibrary.split('\n')
+    
+    lines.map(line => {
+        const convertedSymbols = [];
+        
+        const splitLine = line.split('  ');
+
+        // console.log(splitLine);
+
+        const wordString = splitLine[0].toLowerCase();
+
+        if (wordIncludesNumberOrSymbol(wordString)) {
+            return null;
+        }
+
+        splitLine.map((item, index) => {
+            if (index === 0 ) {
+                return null;
+            }
+
+            const symbols = item.split(' ');
+
+            // console.log(symbols);
+                
+            return symbols.map(symbol => {
+                const convertedSymbol = symbolConverter(symbol);
+                return convertedSymbols.push(convertedSymbol);
+            })
+        })
+
+        const word = {
+            word: wordString,
+            pronunciation: convertedSymbols.join(''),
+            sentences: [
+
+            ]
+        }
+
+        // console.log(word);
+
+        return library.wordLibrary.push(word)
+    })
+
+    // deleteOutlierWords();
+    console.log(library.wordLibrary.length);
+}
+
+// const deleteOutlierWords = () => {
+//     library.wordLibrary.map((item, index) =>{
+//         const pronunciationArr = item.pronunciation.split('');
+//         const relatedWords = [];
+//         library.wordLibrary.map(word=> {
+        
+//             let minContain = pronunciationArr.length - 1;
+      
+//             let similarLength = Math.abs(word.pronunciation.length - item.pronunciation.length) <= 3 ? true : false;
+            
+//             let contains = 0;
+//             // let containsSameOrder = 0;
+      
+//             let i = 0;
+      
+//             do {
+//               if (word.pronunciation.includes(pronunciationArr[i])) {
+//                 contains++
+//               }
+      
+//               i++
+//             } while (i < pronunciationArr.length)
+      
+//             //do a preliminary check
+//             //if word has enough contains and is a similar length, it can continue to the next check otherwise we toss it from consideration
+//             if (contains < minContain || !similarLength) {
+//               return null;
+//             };
+      
+//             // x = 7
+//             let x = 0;
+      
+//             //test word relation based on substrings and order
+//             do {
+//               //arr = [a, b, c, d, e, f, g]
+//               //Does word include x% of pronunciationArr in the same order? (i.e, includes abcd or bcde or cdef or defg)  
+      
+//               const start = x;
+//               const end = Math.ceil((pronunciationArr.length * .6 ) + x);
+//               // 7 / 2 is 3.5 plus 0 is 3.5 and then rounded up to 4, thereby slicing from index 0 to 4, not include
+//               //returns the characters from index 0 to 3 and joins them to make string 'abcd'
+      
+//               const testString = pronunciationArr.slice(start, end).join('');
+      
+//               if (word.pronunciation.includes(testString)) {
+//                 // console.log(`${word.word} contains the substring`);
+//                 relatedWords.push(word)
+//               }
+      
+//               x++
+//             } while (x < 2)
+      
+//             return null;
+      
+//             // console.log(`${word.word} in relation to ${answer.word}:`, 'contains: ', contains, 'similarLength: ', similarLength, 'minContain: ', minContain);
+//           })
+//           console.log(relatedWords.length > 8 ? `Deleting ${item.word} from wordlibrary` : null)
+//           return relatedWords.length > 8 ? library.wordLibrary.splice(index, 1) : null;
+//     })
+// }
+
+const wordIncludesNumberOrSymbol = word => {
+    const regex = /[\d',.]/g
+
+    return regex.test(word) ? true : false
+}
+
+const symbolConverter = symbol => {
+    
+    
+    switch(symbol) {
+        case 'AA': return 'ɑ'
+        case 'AA0': return 'ɑ'
+        case 'AA1': return 'ɑ'
+        case 'AA2': return 'ɑ'
+        case 'AE': return 'æ'
+        case 'AE0': return 'æ'
+        case 'AE1': return 'æ'
+        case 'AE2': return 'æ'
+        case 'AH': return 'ə'
+        case 'AH0': return 'ə'
+        case 'AH1': return 'ʌ'
+        case 'AH2': return 'ʌ'
+        case 'AO': return 'ɔ'
+        case 'AO0': return 'ɔ'
+        case 'AO1': return 'ɔ'
+        case 'AO2': return 'ɔ'
+        case 'AW': return 'aʊ'
+        case 'AW0': return 'aʊ'
+        case 'AW1': return 'aʊ'
+        case 'AW2': return 'aʊ'
+        case 'AY': return 'aɪ'
+        case 'AY0': return 'aɪ'
+        case 'AY1': return 'aɪ'
+        case 'AY2': return 'aɪ'
+        case 'B': return 'b'
+        case 'CH': return 'ʧ'
+        case 'D': return 'd'
+        case 'DH': return 'ð'
+        case 'EH': return 'ɛ'
+        case 'EH0': return 'ɛ'
+        case 'EH1': return 'ɛ'
+        case 'EH2': return 'ɛ'
+        // case 'ER': return 'r'
+        case 'ER0': return 'ər'
+        case 'ER1': return 'ɜr'
+        case 'ER2': return 'ɜr'
+        case 'EY': return 'eɪ'
+        case 'EY0': return 'eɪ'
+        case 'EY1': return 'eɪ'
+        case 'EY2': return 'eɪ'
+        case 'F': return 'f'
+        case 'G': return 'g'
+        case 'HH': return 'h'
+        case 'IH': return 'i'
+        case 'IH0': return 'ɪ'
+        case 'IH1': return 'ɪ'
+        case 'IH2': return 'ɪ'
+        case 'IY': return 'i'
+        case 'IY0': return 'i'
+        case 'IY1': return 'i'
+        case 'IY2': return 'i'
+        case 'JH': return 'ʤ'
+        case 'K': return 'k'
+        case 'L': return 'l'
+        case 'M': return 'm'
+        case 'N': return 'n'
+        case 'NG': return 'ŋ'
+        case 'OW': return 'oʊ'
+        case 'OW0': return 'oʊ'
+        case 'OW1': return 'oʊ'
+        case 'OW2': return 'oʊ'
+        case 'OY': return 'ɔɪ'
+        case 'OY0': return 'ɔɪ'
+        case 'OY1': return 'ɔɪ'
+        case 'OY2': return 'ɔɪ'
+        case 'P': return 'p'
+        case 'R': return 'r'
+        case 'S': return 's'
+        case 'SH': return 'ʃ'
+        case 'T': return 't'
+        case 'TH': return 'θ'
+        case 'UH': return 'ʊ'
+        case 'UH0': return 'ʊ'
+        case 'UH1': return 'ʊ'
+        case 'UH2': return 'ʊ'
+        case 'UW': return 'u'
+        case 'UW0': return 'u'
+        case 'UW1': return 'u'
+        case 'UW2': return 'u'
+        case 'V': return 'v'
+        case 'W': return 'w'
+        case 'Y': return 'j'
+        case 'Z': return 'z'
+        case 'ZH': return 'ʒ'
+        default: return 'error'
+    }
+}
+
 const library = {
     symbolsList: [
         {
@@ -3192,5 +3402,7 @@ const library = {
     //     }
     // }
 }
+
+init();
 
 export default library;

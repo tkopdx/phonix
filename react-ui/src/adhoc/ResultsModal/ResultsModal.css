@@ -26,7 +26,7 @@
 
 .result-box,
 .result-box-inc {
-    height: 150px;
+    height: 300px;
     width: 200px;
     margin: 10px;
     background-color: white;
@@ -63,9 +63,9 @@
 
 .result-title {
     width: 100%;
-    height: 50%;
+    height: auto;
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
 }
 
 .result-title::after {
@@ -78,15 +78,23 @@
 }
 
 .result-answer,
-.result-clicked {
+.result-clicked,
+.choice-list {
+    padding: 3px;
     font-size: 15px;
     margin-bottom: 5px;
     text-align: left;
     word-wrap: break-word;
 }
 
+.result-answer,
 .result-clicked {
-    background: rgba(194, 194, 194, 0.363);
+    background-color: rgb(90, 90, 90);
+    color: white;
+}
+
+.choice-list {
+    background-color: rgb(230, 230, 230);
 }
 
 .result-icon-i,
@@ -100,4 +108,12 @@
 
 .result-icon-i {
     color:#ff3f34;
+}
+
+.choice-item:nth-child(odd) {
+    background-color: rgb(199, 199, 199);
+}
+
+.choice-item {
+    padding: 3px;
 }

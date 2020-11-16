@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { bounceIn, fadeOutDown } from 'react-animations';
+import bounceIn from 'react-animations/lib/bounce-in';
+import fadeOutDown from 'react-animations/lib/fade-out-down';
 
 import './GameModal.css';
 
@@ -9,22 +10,20 @@ const bounceAnimation = keyframes`${bounceIn}`;
 const fadeAnimation = keyframes`${fadeOutDown}`;
 
 const StyleDiv = styled.div`
-    .modal-back {
-        margin:${props => {
-            if (props.modal === 2) {
-                return `0 auto 0 20%`;
-            } else if (props.modal === 3) {
-                return `0 auto 0 -20%`;
-            } else {
-                return `auto`;
-            }
-        }}
-    }
-
-    .message {
-        animation: 1s ${bounceAnimation}, .3s ${fadeAnimation} 1 linear 1s;
-    }
+    left:${props => {
+        if (props.modal === 2) {
+            return `70%`;
+        } else if (props.modal === 3) {
+            return `30%`;
+        } else {
+            return `50%`;
+        }
+    }};
+    
+    animation: 1s ${bounceAnimation}, .3s ${fadeAnimation} 1 linear 1s;
 `
+
+
 
 const GameModal = props => {
     
@@ -40,17 +39,14 @@ const GameModal = props => {
     
     message = messages[props.modal];
     
-    return <StyleDiv
-        modal={props.modal}
-    >
-    {/* <div className="modal"> */}
-        {/* <div className="modal-box"> */}
-            <div className="modal-back">
-                <div className="message">{message}</div>
-            </div>
-        {/* </div> */}
-    {/* </div> */}
-    </StyleDiv>
+    return (
+        <StyleDiv
+            modal={props.modal}
+            className="message-back"
+        >
+            <div className="message">{message}</div>
+        </StyleDiv>
+    ) 
 }
 
 export default GameModal;

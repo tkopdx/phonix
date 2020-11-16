@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Hero from '../Hero/Hero';
+// import Hero from '../Hero/Hero';
 import Words from '../Words/Words';
 import Topbar from '../Topbar/Topbar';
 import ResultsModal from '../../adhoc/ResultsModal/ResultsModal';
-import GameModal from '../../adhoc/GameModal/GameModal';
+// import GameModal from '../../adhoc/GameModal/GameModal';
 import styled from 'styled-components';
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 import bell from '../../assets/audio/bell.mp3';
 import buzz from '../../assets/audio/buzz.mp3';
 import stageUp from '../../assets/audio/stage-up.mp3';
@@ -40,7 +40,7 @@ class GameUI extends Component {
       lives: 3,
       round: 1,
       stage: 0,
-      numOfWordsPerRound: 2,
+      numOfWordsPerRound: 4,
       playing: true,
       clickable: true,
       results: [],
@@ -211,7 +211,11 @@ class GameUI extends Component {
       result = false;
     }
     
-    this.setState({clickable: false});
+    this.setState({
+      clickable: false,
+      timer: 'stop'
+    });
+    
     if (result) {
       this.correctAnswerHandler(index);
     } else {
@@ -219,12 +223,13 @@ class GameUI extends Component {
     }
 
     //push result to timeline
-    let stage, round, text, clickedWord, res, answer;
+    let stage, round, text, clickedWord, res, answer, choices;
 
     clickedWord = word;
     stage = this.state.stage;
     round = this.state.round;
     answer = this.state.answer;
+    choices = this.state.words;
 
     if (this.state.results) {
       res = [...this.state.results];
@@ -237,104 +242,130 @@ class GameUI extends Component {
 
       res.push({
         result: result,
+        choices: choices,
         answer: text,
         clicked: clickedWord,
         stage: stage,
         round: round
       });
 
-      this.setState({results: res});
+      //add words to previously used words array to avoid duplicates in the same round
+      let prevWords = [];
+      
+      if (this.state.prevWords) {
+        prevWords = [...this.state.prevWords]
+      }
+
+      this.state.words.map(word => {
+        return prevWords.push(word);
+      })
+
+      this.setState({
+        results: res,
+        prevWords: prevWords
+      });
     }
   }
 
   correctAnswerHandler = index => {
-
-    //play good animation
-      this.setState({
-        animateHero: 'c',
-        heroMovement: index,
-      });
     
     //add points
-    let prevPoints, newPoints, prevRound, newRound, stage;
+    let prevPoints, newPoints, prevRound, newRound, stage, stageUp;
     prevPoints = this.state.points;
     newPoints = prevPoints + 1;
     prevRound = this.state.round;
     
     if (prevRound >= 5) {
-      newRound = 1;
+      newRound = prevRound;
+      // timer = 'stop'
+      stage = this.state.stage;
+      stageUp = true;
 
-      setTimeout(() => this.setState({
-        points: newPoints,
-        round: newRound,
-        modal: 1,
-        stageUp: true,
-        timer: 'stop'
-      }), 1500);
+      // setTimeout(() => this.setState({
+      //   points: newPoints,
+      //   round: newRound,
+      //   modal: 1,
+      //   stageUp: true,
+      //   timer: 'stop'
+      // }), 1000);
         
     } else {
       newRound = prevRound + 1;
       stage = this.state.stage;
+      stageUp = false;
+      // timer=this.state.timer;
 
-      setTimeout(() => this.setState({
-        points: newPoints,
-        round: newRound,
-        stage: stage,
-        modal: 1
-      }), 1500);
+      // setTimeout(() => this.setState({
+      //   points: newPoints,
+      //   round: newRound,
+      //   stage: stage,
+      //   modal: 1
+      // }), 1000);
 
       //call for next words
-      setTimeout(() => this.displayNewWords(), 1500);
+      setTimeout(() => this.displayNewWords(), 1000);
     }
+
+    setTimeout(() => this.setState({
+      points: newPoints,
+      round: newRound,
+      modal: 1,
+      stage:stage,
+      stageUp: stageUp,
+      // timer: timer
+    }), 500);
     
   }
 
   incorrectAnswerHandler = index => {
 
-    //play bad animation
-      this.setState({
-        animateHero: 'inc',
-        heroMovement: index
-      });
     //resolve lives
-      let prevLives, newLives, prevRound, newRound;
+      let prevLives, newLives, prevRound, newRound, stageUp;
       prevLives = this.state.lives;
       newLives = prevLives - 1;
 
       if (newLives <= 0) {
-        setTimeout(() => 
-          this.setState({
-            lives: newLives,
-            modal: 3
-          }), 1500);
-        setTimeout(() => this.gameOver(), 1500);
+        setTimeout(() => this.gameOver(), 1000);
       } else {
         prevRound = this.state.round;
         if (prevRound >= 5) {
-          newRound = 1;
+          newRound = prevRound;
+          stageUp = true;
+          // timer = 'stop';
 
-          setTimeout(() => this.setState({
-            round: newRound,
-            modal: 3,
-            lives: newLives,
-            stageUp: true,
-            timer: 'stop'
-          }), 1500);
+          // setTimeout(() => this.setState({
+          //   round: newRound,
+          //   modal: 3,
+          //   lives: newLives,
+          //   stageUp: true,
+          //   timer: 'stop'
+          // }), 1000);
           
         } else {
           newRound = prevRound + 1;
+          // timer = this.state.timer;
+          stageUp = false;
 
-          setTimeout(() => this.setState({
-            round: newRound,
-            lives: newLives,
-            modal: 3
-          }), 1500);
+          // setTimeout(() => this.setState({
+          //   round: newRound,
+          //   lives: newLives,
+          //   modal: 3
+          // }), 1000);
 
           //call for next words 
-          setTimeout(() => this.displayNewWords(), 1500);
+          setTimeout(() => this.displayNewWords(), 1000);
         }
         
       }
+
+      setTimeout(() => 
+          this.setState({
+            lives: newLives,
+            modal: 3,
+            round: newRound,
+            stageUp: stageUp,
+            // timer: timer
+      }), 500);
   }
 
   setStage = () => {
@@ -387,12 +418,13 @@ class GameUI extends Component {
 
     this.setState({
       stage: stage,
-      // phonic: newPhonic,
+      round: 1,
       modal: modal,
       stageUp: false,
       newPhonic: true,
       timer: 'reset',
-      isSentenceStage: isSentence
+      isSentenceStage: isSentence,
+      prevWords: []
     });
 
     // console.log(`calling for new words with ${newPhonic}`);
@@ -422,10 +454,10 @@ class GameUI extends Component {
       });
     };
     
-    let words, nums, num, newWords, randAnsIndex, answer;
+    let words, nums, num, newWords, randAnsIndex, answer, numOfWordsPerRound;
 
     words = this.state.stagesObj[this.state.stage];
-
+    numOfWordsPerRound = this.state.numOfWordsPerRound;
     nums = [];
     newWords = [];
     
@@ -441,8 +473,8 @@ class GameUI extends Component {
       randAnsIndex = Math.floor(Math.random() * words.length);
 
       answer = words[randAnsIndex];
-      
-    } while (this.state.words ? this.duplicate(answer) : false)
+
+    } while (this.duplicate(answer, this.state.prevWords))
 
     if (this.state.isSentenceStage) {
       const num = Math.floor(Math.random() * answer.sentences.length);
@@ -462,11 +494,17 @@ class GameUI extends Component {
     //pull all related words from library and test them based on pronunciation
     //words with similar pronunciation are pushed to related words
     library.wordLibrary.map(word=> {
-      let minContain = pronunciationArr.length > 2 ? pronunciationArr.length - 1 : pronunciationArr.length;
+      //skip over duplicates of the answer
+      if (word.word === answer.word || word.pronunciation === answer.pronunciation) {
+        return null;
+      }
+      
+      let minContain = pronunciationArr.length - 1;
 
       let similarLength = Math.abs(word.pronunciation.length - answer.pronunciation.length) <= 2 ? true : false;
       
       let contains = 0;
+      let containsSameOrder = 0;
 
       let i = 0;
 
@@ -478,30 +516,78 @@ class GameUI extends Component {
         i++
       } while (i < pronunciationArr.length)
 
-      return contains >= minContain && similarLength && word.pronunciation !== answer.pronunciation ? relatedWords.push(word) : null;
+      //do a preliminary check
+      //if word has enough contains and is a similar length, it can continue to the next check otherwise we toss it from consideration
+      if (contains < minContain || !similarLength) {
+        return null;
+      };
+
+      // x = 7
+      let x = 0;
+
+      //test word relation based on substrings and order
+      do {
+        //arr = [a, b, c, d, e, f, g]
+        //Does word include 50% of pronunciationArr in the same order? (i.e, includes abcd or bcde or cdef or defg)  
+
+        const start = x;
+        const end = Math.ceil((pronunciationArr.length * .7 ) + x);
+        // 7 / 2 is 3.5 plus 0 is 3.5 and then rounded up to 4, thereby slicing from index 0 to 4, not include
+        //returns the characters from index 0 to 3 and joins them to make string 'abcd'
+
+        const testString = pronunciationArr.slice(start, end).join('');
+
+        if (word.pronunciation.includes(testString)) {
+          // console.log(`${word.word} contains the substring`);
+          containsSameOrder++
+        }
+
+        x++
+      } while (x < 2)
+
+      //the more 'same orders' a word has, the more times it will be pushed into the related words array, thereby increasing probability of being randomly chosen
+      do {
+        if (containsSameOrder) {
+          // console.log(`pushing ${word.word} extra times`)
+          relatedWords.push(word)
+          containsSameOrder--
+        }
+      } while (containsSameOrder)
+
+      return null;
+
+      // console.log(`${word.word} in relation to ${answer.word}:`, 'contains: ', contains, 'similarLength: ', similarLength, 'minContain: ', minContain);
     })
 
     console.log(`found these words related to ${answer.word}:`, relatedWords);
 
-    const wordsArr = relatedWords.length < 1 ? words : relatedWords;
-
+    if (relatedWords.length <= numOfWordsPerRound) {
+      return this.displayNewWords();
+    }
+    // const wordsArr = relatedWords.length <= numOfWordsPerRound ? words : relatedWords;
+    const wordsArr = relatedWords;
+    
+    const potentialWords = [];
+    let prevWord = false;
     do {
-
       console.log('entered random number loop')
-
-      let i;
-      
-      i = 0;
-
       do {
         console.log('entered inner random number loop')
 
         num = Math.floor(Math.random() * wordsArr.length);
-      } while (nums.length > 0 ? num === nums[i] : null || (this.state.isSentenceStage ? this.checkIfRandomWordIsNotInAnswer(wordsArr[num], answer) : null) || (this.state.answer && wordsArr[num].word === this.state.answer.word) || wordsArr[num].word === answer.word)
+
+        // console.log(nums.includes(num));
+
+        if (prevWord) {
+          potentialWords.push(prevWord)
+        }
+
+        prevWord = wordsArr[num];
+      } while ((this.state.isSentenceStage ? this.checkIfRandomWordIsNotInAnswer(wordsArr[num], answer) : null) || (this.duplicate(wordsArr[num], this.state.prevWords)) || (nums.includes(num)) || this.duplicate(wordsArr[num], potentialWords))
 
       nums.push(num);
+      // console.log(nums);
 
-      i++
     } while (nums.length < this.state.numOfWordsPerRound -1);
 
     nums.map(num => {
@@ -526,10 +612,18 @@ class GameUI extends Component {
 
   }
 
-  duplicate = answer => {
-    this.state.words.every(word => {
-      return word.word === answer.word
-    });
+  duplicate = (item, array) => {
+    console.log(item, array);
+    if (array) {
+      // const prevWords = this.state.prevWords;
+      const arr = [];
+      array.map( word => {
+        return word.word === item.word ? arr.push(true) : arr.push(false)
+      })
+      return arr.includes(true) ? true : false
+    } else {
+      return false;
+    }
   }
 
   checkIfRandomWordIsNotInAnswer = (word, answer) => {
@@ -614,25 +708,20 @@ class GameUI extends Component {
         timerState={this.state.timer}
         returnToMenu={this.props.returnToMenu}
         phonemesList={this.props.stagePhonics[this.state.stage - 1]}
+        modal={this.state.modal}
       />
-      <Hero
+      {/* <Hero
         animation={this.state.animateHero}
         heroMovement={this.state.heroMovement}
         clickable={this.state.clickable}
+      /> */}
+      <Words
+        key={this.state.transitionKey}
+        words={this.state.words}
+        clickWordHandler={this.clickWordHandler}
+        clickable={this.state.clickable}
       />
-      <CSSTransition
-        in={!this.state.showResults ? true : null}
-        classNames="fade"
-        timeout={300}
-      >
-        <Words
-          key={this.state.transitionKey}
-          words={this.state.words}
-          clickWordHandler={this.clickWordHandler}
-          clickable={this.state.clickable}
-        />
-      </CSSTransition>
-      {this.state.modal ? <GameModal modal={this.state.modal}/> : null}
+      {/* {this.state.modal ? <GameModal modal={this.state.modal}/> : null} */}
       {this.state.showResults ? <ResultsModal results={this.state.results}/> : null}
       <audio ref={this.playSuccess} preload="auto" src={bell} type="audio/mpeg"/>
       <audio ref={this.playFail} preload="auto" src={buzz} type="audio/mpeg"/>

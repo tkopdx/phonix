@@ -1,6 +1,7 @@
 import React from 'react';
 import Stopwatch from './Stopwatch/Stopwatch';
 import AudioClip from './AudioClip/AudioClip';
+import GameModal from '../../adhoc/GameModal/GameModal';
 
 import './Topbar.css';
 
@@ -37,6 +38,9 @@ const Topbar = props => {
             />
         </div>
         <button onClick={() => props.returnToMenu()} className="back-button"><ion-icon name="arrow-back-outline"></ion-icon>Menu</button>
+        <GameModal
+            modal={props.modal}
+        />
         <div className="current-phonemes">{props.phonemesList}</div>
     </div>
 }
