@@ -6,6 +6,18 @@ import './MainMenu.css';
 const MainMenu = props => {
     //TODO: add accordion help and about section
 
+    const isReady = () => {
+        const arr = [];
+
+        props.stagePhonics.map(stage => {
+            const res = stage.length > 0 ? true : false;
+
+            arr.push(res);
+        })
+
+        return arr.includes(false) ? false : true;
+    }
+
     return (
         <div className='main-menu-box'>
             <div className="stage-menu-box">
@@ -20,8 +32,9 @@ const MainMenu = props => {
                     backend={props.backend}
                     setStageType={props.setStageType}
                     stageTypes={props.stageTypes}
+                    displayModal={props.displayModal}
                 />
-                <button onClick={() => props.startGame()} className="start-button">Let's go!<ion-icon name="arrow-forward-outline"></ion-icon></button>
+                <button onClick={() => props.startGame()} className={isReady() ? "start-button active" : "start-button"}>Let's go!<ion-icon name="arrow-forward-outline"></ion-icon></button>
             </div>
         </div>
     )

@@ -2,16 +2,11 @@ import React, { Component } from 'react';
 import MainMenu from '../components/MainMenu/MainMenu';
 import GameUI from '../components/GameUI/GameUI';
 import library from '../lib/library';
-import { DndProvider } from 'react-dnd';
-import { TouchBackend } from 'react-dnd-touch-backend';
+import ItemsModal from '../adhoc/ItemsModal/ItemsModal';
 import Footer from '../components/Footer/Footer';
 
 
 import './App.css';
-
-const opts = {
-    enableMouseEvents: true
-}
 
 class App extends Component {
     constructor(props) {
@@ -30,8 +25,6 @@ class App extends Component {
                 [],
                 [],
                 [],
-                [],
-                []
             ]
         }
     }
@@ -57,6 +50,21 @@ class App extends Component {
         if (this.state.error) {
             this.resolveError();
         }
+    }
+
+    displayModal = (type, info) => {
+        const modal = {
+            type: type,
+            info: info
+        }
+        
+        this.setState({
+            modal: modal
+        })
+    }
+
+    resolveModal = () => {
+        this.setState({modal: null})
     }
 
     resolveError = () => {
@@ -85,7 +93,7 @@ class App extends Component {
         
     }
 
-    handleDrop = (phonic, stage) => {
+    handleItemClick = (phonic, stage) => {
         let phonicsArr;
         
         // console.log(phonic);
@@ -97,7 +105,7 @@ class App extends Component {
         });
 
         if (duplicateCheck) {
-            return;
+            return this.stagePhonicClickedHandler(stage, phonic);
         }
 
         phonicsArr[stage].push(phonic);
@@ -142,15 +150,22 @@ class App extends Component {
     render() {
         console.log('render');
 
+        console.log(this.state.modal)
 
-
-        return (
-            <DndProvider backend={TouchBackend} options={opts}>
+        return (<>
+            {this.state.modal ? 
+            <ItemsModal
+                library={this.state.library}
+                resolveModal={this.resolveModal}
+                clicked={this.handleItemClick}
+                info={this.state.modal.info}
+                stagePhonics={this.state.stagePhonics[this.state.modal.info]}
+            />
+            : 
+            null }
             { this.state.isCreatingGame ? 
                 <MainMenu
                     startGame={this.startGame}
-                    library={this.state.library}
-                    handleDrop={this.handleDrop}
                     stagePhonics={this.state.stagePhonics}
                     clicked={this.stagePhonicClickedHandler}
                     error={this.state.error}
@@ -158,6 +173,7 @@ class App extends Component {
                     setStageType={this.setStageType}
                     stageTypes={this.state.stageTypes}
                     mobile={this.state.mobile}
+                    displayModal={this.displayModal}
                 >
                 </MainMenu>
                 :
@@ -169,7 +185,7 @@ class App extends Component {
                 ></GameUI>
             }
             <Footer/>
-            </DndProvider>
+            </>
         )
     }
 }

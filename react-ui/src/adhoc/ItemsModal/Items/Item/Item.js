@@ -1,7 +1,6 @@
 import React from 'react'
-import { useDrag } from 'react-dnd'
-import { Popover, OverlayTrigger } from 'react-bootstrap';
-import library from '../../../lib/library';
+import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
+import library from '../../../../lib/library';
 
 import './Item.css';
 
@@ -42,29 +41,12 @@ const Item = props => {
         </Popover.Content> 
     </Popover>
   )
-  
-  const [{isDragging}, drag] = useDrag({
-    item: { type: props.phonic },
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  })
 
   return (
     <OverlayTrigger trigger={['hover', 'focus']} placement="auto" overlay={overlay}>
-      <div className="item-box" key={props.phonic}>
-        <div
-          className="item"
-          ref={drag}
-          style={{
-            opacity: isDragging ? 0.5 : 1,
-            backgroundColor: isDragging ? "white" : "#ffd32a",
-            cursor: 'move'
-          }}
-        >
-        {props.phonic}
-        </div>
-      </div>
+        <Button variant="primary" style={{backgroundColor: props.isActive ? '#d83a00' : '#ff7f50', border: 'none'}} active={props.isActive} onClick={() => props.clicked(props.phonic, props.stage)}>
+          {props.phonic}
+        </Button>
     </OverlayTrigger>
   )
 }

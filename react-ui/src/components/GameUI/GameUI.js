@@ -387,29 +387,6 @@ class GameUI extends Component {
     //stage up
     stage = this.state.stage + 1;
 
-    //set phoneme list
-    // phonemes = this.state.phonemesList[stage - 1];
-
-    //get random new phonic
-    // leng = phonemes.length;
-
-    // if (this.state.phonic) {
-    //   prevPhonic = this.state.phonic;
-    // } else {
-    //   prevPhonic = null;
-    // }
-
-    // if (leng <= 1) {
-    //   newPhonic = phonemes[0];
-    // } else {
-    //   do {
-    //     // console.log('in the setting stage loop')
-    //     num = Math.floor(Math.random() * leng);
-  
-    //     newPhonic = phonemes[num];
-    //   } while (newPhonic === prevPhonic)
-    // }
-
     if (stage === 1 && this.state.round === 1) {
       modal = null;
     } else {
@@ -426,10 +403,6 @@ class GameUI extends Component {
       isSentenceStage: isSentence,
       prevWords: []
     });
-
-    // console.log(`calling for new words with ${newPhonic}`);
-
-    // this.displayNewWords();
 
   }
 
@@ -477,6 +450,7 @@ class GameUI extends Component {
     } while (this.duplicate(answer, this.state.prevWords))
 
     if (this.state.isSentenceStage) {
+      //TODO:request example sentence from API for words without sentences or get a new answer word
       const num = Math.floor(Math.random() * answer.sentences.length);
       answer.sentenceSentToAPI = answer.sentences[num];
     }

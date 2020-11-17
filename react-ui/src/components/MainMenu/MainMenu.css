@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(3px) grayscale(.3);
     color: white;
 }
 
@@ -43,7 +42,8 @@
     width: auto;
     transition: transform 0.2s;
     outline: none;
-    color:white;
+    color:rgba(255, 255, 255, 0.534);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .start-button:hover {
@@ -51,6 +51,15 @@
 }
 
 .start-button ion-icon {
-    color: #3c40c6;
+    color:rgba(255, 255, 255, 0.534);
     font-size: 25px;
 }
+
+.active,
+.active ion-icon {
+    color: white;
+    background-color: #e063a8;
+    border-radius: 3px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
