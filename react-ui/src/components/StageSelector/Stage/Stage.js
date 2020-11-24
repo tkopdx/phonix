@@ -1,25 +1,28 @@
 import React from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-import Dropzone from '../Dropzone/Dropzone';
+import AddItemBtn from '../AddItemBtn/AddItemBtn';
 
 import './Stage.css';
 
 const Stage = props => {
     console.log('stage render');
 
+    console.log(props.error, props.errorInfo);
+
     return (
         <div className={props.error && props.errorInfo === props.stage ? "stage-box-error" : "stage-box"}>
             <p>Stage {props.stage + 1}: </p>
             <div className="stage-box-flex-row">
                 <div className="stage-phonic-list-box">
-                {props.list.length > 0 ? props.list.map((item, index) => {
-                    return <button className="phonics-button" onClick={() => props.clicked(props.stage, item)} key={index}>{item}</button>
-                }) : null}
-                <Dropzone
+                <AddItemBtn
+                    displayModal={props.displayModal}
                     stage={props.stage}
-                    library={props.library}
-                    handleDrop={props.handleDrop}
                 />
+                {props.list.length > 0 ? props.list.map((item, index) => {
+                    return <div className="flex-list-item-spacer">
+                    <button className="phonics-button" onClick={() => props.clicked(props.stage, item)} key={index}>{item}</button>
+                    </div>
+                }) : null}
                 </div>
                 <DropdownButton className="flex-row-item" title={props.stageType ? 'Sentence' : 'Word'}>
                     <Dropdown.Item active={!props.stageType} onClick={() => props.setStageType(props.stage, false)} aria-label="When clicked, the round will use words.">Word</Dropdown.Item>

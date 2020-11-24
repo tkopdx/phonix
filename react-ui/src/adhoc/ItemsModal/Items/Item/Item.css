@@ -1,0 +1,27 @@
+.item {
+    background-color: black;
+    color:white;
+}
+
+/* #popover-basic {
+    background-color:#ff3f34;
+    height: auto;
+    width: auto;
+    border-radius: 3px;
+    font-size: 15px;
+    box-shadow: 2px 2px 5px black;
+    border: none;
+}
+
+#popover-basic h3 {
+    background-color: #ff3f34;
+    padding: 0 1vw;
+} */
+
+/* .example-words-box {
+    background-color: white;
+    border-top: 1px solid black;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding-bottom: .25vh;
+} */

@@ -1,13 +1,3 @@
-.stage-phonic-list-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    border: 1px solid white;
-    margin: 5px;
-}
-
 .stage-box,
 .stage-box-error {
     margin: auto;
@@ -52,11 +42,22 @@
     text-align: center;
 }
 
+.stage-phonic-list-box {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    padding: 5px;
+    border: 1px solid white;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
 .phonics-button {
-    margin: 1vh 1vw;
+    margin: 10px;
     height: auto;
     width: auto;
-    font-size: 15px;
+    font-size: 20px;
     padding: 5px;
     border: none;
     background-color: white;

@@ -1,0 +1,25 @@
+.add-item-btn {
+    position: relative;
+    background-color: #a8e063;
+    border: none;
+    outline: none;
+    height: 50%;
+    min-height: 50px;
+    width: 50%;
+    min-width: 50px;
+    margin: 10px;
+    color: white;
+    font-size: 25px;
+    padding: 5px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    transition: background-color 0.2s;
+}
+
+.add-item-btn:hover,
+.add-item-btn:active {
+    background-color:  #56ab2f;
+}
