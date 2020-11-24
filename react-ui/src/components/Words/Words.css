@@ -4,19 +4,19 @@
 }
 
 .words-box {
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
     align-items: center;
     justify-content: space-evenly;
-    width: 80vw;
-    height: 60vh;
+    width: 90vw;
+    height: 80vh;
     margin: auto;
-    margin-top: 10vh;
+    margin-top: 5vh;
+    overflow-y: auto;
 }
 
 .words-box button {
-    font-size: 40px;
+    font-size: 30px;
     margin:5px;
     background: white;
     border: none;

@@ -1,3 +1,37 @@
+@keyframes bounceIn {
+    0% {
+        opacity: 0.01;
+        transform: scale(0.1);
+    }
+    25% {
+        transform: scale(1.15);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(.9);
+    }
+    75% {
+        transform: scale(1.1);
+    }
+    85% {
+        transform: scale(.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeDownOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 0.01;
+        transform: translateY(150%);
+    }
+}
+
 .message-back {
     position: absolute;
     bottom: -100%;
@@ -10,6 +44,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
+    animation: bounceIn .8s linear 1, fadeDownOut .5s linear 1s 1;
 }
 
 .message {

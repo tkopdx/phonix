@@ -39,9 +39,12 @@ const Topbar = props => {
             />
         </div>
         <button onClick={() => props.returnToMenu()} className="back-button"><ion-icon name="arrow-back-outline"></ion-icon>Menu</button>
-        <GameModal
-            modal={props.modal}
-        />
+        {props.modal ? 
+            <GameModal
+                modal={props.modal}
+            />
+            : null
+        }
         <div className="current-phonemes">{props.phonemesList}</div>
     </div>
 }

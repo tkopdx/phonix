@@ -1,13 +1,13 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-import bounceIn from 'react-animations/lib/bounce-in';
-import fadeOutDown from 'react-animations/lib/fade-out-down';
+import styled from 'styled-components';
+// import bounceIn from 'react-animations/lib/bounce-in';
+// import fadeOutDown from 'react-animations/lib/fade-out-down';
 
 import './GameModal.css';
 
-const bounceAnimation = keyframes`${bounceIn}`;
+// const bounceAnimation = keyframes`${bounceIn}`;
 
-const fadeAnimation = keyframes`${fadeOutDown}`;
+// const fadeAnimation = keyframes`${fadeOutDown}`;
 
 const StyleDiv = styled.div`
     left:${props => {
@@ -19,8 +19,6 @@ const StyleDiv = styled.div`
             return `50%`;
         }
     }};
-    
-    animation: 1s ${bounceAnimation}, .3s ${fadeAnimation} 1 linear 1s;
 `
 
 
