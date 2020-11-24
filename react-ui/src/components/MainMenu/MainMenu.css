@@ -10,9 +10,6 @@
 
 .stage-menu-box {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 10px;
     width: 95%;
     height: 80%;

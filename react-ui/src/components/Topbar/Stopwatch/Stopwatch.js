@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 
-const time = `30.0`;
+// const time = `30.0`;
 
 class Stopwatch extends Component {
     constructor(props) {
@@ -9,16 +9,12 @@ class Stopwatch extends Component {
       this.state = {
         offset: null,
         delay: 100,
-        timer: time,
+        timer: 0,
       }
     }
 
     componentDidMount() {
-      // if (this.props.playing) {
-      //   this.start();
-      // } else {
-      //   return;
-      // }
+      this.reset();
     }
 
     componentWillUnmount() {
@@ -29,7 +25,7 @@ class Stopwatch extends Component {
 
     componentDidUpdate(prevProps, prevState) {
 
-      if (this.state.timer === 0) {
+      if (this.state.timer <= 0) {
         console.log('timer reached zero, you lose');
         this.props.gameOver();
         return;
@@ -66,7 +62,7 @@ class Stopwatch extends Component {
         }
 
         if (!this.state.savedTime) {
-          originalTime = time;
+          originalTime = this.props.timer;
         } else {
           originalTime = this.state.savedTime;
         }
@@ -102,12 +98,14 @@ class Stopwatch extends Component {
     }
 
     reset = () => {      
-      let now;
+      let now, timer;
+
+      timer = this.props.timer;
 
       now = Date.now();
       
       this.setState({
-        timer: time,
+        timer: timer,
         offset: now,
         savedTime: null,
       });

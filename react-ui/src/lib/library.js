@@ -1,4 +1,5 @@
 import rawLibrary from './rawLibrary';
+import profanity from './profanity';
 
 const init = () => {
     // console.log(rawLibrary);
@@ -13,7 +14,7 @@ const init = () => {
 
         const wordString = splitLine[0].toLowerCase();
 
-        if (wordIncludesNumberOrSymbol(wordString)) {
+        if (wordIncludesNumberOrSymbol(wordString) || wordIsProfanity(wordString)) {
             return null;
         }
 
@@ -47,6 +48,13 @@ const init = () => {
 
     // deleteOutlierWords();
     console.log(library.wordLibrary.length);
+}
+
+const wordIsProfanity = word => {
+
+    // return (profanity.includes(word) || word.includes('fuck')) ? console.log(`${word} includes profanity`) : null;
+    
+    return profanity.includes(word) || word.includes('fuck');
 }
 
 // const deleteOutlierWords = () => {

@@ -14,6 +14,7 @@ import uniqid from 'uniqid';
 import { v4 as uuidv4 } from 'uuid';
 import './GameUI.css';
 import library from '../../lib/library';
+import difficulty from '../../lib/difficulty';
 
 //axios
 const axios = require('axios').default;
@@ -37,10 +38,10 @@ class GameUI extends Component {
     this.playGameOver = React.createRef();
     this.state = {
       points: 0,
-      lives: 3,
+      livesLost: 0,
       round: 1,
-      stage: 0,
-      numOfWordsPerRound: 4,
+      stage: -1,
+      // numOfWordsPerRound: 4,
       playing: true,
       clickable: true,
       results: [],
@@ -52,7 +53,7 @@ class GameUI extends Component {
 
   componentDidMount() {
 
-    this.setupWords();
+    this.setStage();
     
     // if (this.state.answer) {
     //   console.log('mounted and called for speech');
@@ -109,30 +110,6 @@ class GameUI extends Component {
 
   componentWillUnmount = () => {
     axios.post('/delete', {id: this.state.id});
-  }
-
-  setupWords = () => {
-    const stagesObj = {}
-
-    const lib = library.wordLibrary;
-    
-    this.props.stagePhonics.map((stage, index) => {
-      const stageNum = index + 1;
-      
-      stagesObj[stageNum] = [];
-      
-      return stage.map(symbol => {
-        return lib.map(word => {
-          return word.pronunciation.includes(symbol) ? stagesObj[stageNum].push(word) : null;
-        })
-      })
-    })
-
-    console.log(stagesObj)
-
-    this.setState({stagesObj: stagesObj});
-
-    this.setStage();
   }
 
   async textToSpeechHandler() {
@@ -226,7 +203,7 @@ class GameUI extends Component {
     let stage, round, text, clickedWord, res, answer, choices;
 
     clickedWord = word;
-    stage = this.state.stage;
+    stage = this.state.stage + 1;
     round = this.state.round;
     answer = this.state.answer;
     choices = this.state.words;
@@ -320,11 +297,12 @@ class GameUI extends Component {
   incorrectAnswerHandler = index => {
 
     //resolve lives
-      let prevLives, newLives, prevRound, newRound, stageUp;
-      prevLives = this.state.lives;
-      newLives = prevLives - 1;
+      let prevLivesLost, newLivesLost, lives, prevRound, newRound, stageUp;
+      lives = this.props.lives;
+      prevLivesLost = this.state.livesLost;
+      newLivesLost = prevLivesLost + 1;
 
-      if (newLives <= 0) {
+      if (lives <= newLivesLost) {
         setTimeout(() => this.gameOver(), 1000);
       } else {
         prevRound = this.state.round;
@@ -360,7 +338,7 @@ class GameUI extends Component {
 
       setTimeout(() => 
           this.setState({
-            lives: newLives,
+            livesLost: newLivesLost,
             modal: 3,
             round: newRound,
             stageUp: stageUp,
@@ -371,30 +349,34 @@ class GameUI extends Component {
   setStage = () => {
 
     // console.log('setting stage start');
-    let stage, modal, isSentence;
+    let modal, isSentence, stages, nextStage, stageIndex;
+    
+
+    stages = this.props.stages;
+
+    stageIndex = this.state.stage + 1;
+
+    nextStage = stages[stageIndex];
 
     // console.log(this.state.stage)
 
     //set the next stage type or if no type, end the game
-    if (this.props.stageTypes[this.state.stage]) {
-      isSentence = this.props.stageTypes[this.state.stage].isSentenceStage;
+    if (nextStage) {
+      isSentence = nextStage.isSentenceStage;
     } else {
       this.setState({modal: null});
       this.displayResults();
       return;
     }
 
-    //stage up
-    stage = this.state.stage + 1;
-
-    if (stage === 1 && this.state.round === 1) {
+    if (stageIndex === 1 && this.state.round === 1) {
       modal = null;
     } else {
       modal = 2;
     };
 
     this.setState({
-      stage: stage,
+      stage: stageIndex,
       round: 1,
       modal: modal,
       stageUp: false,
@@ -427,11 +409,11 @@ class GameUI extends Component {
       });
     };
     
-    let words, nums, num, newWords, randAnsIndex, answer, numOfWordsPerRound;
+    let words, num, newWords, randAnsIndex, answer, numOfWordsPerRound, dif;
 
-    words = this.state.stagesObj[this.state.stage];
-    numOfWordsPerRound = this.state.numOfWordsPerRound;
-    nums = [];
+    dif = difficulty[this.props.difficulty];
+    words = this.props.stages[this.state.stage].words;
+    numOfWordsPerRound = this.props.numOfWordsPerRound;
     newWords = [];
     
     setTimeout(() => this.setState({
@@ -447,12 +429,14 @@ class GameUI extends Component {
 
       answer = words[randAnsIndex];
 
-    } while (this.duplicate(answer, this.state.prevWords))
+    } while ((this.duplicate(answer, this.state.prevWords)) || (this.state.isSentenceStage ? answer.sentences.length < 1 : false) || answer.word.length > dif.maxWordLength) 
 
     if (this.state.isSentenceStage) {
       //TODO:request example sentence from API for words without sentences or get a new answer word
       const num = Math.floor(Math.random() * answer.sentences.length);
       answer.sentenceSentToAPI = answer.sentences[num];
+
+      console.log(answer);
     }
 
     newWords.push(answer);
@@ -469,7 +453,7 @@ class GameUI extends Component {
     //words with similar pronunciation are pushed to related words
     library.wordLibrary.map(word=> {
       //skip over duplicates of the answer
-      if (word.word === answer.word || word.pronunciation === answer.pronunciation) {
+      if (word.word === answer.word || word.pronunciation === answer.pronunciation || word.word.length > dif.maxWordLength) {
         return null;
       }
       
@@ -505,7 +489,7 @@ class GameUI extends Component {
         //Does word include 50% of pronunciationArr in the same order? (i.e, includes abcd or bcde or cdef or defg)  
 
         const start = x;
-        const end = Math.ceil((pronunciationArr.length * .7 ) + x);
+        const end = Math.ceil((pronunciationArr.length * dif.relatedPercent ) + x);
         // 7 / 2 is 3.5 plus 0 is 3.5 and then rounded up to 4, thereby slicing from index 0 to 4, not include
         //returns the characters from index 0 to 3 and joins them to make string 'abcd'
 
@@ -541,32 +525,17 @@ class GameUI extends Component {
     // const wordsArr = relatedWords.length <= numOfWordsPerRound ? words : relatedWords;
     const wordsArr = relatedWords;
     
-    const potentialWords = [];
-    let prevWord = false;
+
     do {
       console.log('entered random number loop')
-      do {
-        console.log('entered inner random number loop')
 
-        num = Math.floor(Math.random() * wordsArr.length);
+      num = Math.floor(Math.random() * wordsArr.length);
+      
+      if ((this.state.isSentenceStage ? !this.checkIfRandomWordIsInAnswer(wordsArr[num], answer) : true) && !this.duplicate(wordsArr[num], this.state.prevWords) && !this.duplicate(wordsArr[num], newWords)) {
+        newWords.push(wordsArr[num]);
+      }
 
-        // console.log(nums.includes(num));
-
-        if (prevWord) {
-          potentialWords.push(prevWord)
-        }
-
-        prevWord = wordsArr[num];
-      } while ((this.state.isSentenceStage ? this.checkIfRandomWordIsNotInAnswer(wordsArr[num], answer) : null) || (this.duplicate(wordsArr[num], this.state.prevWords)) || (nums.includes(num)) || this.duplicate(wordsArr[num], potentialWords))
-
-      nums.push(num);
-      // console.log(nums);
-
-    } while (nums.length < this.state.numOfWordsPerRound -1);
-
-    nums.map(num => {
-      return newWords.push(wordsArr[num]);
-    })
+    } while (newWords.length < numOfWordsPerRound);
 
     console.log(newWords);
 
@@ -587,7 +556,7 @@ class GameUI extends Component {
   }
 
   duplicate = (item, array) => {
-    console.log(item, array);
+    console.log('duplicate?', item, array);
     if (array) {
       // const prevWords = this.state.prevWords;
       const arr = [];
@@ -600,8 +569,8 @@ class GameUI extends Component {
     }
   }
 
-  checkIfRandomWordIsNotInAnswer = (word, answer) => {
-    // const words = this.state.stagesObj[this.state.stage];
+  checkIfRandomWordIsInAnswer = (word, answer) => {
+    // const words = this.state.stagesLocal[this.state.stage];
 
     console.log(answer.sentenceSentToAPI, word, answer.sentenceSentToAPI.includes(word.word) ? true : false)
     
@@ -661,14 +630,17 @@ class GameUI extends Component {
   }
 
   render = () => {
+    // console.log('stages:', this.props.stages)
+    // console.log('stage #', this.state.stage);
+
     return (
     <StyleDiv>
     <div className={!this.state.clickable ? "back-div" : "back-div-filter"}>
       <Topbar
-        lives={this.state.lives}
+        lives={this.props.lives - this.state.livesLost}
         points={this.state.points}
         round={this.state.round}
-        stage={this.state.stage}
+        stage={this.state.stage + 1}
         playing={this.state.playing}
         stageUp={this.state.stageUp}
         gameOver={this.gameOver}
@@ -681,8 +653,9 @@ class GameUI extends Component {
         setAudioStatus={this.setAudioStatus}
         timerState={this.state.timer}
         returnToMenu={this.props.returnToMenu}
-        phonemesList={this.props.stagePhonics[this.state.stage - 1]}
+        phonemesList={this.state.stage > -1 ? this.props.stages[this.state.stage].phonics : null}
         modal={this.state.modal}
+        timer={this.props.timer}
       />
       {/* <Hero
         animation={this.state.animateHero}

@@ -9,10 +9,10 @@ const MainMenu = props => {
     const isReady = () => {
         const arr = [];
 
-        props.stagePhonics.map(stage => {
-            const res = stage.length > 0 ? true : false;
+        props.stages.map(stage => {
+            const res = stage.phonics.length > 0 ? true : false;
 
-            arr.push(res);
+            return arr.push(res);
         })
 
         return arr.includes(false) ? false : true;
@@ -25,14 +25,20 @@ const MainMenu = props => {
                 <StageSelector
                     library={props.library}
                     handleDrop={props.handleDrop}
-                    stagePhonics={props.stagePhonics}
+                    stages={props.stages}
                     clicked={props.clicked}
                     error={props.error}
                     errorInfo={props.errorInfo}
                     backend={props.backend}
                     setStageType={props.setStageType}
-                    stageTypes={props.stageTypes}
                     displayModal={props.displayModal}
+                    timer={props.timer}
+                    setTimerHandler={props.setTimerHandler}
+                    numOfWordsPerRound={props.numOfWordsPerRound}
+                    lives={props.lives}
+                    difficulty={props.difficulty}
+                    increaseValueHandler={props.increaseValueHandler}
+                    decreaseValueHandler={props.decreaseValueHandler}
                 />
                 <button onClick={() => props.startGame()} className={isReady() ? "start-button active" : "start-button"}>Let's go!<ion-icon name="arrow-forward-outline"></ion-icon></button>
             </div>

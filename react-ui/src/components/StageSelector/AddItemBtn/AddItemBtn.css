@@ -1,6 +1,6 @@
 .add-item-btn {
     position: relative;
-    background-color: #56ab2f;
+    background-color: #a8e063;
     border: none;
     outline: none;
     height: 50%;
@@ -16,4 +16,10 @@
     align-items: center;
     justify-content: center;
     margin: 10px;
+    transition: background-color 0.2s;
+}
+
+.add-item-btn:hover,
+.add-item-btn:active {
+    background-color:  #56ab2f;
 }
