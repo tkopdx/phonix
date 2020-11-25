@@ -519,19 +519,18 @@ class GameUI extends Component {
 
     console.log(`found these words related to ${answer.word}:`, relatedWords);
 
-    if (relatedWords.length <= numOfWordsPerRound) {
+    if (relatedWords.length <= (numOfWordsPerRound * 2)) {
       return this.displayNewWords();
     }
     // const wordsArr = relatedWords.length <= numOfWordsPerRound ? words : relatedWords;
     const wordsArr = relatedWords;
-    
 
     do {
       console.log('entered random number loop')
 
       num = Math.floor(Math.random() * wordsArr.length);
       
-      if ((this.state.isSentenceStage ? !this.checkIfRandomWordIsInAnswer(wordsArr[num], answer) : true) && !this.duplicate(wordsArr[num], this.state.prevWords) && !this.duplicate(wordsArr[num], newWords)) {
+      if (!this.duplicate(wordsArr[num], newWords) && (this.state.isSentenceStage ? !this.checkIfRandomWordIsInAnswer(wordsArr[num], answer) : true) && !this.duplicate(wordsArr[num], this.state.prevWords)) {
         newWords.push(wordsArr[num]);
       }
 
@@ -556,8 +555,8 @@ class GameUI extends Component {
   }
 
   duplicate = (item, array) => {
-    console.log('duplicate?', item, array);
-    if (array) {
+    // console.log('duplicate?', item, array);
+    if (array.length > 0) {
       // const prevWords = this.state.prevWords;
       const arr = [];
       array.map( word => {
