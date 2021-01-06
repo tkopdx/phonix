@@ -24,12 +24,12 @@
   },
   "homepage": "https://github.com/tkopdx/phonix#readme",
   "dependencies": {
-    "@google-cloud/text-to-speech": "^3.0.1",
+    "@google-cloud/text-to-speech": "^3.1.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongodb": "^3.6.2",
+    "mongodb": "^3.6.3",
     "morgan": "^1.10.0",
     "path": "^0.12.7"
   }
