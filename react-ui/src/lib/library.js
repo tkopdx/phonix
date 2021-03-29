@@ -2884,7 +2884,196 @@ const library = {
             sentences: [
                 `The tourist visited every landmark known to man and then some.`
             ]
-        }
+        },
+        {
+            word: 'a',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'b',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'c',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'd',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'e',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'f',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'g',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'h',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'i',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'j',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'k',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'l',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'm',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'n',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'o',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'p',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'q',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'r',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 's',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 't',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'u',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'v',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'w',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'x',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'y',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: 'z',
+            pronunciation: 'abc',
+            sentences: [
+                
+            ]
+        },
+        {
+            word: '',
+            pronunciation: '',
+            sentences: [
+                
+            ]
+        },
     ],
     // phonemesList: [
     //     'b, bb',
