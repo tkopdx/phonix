@@ -453,7 +453,7 @@ class GameUI extends Component {
     //words with similar pronunciation are pushed to related words
     library.wordLibrary.map(word=> {
       //skip over duplicates of the answer
-      if (word.word === answer.word || word.pronunciation === answer.pronunciation || word.word.length > dif.maxWordLength) {
+      if (word.word === answer.word || (word.pronunciation === answer.pronunciation && answer.pronunciation !== 'abc') || word.word.length > dif.maxWordLength) {
         return null;
       }
       
