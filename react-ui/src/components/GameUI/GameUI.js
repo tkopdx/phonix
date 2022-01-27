@@ -160,7 +160,7 @@ class GameUI extends Component {
         //   // }
         // });
 
-        console.log('got audio!');
+        // console.log('got audio!');
 
         // document.getElementById('audio-clip').src = audio;
 
@@ -436,7 +436,7 @@ class GameUI extends Component {
       const num = Math.floor(Math.random() * answer.sentences.length);
       answer.sentenceSentToAPI = answer.sentences[num];
 
-      console.log(answer);
+      // console.log(answer);
     }
 
     newWords.push(answer);
@@ -447,7 +447,7 @@ class GameUI extends Component {
     //word needs to include all minus one of the items in arr
     //so, l and r or l and u or r and u
 
-    console.log(pronunciationArr);
+    // console.log(pronunciationArr);
 
     //pull all related words from library and test them based on pronunciation
     //words with similar pronunciation are pushed to related words
@@ -517,7 +517,7 @@ class GameUI extends Component {
       // console.log(`${word.word} in relation to ${answer.word}:`, 'contains: ', contains, 'similarLength: ', similarLength, 'minContain: ', minContain);
     })
 
-    console.log(`found these words related to ${answer.word}:`, relatedWords);
+    // console.log(`found these words related to ${answer.word}:`, relatedWords);
 
     if (relatedWords.length <= (numOfWordsPerRound * 2)) {
       return this.displayNewWords();
@@ -526,7 +526,7 @@ class GameUI extends Component {
     const wordsArr = relatedWords;
 
     do {
-      console.log('entered random number loop')
+      // console.log('entered random number loop')
 
       num = Math.floor(Math.random() * wordsArr.length);
       
@@ -536,11 +536,11 @@ class GameUI extends Component {
 
     } while (newWords.length < numOfWordsPerRound);
 
-    console.log(newWords);
+    // console.log(newWords);
 
     newWords = this.shuffle(newWords);
 
-    console.log(newWords);
+    // console.log(newWords);
 
     setTimeout(() => this.setState({
       words: newWords,
@@ -571,7 +571,7 @@ class GameUI extends Component {
   checkIfRandomWordIsInAnswer = (word, answer) => {
     // const words = this.state.stagesLocal[this.state.stage];
 
-    console.log(answer.sentenceSentToAPI, word, answer.sentenceSentToAPI.includes(word.word) ? true : false)
+    // console.log(answer.sentenceSentToAPI, word, answer.sentenceSentToAPI.includes(word.word) ? true : false)
     
     return answer.sentenceSentToAPI.includes(word.word) ? true : false;
   }
@@ -610,7 +610,7 @@ class GameUI extends Component {
   }
 
   setAudioStatus = status => {
-    console.log('setting audio status to:', status);
+    // console.log('setting audio status to:', status);
     
     if (status === 'pause') {
       this.setState({
@@ -618,7 +618,7 @@ class GameUI extends Component {
         timer: 'start'
       })
     } else {
-      console.log('audio playing, timer told to stop')
+      // console.log('audio playing, timer told to stop')
 
       this.setState({
         audioStatus: status,

@@ -5,9 +5,9 @@ import AddItemBtn from '../AddItemBtn/AddItemBtn';
 import './Stage.css';
 
 const Stage = props => {
-    console.log('stage render');
+    // console.log('stage render');
 
-    console.log(props.error, props.errorInfo);
+    // console.log(props.error, props.errorInfo);
 
     return (
         <div className={props.error && props.errorInfo === props.stage ? "stage-box-error" : "stage-box"}>

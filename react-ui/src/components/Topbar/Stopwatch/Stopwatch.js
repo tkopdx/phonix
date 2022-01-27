@@ -26,7 +26,7 @@ class Stopwatch extends Component {
     componentDidUpdate(prevProps, prevState) {
 
       if (this.state.timer <= 0) {
-        console.log('timer reached zero, you lose');
+        // console.log('timer reached zero, you lose');
         this.props.gameOver();
         return;
       } 
@@ -36,16 +36,16 @@ class Stopwatch extends Component {
       }
       
       if (this.props.timerState === 'stop') {
-        console.log('timer stop called');
+        // console.log('timer stop called');
         // stop the clock
         this.stop();
       } else if (this.props.timerState === 'reset') {
-        console.log('timer reset');
+        // console.log('timer reset');
         // reset to full time
         this.reset();
         return;
       } else {
-        console.log('starting the clock');
+        // console.log('starting the clock');
         this.start();
       }
       

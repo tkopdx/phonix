@@ -49,7 +49,7 @@ app.get("/assets/:id", (req, res) => {
 
   const id = req.params.id;
 
-  console.log(id);
+  // console.log(id);
 
   const file = fs.createReadStream(path.resolve(__dirname, `./public/assets/${id}.mp3`));
 

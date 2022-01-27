@@ -13,10 +13,6 @@
     "node_modules",
     "react-ui/node_modules"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tkopdx/phonix.git"
-  },
   "author": "",
   "license": "ISC",
   "bugs": {

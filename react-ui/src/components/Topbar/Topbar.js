@@ -7,7 +7,7 @@ import './Topbar.css';
 
 const Topbar = props => {
 
-    console.log('topbar render');
+    // console.log('topbar render');
     
     return <div className="topbar-box">
         <AudioClip

@@ -1,4 +1,4 @@
-# Hello!
+# Hello all!
 
 ## Thanks for checking out Phonix!
 

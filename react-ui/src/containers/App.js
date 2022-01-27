@@ -127,7 +127,7 @@ class App extends Component {
           })
         })
     
-        console.log(stages)
+        // console.log(stages)
     
         return this.setState({stages: stages});
       }
@@ -185,7 +185,7 @@ class App extends Component {
 
         curStage.isSentenceStage = type;
 
-        console.log('toggled check @', index);
+        // console.log('toggled check @', index);
 
         this.setState({stages: stages});
     }
@@ -250,9 +250,9 @@ class App extends Component {
     }
 
     render() {
-        console.log('render');
+        // console.log('render');
 
-        console.log(this.state.modal)
+        // console.log(this.state.modal)
 
         return (<>
             {this.state.modal ? 
