@@ -8,7 +8,6 @@ Phonix is a fun English phonics game where players listen to audio clips and cli
 Phonix is constructed using React, Express, Google Cloud's Text-to-Speech API, and Heroku.
 
 ### How do I use this?
-Head on over to https://mighty-chamber-55300.herokuapp.com/ to check out the current version of Phonix.
 
 On the main menu, you can drag and drop items to add to the possible phonemes for each stage. One phoneme will be randomly chosen. Click items in the list to delete them. Stages set to 'sentence' play a sentence while other stages only play singular words.
 
